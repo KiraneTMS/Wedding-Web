@@ -1,0 +1,87 @@
+<div id="wedding-root" class="min-h-screen bg-rose-50 font-serif text-slate-800 selection:bg-rose-200 overflow-x-hidden">
+  <div id="heart-container" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+
+  <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] scale-110" id="hero-bg">
+      <div class="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
+    </div>
+    
+    <div class="relative text-center text-white px-4 space-y-6">
+      <p class="text-xl md:text-2xl tracking-[0.3em] uppercase animate-pulse" data-tagline></p>
+      <h1 class="text-7xl md:text-9xl font-light italic drop-shadow-lg">
+        <span data-groom-short></span> & <span data-bride-short></span>
+      </h1>
+      <p class="text-2xl md:text-3xl font-light" data-date-str></p>
+      <div class="pt-8">
+         <button onclick="document.getElementById('countdown').scrollIntoView({behavior: 'smooth'})"
+          class="px-8 py-3 bg-white/20 backdrop-blur-md border border-white/50 rounded-full hover:bg-rose-500 hover:border-rose-500 transition-all duration-300">
+           Open Invitation
+         </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="countdown" class="py-20 px-4 bg-white relative z-10 shadow-xl">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl text-rose-400 mb-12 flex items-center justify-center gap-3">Counting Down to Forever</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100"><div id="days" class="text-4xl md:text-5xl font-bold text-rose-500">0</div><div class="text-rose-400 uppercase text-sm mt-2">Days</div></div>
+        <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100"><div id="hours" class="text-4xl md:text-5xl font-bold text-rose-500">0</div><div class="text-rose-400 uppercase text-sm mt-2">Hours</div></div>
+        <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100"><div id="minutes" class="text-4xl md:text-5xl font-bold text-rose-500">0</div><div class="text-rose-400 uppercase text-sm mt-2">Minutes</div></div>
+        <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100"><div id="seconds" class="text-4xl md:text-5xl font-bold text-rose-500">0</div><div class="text-rose-400 uppercase text-sm mt-2">Seconds</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 px-4 bg-rose-50 relative z-10">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-16 items-center mb-20">
+        <div class="space-y-4 text-center md:text-right order-2 md:order-1">
+          <h3 class="text-4xl text-rose-500">The Groom</h3>
+          <h2 class="text-2xl font-bold" data-groom></h2>
+          <p class="text-rose-400 italic" data-groom-parent></p>
+        </div>
+        <div class="order-1 md:order-2 flex justify-center">
+          <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl">
+            <img id="groom-img" src="" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="flex justify-center">
+          <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl">
+            <img id="bride-img" src="" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div class="space-y-4 text-center md:text-left">
+          <h3 class="text-4xl text-rose-500">The Bride</h3>
+          <h2 class="text-2xl font-bold" data-bride></h2>
+          <p class="text-rose-400 italic" data-bride-parent></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rsvp" class="py-24 px-4 bg-white relative z-10">
+    <div class="max-w-3xl mx-auto bg-rose-50 rounded-[3rem] p-8 md:p-16 shadow-inner border border-rose-100">
+      <h2 class="text-5xl text-rose-500 text-center mb-12">RSVP</h2>
+      <form id="rsvp-form" class="space-y-6">
+        <input required id="guest-name" type="text" class="w-full px-6 py-4 rounded-2xl border-2 border-rose-100 bg-white" placeholder="Your Full Name">
+        <div class="grid grid-cols-2 gap-4">
+          <button type="button" id="btn-attending" class="py-4 rounded-2xl border-2 bg-white text-rose-400 border-rose-100 transition">Attending</button>
+          <button type="button" id="btn-declined" class="py-4 rounded-2xl border-2 bg-white text-rose-400 border-rose-100 transition">Regretfully Decline</button>
+        </div>
+        <textarea id="guest-message" class="w-full px-6 py-4 rounded-2xl border-2 border-rose-100 bg-white h-32" placeholder="Your Wishes..."></textarea>
+        <button type="submit" id="submit-rsvp" class="w-full py-5 bg-rose-500 text-white rounded-full text-xl font-bold hover:bg-rose-600 transition">Send RSVP</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="py-24 px-4 bg-rose-50 relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-5xl text-rose-500 text-center mb-16">Guest Book</h2>
+      <div id="messages-container" class="grid gap-6"></div>
+    </div>
+  </section>
+</div>

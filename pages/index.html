@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArinEmir | Undangan Digital Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #b38b59; /* Antique Gold */
+      --secondary: #6b4f4f; /* Warm Earth */
+      --accent: #eecda3;
+      --light: #fdfbf9;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.8);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--light);
+      color: var(--secondary);
+      overflow-x: hidden;
+    }
+
+    /* --- Navigation --- */
+    header {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 8%;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(179, 139, 89, 0.1);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links a {
+      margin-left: 2.5rem;
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--primary); }
+
+    /* --- Hero Section --- */
+    .hero {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      background: radial-gradient(circle at top right, #fff5f0, transparent),
+                  radial-gradient(circle at bottom left, #f0f4ff, transparent);
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--secondary);
+    }
+
+    .hero h1 span {
+      font-style: italic;
+      color: var(--primary);
+      font-weight: 400;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      opacity: 0.8;
+      letter-spacing: 0.5px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--secondary);
+      color: var(--white);
+      padding: 1.2rem 2.8rem;
+      border-radius: 4px; /* Classic sharp-luxe look */
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border: 1px solid var(--secondary);
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: var(--secondary);
+      transform: translateY(-5px);
+    }
+
+    /* --- Templates Section --- */
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title .divider {
+      width: 50px;
+      height: 2px;
+      background: var(--primary);
+      margin: 0 auto;
+    }
+
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 3rem;
+      padding: 4rem 8%;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .template-card {
+      background: var(--white);
+      position: relative;
+      transition: 0.5s;
+      border: 1px solid #f0efed;
+    }
+
+    .template-card img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: 0.5s;
+    }
+
+    .template-card:hover img {
+      filter: grayscale(0%);
+    }
+
+    .template-info {
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .template-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .template-info p {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 1.5rem;
+    }
+
+    /* --- CTA Section --- */
+    .cta-container {
+        padding: 6rem 8%;
+    }
+
+    .cta-card {
+      background: var(--secondary);
+      color: var(--white);
+      padding: 5rem 2rem;
+      text-align: center;
+      border-radius: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-card h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-light {
+        background: var(--white);
+        color: var(--secondary);
+    }
+
+    /* --- Pricing Section --- */
+    .pricing-container {
+      padding: 6rem 8%;
+      background: #fff;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .price-card {
+      padding: 3rem 2rem;
+      border: 1px solid #eee;
+      text-align: center;
+      transition: 0.4s;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border: 2px solid var(--primary);
+      transform: scale(1.05);
+      background: var(--light);
+      z-index: 2;
+    }
+
+    .price-card h4 {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .price-card .amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .price-features li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .price-features li::before {
+      content: "✓";
+      margin-right: 10px;
+      color: var(--primary);
+    }
+
+    /* --- Shared & Responsive --- */
+    .hero {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      background: radial-gradient(circle at center, #fff, #f9f6f2);
+    }
+
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 1rem; }
+    
+    .btn {
+      display: inline-block;
+      background: var(--secondary);
+      color: #fff;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      border: 1px solid var(--secondary);
+    }
+
+    .btn:hover { background: transparent; color: var(--secondary); }
+
+    @media (max-width: 768px) {
+      .menu-icon { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 2rem;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+      }
+      #menu-toggle:checked ~ .nav-links { display: flex; }
+      .nav-links a { margin: 1rem 0; width: 100%; text-align: center; }
+      .price-card.featured { transform: scale(1); margin: 1rem 0; }
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 4rem 5% 2rem;
+      text-align: center;
+    }
+
+    footer a { color: var(--primary); text-decoration: none; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">ArinEmir.</div>
+    <div class="nav-links">
+      <a href="/pages/template.html">Templates</a>
+      <a href="/pages/pricing.html">Harga</a>
+      <a href="#" style="color: var(--primary)">Pesan Sekarang</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Abadikan Momen <span>Indah</span><br>Dalam Satu Tautan.</h1>
+  <p>Eksklusif, ramah lingkungan, dan sepenuhnya custom. Sampaikan kabar bahagia Anda dengan cara yang lebih elegan.</p>
+  <a href="#order" class="btn">Mulai Konsultasi Gratis</a>
+</section>
+
+<section>
+  <div class="section-title">
+    <h2>Koleksi Desain</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="templates-grid">
+    <div class="template-card">
+      <img src="https://static.vecteezy.com/system/resources/previews/035/820/684/large_2x/ai-generated-pink-heart-shaped-background-valentine-s-day-free-photo.jpg" alt="Pink Romantic">
+      <div class="template-info">
+        <h3>Pink Romantic</h3>
+        <p>Lembut, romantis, nuansa pastel & hati beterbangan</p>
+        <a href="/?theme=pink-romantic&couple=demo" class="btn" target="_blank" style="margin-top:1rem; font-size:1rem; padding:0.7rem 1.5rem;">
+          Lihat Demo
+        </a>
+      </div>
+    </div>
+
+    <div class="template-card">
+      <img src="https://static.vecteezy.com/system/resources/previews/062/448/780/non_2x/luxurious-crimson-fabric-with-captivating-curves-and-intricate-shadows-free-photo.jpeg" alt="Red Elegant">
+      <div class="template-info">
+        <h3>Red Elegant</h3>
+        <p>Mewah, dramatis, sentuhan emas & hitam elegan</p>
+        <a href="/?theme=red-elegant&couple=demo" class="btn" target="_blank" style="margin-top:1rem; font-size:1rem; padding:0.7rem 1.5rem;">
+          Lihat Demo
+        </a>
+      </div>
+    </div>
+
+    <div class="template-card">
+      <img src="https://wallpapers.com/images/high/simple-boho-chic-pelnj3s0nbgaou5y.webp" alt="Boho Chic">
+      <div class="template-info">
+        <h3>Boho Chic</h3>
+        <p>Alami, hangat, nuansa bohemian & polaroid</p>
+        <a href="/?theme=boho-chic&couple=demo" class="btn" target="_blank" style="margin-top:1rem; font-size:1rem; padding:0.7rem 1.5rem;">
+          Lihat Demo
+        </a>
+      </div>
+  </div>
+</section>
+
+<section class="pricing-container" id="pricing">
+  <div style="text-align: center; margin-bottom: 4rem;">
+    <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem;">Pilih Paket Anda</h2>
+    <p>Harga transparan, tanpa biaya tersembunyi.</p>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h4>Silver</h4>
+      <span class="amount">Rp 149rb</span>
+      <ul class="price-features">
+        <li>Masa Aktif 3 Bulan</li>
+        <li>Custom Nama Tamu</li>
+        <li>Maps & Navigasi</li>
+        <li>RSVP Digital</li>
+      </ul>
+      <a href="#" class="btn" style="width: 100%;">Pilih Silver</a>
+    </div>
+
+    <div class="price-card featured">
+      <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--primary); color: white; padding: 5px 15px; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px;">POPULAR</div>
+      <h4>Gold</h4>
+      <span class="amount">Rp 249rb</span>
+      <ul class="price-features">
+        <li>Masa Aktif 1 Tahun</li>
+        <li>Background Music</li>
+        <li>Gallery Foto (10 Foto)</li>
+        <li>Love Stories Section</li>
+        <li>Fitur Kirim Angpao</li>
+      </ul>
+      <a href="#" class="btn" style="width: 100%;">Pilih Gold</a>
+    </div>
+
+    <div class="price-card">
+      <h4>Platinum</h4>
+      <span class="amount">Rp 399rb</span>
+      <ul class="price-features">
+        <li>Masa Aktif Selamanya</li>
+        <li>Exclusive Domain (.com)</li>
+        <li>Video Background</li>
+        <li>Live Streaming Link</li>
+        <li>Filter Instagram Custom</li>
+      </ul>
+      <a href="#" class="btn" style="width: 100%;">Pilih Platinum</a>
+    </div>
+  </div>
+</section>
+
+<div class="cta-container">
+    <section class="cta-card">
+      <h2>Mulai Cerita Cintamu Bersama Kami</h2>
+      <p style="margin-bottom: 2.5rem; opacity: 0.8;">Proses cepat 3-7 hari kerja dengan revisi hingga puas.</p>
+      <a href="#" class="btn btn-light">Hubungi WhatsApp Kami</a>
+    </section>
+</div>
+
+<footer>
+  <p>© 2026 ArinEmir Digital Invitation • Crafted in Bandung<br><br>
+  <a href="https://x.com/_ArinEmir_" target="_blank">Instagram</a> • <a href="#">Twitter</a></p>
+</footer>
+
+</body>
+</html>

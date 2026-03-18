@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Digital</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff8f6;
+      font-family: system-ui, sans-serif;
+      color: #444;
+    }
+    .loading {
+      font-size: 1.3rem;
+      color: #e91e63;
+    }
+  </style>
+</head>
+<body>
+
+<div class="loading">Memuat undangan...</div>
+
+<div id="root" style="display:none;"></div>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script type="module">
+  const params = new URLSearchParams(location.search);
+  const theme  = params.get('theme');
+  const couple = params.get('couple');
+
+  // Jika tidak ada theme ATAU couple → langsung redirect ke homepage
+  if (!theme || !couple) {
+    window.location.replace('/pages/index.html');
+    // TIDAK PERLU return di sini — replace sudah menghentikan eksekusi
+  }
+
+  // ────────────────────────────────────────────────
+  // Hanya sampai sini jika ada parameter → lanjut load undangan
+  // ────────────────────────────────────────────────
+  async function loadInvitation() {
+    try {
+      const dataRes = await fetch(`data/${couple}.json`);
+      if (!dataRes.ok) throw new Error('Data pasangan tidak ditemukan');
+
+      const data = await dataRes.json();
+
+      const now = new Date();
+      const from = new Date(data.activeFrom);
+      const until = new Date(data.activeUntil);
+
+      if (isNaN(from.getTime()) || isNaN(until.getTime())) {
+        throw new Error('Format tanggal aktif tidak valid');
+      }
+
+      if (now < from || now >= until) {
+        throw new Error('Undangan belum atau sudah tidak aktif');
+      }
+
+      const [htmlRes, cssRes] = await Promise.all([
+        fetch(`themes/${theme}/template.html`),
+        fetch(`themes/${theme}/style.css`)
+      ]);
+
+      if (!htmlRes.ok) throw new Error(`Template ${theme} tidak ditemukan`);
+      if (!cssRes.ok)  throw new Error(`Style ${theme} tidak ditemukan`);
+
+      const html = await htmlRes.text();
+      const css  = await cssRes.text();
+
+      const style = document.createElement('style');
+      style.textContent = css;
+      document.head.appendChild(style);
+
+      // Force full page scroll & visibility
+      const forceFixStyle = document.createElement('style');
+      forceFixStyle.textContent = `
+        html, body {
+          height: auto !important;
+          min-height: 100% !important;
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+          scroll-behavior: smooth;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        #root, #root > * {
+          min-height: auto !important;
+          height: auto !important;
+          overflow: visible !important;
+          display: block !important;
+        }
+        .loading {
+          display: none !important;
+        }
+        /* Override common hero locking rules */
+        .hero, .hero-header, header, .hero-content, .wrapper {
+          position: relative !important;
+          top: 0 !important;
+          height: auto !important;
+          min-height: 60vh !important;
+          overflow: visible !important;
+        }
+      `;
+      document.head.appendChild(forceFixStyle);
+
+      // Force scroll to top after render
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }, 600);
+
+      const root = document.getElementById('root');
+      if (!root) throw new Error('Elemen #root tidak ditemukan di HTML');
+      root.innerHTML = html;
+      root.style.display = 'block';
+
+      document.querySelector('.loading').style.display = 'none';
+
+      const script = document.createElement('script');
+      script.src = `themes/${theme}/script.js?v=${Date.now()}`;
+      document.body.appendChild(script);
+
+      script.onload = () => {
+        setTimeout(() => {
+          if (typeof window.initTheme === 'function') {
+            window.initTheme(data);
+            document.title = `${data.groom.name} × ${data.bride.name}`;
+          } else {
+            console.warn('initTheme tidak ditemukan di script tema:', theme);
+            root.innerHTML += `
+              <div style="padding:3rem; text-align:center; color:#c62828; background:#ffebee; border-radius:12px; margin:2rem;">
+                <h3>Debug: Fungsi initTheme tidak ditemukan</h3>
+                <p>File: <code>themes/${theme}/script.js</code> harus punya baris:</p>
+                <pre style="background:#fff; padding:1rem; border:1px solid #ccc; border-radius:8px; display:inline-block;">
+window.initTheme = initTheme;</pre>
+              </div>`;
+          }
+        }, 400);
+      };
+
+      script.onerror = () => {
+        console.error('Gagal memuat script tema:', theme);
+        root.innerHTML += '<p style="color:#c00; text-align:center; padding:2rem;">Gagal memuat script tema</p>';
+      };
+
+    } catch (err) {
+      console.error(err);
+      document.querySelector('.loading').style.display = 'none';
+      const root = document.getElementById('root') || document.body;
+      root.style.display = 'block';
+      root.innerHTML = `
+        <div style="
+          padding: 6rem 1.5rem;
+          text-align: center;
+          min-height: 80vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: #444;
+          font-family: system-ui, sans-serif;
+        ">
+          <h2 style="color: #c62828; margin-bottom: 1.5rem;">Undangan Tidak Tersedia</h2>
+          <p style="font-size: 1.2rem; max-width: 540px; margin: 0 auto 2rem;">
+            Maaf, undangan ini belum aktif, sudah berakhir, atau tidak dapat dimuat.<br>
+            Silakan hubungi mempelai untuk informasi lebih lanjut ♡
+          </p>
+          <small style="color: #777; font-size: 0.95rem;">${err.message}</small>
+        </div>
+      `;
+    }
+  }
+
+  loadInvitation();
+</script>
+
+</body>
+</html>

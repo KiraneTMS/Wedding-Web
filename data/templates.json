@@ -1,0 +1,137 @@
+[
+  {
+    "id": "pink-romantic",
+    "title": "Pink Romantic",
+    "tag": "Modern Romantic",
+    "desc": "Lembut, nuansa pastel dengan animasi hati yang manis.",
+    "img": "https://static.vecteezy.com/system/resources/previews/035/820/684/large_2x/ai-generated-pink-heart-shaped-background-valentine-s-day-free-photo.jpg",
+    "category": "modern",
+    "demoUrl": "/?theme=pink-romantic&couple=demo"
+  },
+  {
+    "id": "red-elegant",
+    "title": "Red Elegant",
+    "tag": "Luxury Classic",
+    "desc": "Perpaduan emas dan merah marun yang mewah dan berkelas.",
+    "img": "https://static.vecteezy.com/system/resources/previews/062/448/780/non_2x/luxurious-crimson-fabric-with-captivating-curves-and-intricate-shadows-free-photo.jpeg",
+    "category": "classic",
+    "demoUrl": "/?theme=red-elegant&couple=demo"
+  },
+  {
+    "id": "boho-chic",
+    "title": "Boho Chic",
+    "tag": "Minimalist Boho",
+    "desc": "Tampilan organik dengan sentuhan rustic dan warna hangat.",
+    "img": "https://wallpapers.com/images/high/simple-boho-chic-pelnj3s0nbgaou5y.webp",
+    "category": "boho",
+    "demoUrl": "/?theme=boho-chic&couple=demo"
+  },
+  {
+    "id": "golden-luxury",
+    "title": "Golden Luxury",
+    "tag": "Elegant Classic",
+    "desc": "Nuansa emas metalik dengan detail kristal yang berkilau.",
+    "img": "https://static.vecteezy.com/system/resources/previews/008/353/773/non_2x/luxury-silk-golden-on-empty-plinth-gallery-background-shelf-golden-backdrop-3d-illustration-free-photo.jpg",
+    "category": "luxury",
+    "demoUrl": "/?theme=golden-luxury&couple=demo"
+  },
+  {
+    "id": "sage-floral",
+    "title": "Sage Floral",
+    "tag": "Floral Minimal",
+    "desc": "Warna sage lembut dipadukan motif bunga segar dan elegan.",
+    "img": "https://static.vecteezy.com/system/resources/previews/053/189/460/non_2x/fresh-sage-leaves-in-a-garden-with-dew-drops-free-photo.jpg",
+    "category": "floral",
+    "demoUrl": "/?theme=sage-floral&couple=demo"
+  },
+  {
+    "id": "navy-romance",
+    "title": "Navy Romance",
+    "tag": "Modern Classic",
+    "desc": "Nuansa navy dalam dengan aksen emas halus dan romantis.",
+    "img": "https://images.unsplash.com/photo-1511285560929-80b456fe4726?auto=format&fit=crop&w=800&q=80",
+    "category": "modern",
+    "demoUrl": "/?theme=navy-romance&couple=demo"
+  },
+  {
+    "id": "ivory-minimal",
+    "title": "Ivory Minimal",
+    "tag": "Clean Minimalis",
+    "desc": "Desain sangat sederhana, elegan dengan warna krem dan tipografi halus.",
+    "img": "https://images.unsplash.com/photo-1605721911519-3d28c21a3a8e?auto=format&fit=crop&w=800&q=80",
+    "category": "minimalis",
+    "demoUrl": "/?theme=ivory-minimal&couple=demo"
+  },
+  {
+    "id": "blush-peony",
+    "title": "Blush Peony",
+    "tag": "Floral Romantic",
+    "desc": "Motif peony pink lembut dengan sentuhan emas tipis.",
+    "img": "https://images.unsplash.com/photo-1519741497674-281c0a204488?auto=format&fit=crop&w=800&q=80",
+    "category": "floral",
+    "demoUrl": "/?theme=blush-peony&couple=demo"
+  },
+  {
+    "id": "emerald-garden",
+    "title": "Emerald Garden",
+    "tag": "Botanical Elegance",
+    "desc": "Hijau emerald dengan daun dan bunga tropis yang mewah.",
+    "img": "https://images.unsplash.com/photo-1522156373667-4c7234bbd804?auto=format&fit=crop&w=800&q=80",
+    "category": "floral",
+    "demoUrl": "/?theme=emerald-garden&couple=demo"
+  },
+  {
+    "id": "black-gold-lux",
+    "title": "Black & Gold Lux",
+    "tag": "Luxury Modern",
+    "desc": "Hitam premium dengan aksen foil emas, sangat sophisticated.",
+    "img": "https://images.unsplash.com/photo-1511285560929-80b456fe4726?auto=format&fit=crop&w=800&q=80",
+    "category": "luxury",
+    "demoUrl": "/?theme=black-gold-lux&couple=demo"
+  },
+  {
+    "id": "terracotta-boho",
+    "title": "Terracotta Boho",
+    "tag": "Earthy Boho",
+    "desc": "Warna tanah liat dengan elemen makrame dan daun kering.",
+    "img": "https://images.unsplash.com/photo-1519227359830-910141b0d8e2?auto=format&fit=crop&w=800&q=80",
+    "category": "boho",
+    "demoUrl": "/?theme=terracotta-boho&couple=demo"
+  },
+  {
+    "id": "lavender-dream",
+    "title": "Lavender Dream",
+    "tag": "Soft Pastel",
+    "desc": "Ungu lavender lembut dengan detail bunga kecil dan ribbon.",
+    "img": "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80",
+    "category": "modern",
+    "demoUrl": "/?theme=lavender-dream&couple=demo"
+  },
+  {
+    "id": "vintage-rose",
+    "title": "Vintage Rose",
+    "tag": "Classic Vintage",
+    "desc": "Nuansa retro dengan mawar klasik dan font script elegan.",
+    "img": "https://images.unsplash.com/photo-1605721911519-3d28c21a3a8e?auto=format&fit=crop&w=800&q=80",
+    "category": "classic",
+    "demoUrl": "/?theme=vintage-rose&couple=demo"
+  },
+  {
+    "id": "white-orchid",
+    "title": "White Orchid",
+    "tag": "Pure Elegance",
+    "desc": "Putih bersih dengan anggrek minimalis dan aksen perak halus.",
+    "img": "https://images.unsplash.com/photo-1526045478516-99145907023c?auto=format&fit=crop&w=800&q=80",
+    "category": "minimalis",
+    "demoUrl": "/?theme=white-orchid&couple=demo"
+  },
+  {
+    "id": "moody-velvet",
+    "title": "Moody Velvet",
+    "tag": "Dramatic Luxury",
+    "desc": "Warna burgundy dalam dengan tekstur velvet dan emas tua.",
+    "img": "https://images.unsplash.com/photo-1511285560929-80b456fe4726?auto=format&fit=crop&w=800&q=80",
+    "category": "luxury",
+    "demoUrl": "/?theme=moody-velvet&couple=demo"
+  }
+]

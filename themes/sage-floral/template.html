@@ -1,0 +1,84 @@
+<div id="wedding-root" class="min-h-screen bg-[#f1f3f0] text-[#4a5d4e] selection:bg-[#d1d9cf] overflow-x-hidden font-sans">
+  <div class="fixed top-0 left-0 w-64 h-64 opacity-10 pointer-events-none z-0 rotate-180">
+    <svg viewBox="0 0 200 200" fill="currentColor"><path d="M40,100 Q40,40 100,40 T160,100 T100,160 T40,100" /></svg>
+  </div>
+
+  <div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+  <section class="relative h-screen flex items-center justify-center p-4 md:p-12">
+    <div class="absolute inset-0 z-0">
+      <div id="hero-bg" class="w-full h-full bg-cover bg-center transition-transform duration-[20s] scale-110"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-[#f1f3f0]/20 via-transparent to-[#f1f3f0]"></div>
+    </div>
+    
+    <div class="relative z-10 w-full max-w-5xl h-full border-[1px] border-[#a3b18a]/40 rounded-t-[15rem] rounded-b-3xl flex flex-col items-center justify-center bg-white/10 backdrop-blur-[2px] p-8 text-center shadow-2xl">
+      <div class="mb-8 space-y-2">
+        <span class="block w-px h-12 bg-[#a3b18a] mx-auto mb-4"></span>
+        <p class="text-xs md:text-sm tracking-[0.6em] uppercase text-[#6b705c]" data-tagline></p>
+      </div>
+      
+      <h1 class="text-6xl md:text-9xl font-light tracking-tighter mb-6 group">
+        <span class="italic block md:inline transition-transform group-hover:-translate-x-2" data-groom-short></span> 
+        <span class="text-3xl md:text-5xl align-middle mx-4 text-[#a3b18a] font-thin">&</span> 
+        <span class="italic block md:inline transition-transform group-hover:translate-x-2" data-bride-short></span>
+      </h1>
+
+      <div class="flex items-center gap-4 mb-8">
+        <div class="h-[1px] w-10 bg-[#a3b18a]/50"></div>
+        <p class="text-lg md:text-2xl tracking-[0.2em] font-light italic" data-date-str></p>
+        <div class="h-[1px] w-10 bg-[#a3b18a]/50"></div>
+      </div>
+      
+      <button onclick="document.getElementById('couple-floral').scrollIntoView({behavior: 'smooth'})"
+        class="mt-4 px-8 py-3 rounded-full border border-[#a3b18a] text-[#4a5d4e] hover:bg-[#a3b18a] hover:text-white transition-all duration-500 uppercase tracking-widest text-xs">
+        View Invitation
+      </button>
+    </div>
+  </section>
+
+  <section class="py-20 text-center px-6 relative z-10">
+    <div class="max-w-2xl mx-auto space-y-6">
+      <span class="text-4xl text-[#a3b18a]">“</span>
+      <p class="text-lg italic leading-relaxed text-[#6b705c]">
+        Menyatukan dua hati dalam ikatan suci, melangkah bersama di bawah restu alam dan doa tulus dari orang-orang tersayang.
+      </p>
+      <div class="flex justify-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#a3b18a]/30"></span>
+        <span class="w-2 h-2 rounded-full bg-[#a3b18a]/60"></span>
+        <span class="w-2 h-2 rounded-full bg-[#a3b18a]/30"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="couple-floral" class="py-20 px-6 relative z-10 max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-20 items-center">
+      
+      <div class="relative group">
+        <div class="absolute -inset-4 border border-[#a3b18a]/20 rounded-[4rem] translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
+        <div class="relative aspect-[3/4] rounded-[3.5rem] overflow-hidden shadow-xl">
+          <img id="groom-img" src="" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#4a5d4e]/60 to-transparent"></div>
+          <div class="absolute bottom-8 left-8 text-white">
+            <p class="text-xs tracking-widest uppercase mb-1 opacity-80">The Groom</p>
+            <h2 class="text-3xl font-serif" data-groom></h2>
+          </div>
+        </div>
+        <p class="mt-6 text-center md:text-left text-[#6b705c] italic text-sm" data-groom-parent></p>
+      </div>
+
+      <div class="relative group md:mt-32">
+        <div class="absolute -inset-4 border border-[#a3b18a]/20 rounded-[4rem] -translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
+        <div class="relative aspect-[3/4] rounded-[3.5rem] overflow-hidden shadow-xl">
+          <img id="bride-img" src="" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-1000">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#4a5d4e]/60 to-transparent"></div>
+          <div class="absolute bottom-8 left-8 text-white">
+            <p class="text-xs tracking-widest uppercase mb-1 opacity-80">The Bride</p>
+            <h2 class="text-3xl font-serif" data-bride></h2>
+          </div>
+        </div>
+        <p class="mt-6 text-center md:text-left text-[#6b705c] italic text-sm" data-bride-parent></p>
+      </div>
+
+    </div>
+  </section>
+</div>

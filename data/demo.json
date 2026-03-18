@@ -1,0 +1,69 @@
+{
+  "groom": {
+    "name": "Demo Groom, S.T.",
+    "parent": "Putra dari Bapak Groom Senior & Ibu Groom Senior",
+    "instagram": "@demogroom"
+  },
+  "bride": {
+    "name": "Demo Bride, S.Ds.",
+    "parent": "Putri dari Bapak Bride Senior & Ibu Bride Senior",
+    "instagram": "@demobride"
+  },
+  "dateStr": "15 Juni 2026",
+  "dateISO": "2026-06-15T10:00:00+07:00",
+  "tagline": "Hari ini kita memulai selamanya bersama",
+  "activeFrom": "2025-01-01T00:00:00+07:00",
+  "activeUntil": "3000-01-01T00:00:00+07:00",
+  "ceremony": {
+    "title": "Akad Nikah",
+    "venue": "Masjid Agung Al-Ukhuwah",
+    "address": "Jl. Ciumbuleuit No. 88, Dago<br>Bandung, Jawa Barat",
+    "time": "Sabtu, 08.00 – 10.00 WIB",
+    "mapsUrl": "https://maps.app.goo.gl/example1",
+    "note": "Dress code: Muslim Formal / Putih"
+  },
+  "reception": {
+    "title": "Resepsi Pernikahan",
+    "venue": "Ballroom The Trans Luxury Hotel",
+    "address": "Jl. Gatot Subroto No. 123<br>Bandung",
+    "time": "Sabtu, 18.00 – 22.00 WIB",
+    "mapsUrl": "https://maps.app.goo.gl/example2",
+    "note": "Kehadiran Anda adalah kebahagiaan bagi kami"
+  },
+  "story": [
+    {
+      "title": "Awal Bertemu",
+      "date": "2022",
+      "desc": "Pertemuan pertama yang tidak disengaja namun berkesan."
+    },
+    {
+      "title": "Lamaran",
+      "date": "1 Januari 2026",
+      "desc": "Momen di mana kami berjanji untuk melangkah bersama."
+    }
+  ],
+  "gift": [
+    {
+      "bank": "BCA",
+      "accountNumber": "1234567890",
+      "accountHolder": "Demo Groom"
+    },
+    {
+      "bank": "Bank Mandiri",
+      "accountNumber": "0987654321",
+      "accountHolder": "Demo Bride"
+    }
+  ],
+  "footer": {
+    "quote": "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang.",
+    "verse": "QS. Ar-Rum: 21",
+    "message": "Kehadiran Anda adalah hadiah terindah.<br>Mohon konfirmasi kehadiran melalui RSVP sebelum 1 Juni 2026",
+    "closing": "Dengan cinta,<br>Demo Groom & Demo Bride"
+  },
+  "gallery": [
+    "https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/301485/pexels-photo-301485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/256737/pexels-photo-256737.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+  ]
+}

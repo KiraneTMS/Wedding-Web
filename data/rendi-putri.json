@@ -1,0 +1,33 @@
+{
+  "groom": "Rendi",
+  "bride": "Putri",
+  "dateStr": "21 Maret 2026",
+  "dateISO": "2026-03-21T10:00:00+07:00",
+  "tagline": "Dua jiwa, satu janji, selamanya dimulai di sini",
+  "ceremony": {
+    "title": "Akad Nikah",
+    "venue": "Masjid Al-Ikhlash",
+    "address": "Jl. Ciumbuleuit No. 45, Dago<br>Bandung",
+    "time": "Sabtu, 08:00 – 10:00 WIB"
+  },
+  "reception": {
+    "title": "Resepsi Pernikahan",
+    "venue": "The Valley Ballroom • Hilton Bandung",
+    "address": "Jl. Ir. H. Juanda No. 123<br>Bandung",
+    "time": "Sabtu, 18:00 – 22:00 WIB"
+  },
+  "footer": {
+    "message": "Kehadiran Anda adalah hadiah terindah bagi kami.<br>Mohon konfirmasi kehadiran sebelum 10 Maret 2026",
+    "closing": "Dengan cinta,<br>Rendi & Putri"
+  },
+  "gallery": [
+    "https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/301485/pexels-photo-301485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/169191/pexels-photo-169191.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/256737/pexels-photo-256737.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+  ],
+  "activeFrom":  "2026-02-20T00:00:00+07:00",
+  "activeUntil": "2026-03-22T23:59:59+07:00"
+  
+}

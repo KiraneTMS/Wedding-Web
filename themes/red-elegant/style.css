@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Montserrat:wght@200;400&display=swap');
+
+#wedding-root {
+  font-family: 'Cormorant Garamond', serif;
+  background-color: #1a0505;
+}
+
+h1, h2 {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+[data-tagline], button, .tracking-widest {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.floating-heart {
+  position: absolute;
+  color: #7f1d1d;
+  filter: blur(1px);
+  pointer-events: none;
+  animation: elegantRise infinite linear;
+}
+
+@keyframes elegantRise {
+  0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.4; }
+  80% { opacity: 0.4; }
+  100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+}
+
+/* Scrollbar Style */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #1a0505; }
+::-webkit-scrollbar-thumb { background: #b45309; }

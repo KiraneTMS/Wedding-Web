@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;0,400;1,200&family=Plus+Jakarta+Sans:wght@200;400;600&display=swap');
+
+#wedding-root {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  /* Tambahkan sedikit tekstur kertas */
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
+
+h1, h2, .font-serif {
+  font-family: 'Crimson Pro', serif;
+}
+
+/* Animasi Bunga yang lebih variatif */
+.flower-particle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(0.5px);
+}
+
+@keyframes floatLeaf {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { transform: translate(40px, 200px) rotate(360deg); opacity: 0; }
+}
+
+/* Efek Scroll Reveal Sederhana */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}

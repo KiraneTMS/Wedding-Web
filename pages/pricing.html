@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing & Packages | ArinEmir Digital Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #b38b59; 
+      --secondary: #2d1818; 
+      --light-gold: #f9f4ee;
+      --white: #ffffff;
+      --gray: #666;
+      --border: #e5e5e5;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--white);
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+
+    /* --- Navigation --- */
+    header {
+      padding: 1.5rem 8%;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .nav-links a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: var(--secondary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* --- Pricing Header --- */
+    .pricing-header {
+      text-align: center;
+      padding: 5rem 5% 3rem;
+      background: linear-gradient(to bottom, var(--light-gold), #fff);
+    }
+    .pricing-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1rem;
+    }
+    .pricing-header p {
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* --- Pricing Cards --- */
+    .pricing-section {
+      padding: 4rem 8%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
+    }
+    .card {
+      border: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      border-color: var(--primary);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(179, 139, 89, 0.1);
+    }
+    .card.popular {
+      background: var(--secondary);
+      color: var(--white);
+      border: none;
+    }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 1.5rem 0;
+      display: block;
+    }
+    .price span { font-size: 1rem; font-weight: 400; opacity: 0.7; }
+    
+    .feature-list {
+      list-style: none;
+      margin: 2rem 0;
+      text-align: left;
+      flex-grow: 1;
+    }
+    .feature-list li {
+      padding: 0.6rem 0;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .popular .feature-list li { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    
+    .btn {
+      display: block;
+      padding: 1.2rem;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+    .btn-outline { border: 2px solid var(--secondary); color: var(--secondary); }
+    .btn-gold { background: var(--primary); color: var(--white); }
+    .btn-outline:hover { background: var(--secondary); color: white; }
+
+    /* --- Comparison Table --- */
+    .comparison-table-wrapper {
+      overflow-x: auto;
+      margin-top: 4rem;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-table th { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+    .check { color: var(--primary); font-weight: bold; }
+
+    /* --- FAQ --- */
+    .faq-section {
+      background: var(--light-gold);
+      padding: 6rem 8%;
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 3rem auto 0;
+    }
+    .faq-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">ArinEmir.</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#">Template</a>
+      <a href="#" style="color: var(--primary)">Pesan</a>
+    </div>
+  </nav>
+</header>
+
+<section class="pricing-header">
+  <h1>Investasi Kebahagiaan</h1>
+  <p>Pilih paket yang paling sesuai dengan kebutuhan perayaan Anda. Semua paket sudah termasuk integrasi Google Maps dan RSVP Online.</p>
+</section>
+
+<section class="pricing-section">
+  <div class="pricing-grid">
+    <div class="card">
+      <h3>Silver</h3>
+      <p>Simple & Elegant</p>
+      <span class="price">149k <span>/event</span></span>
+      <ul class="feature-list">
+        <li>Masa Aktif 3 Bulan</li>
+        <li>10 Foto Galeri</li>
+        <li>Background Music Standard</li>
+        <li>RSVP & Ucapan</li>
+        <li>Navigasi Google Maps</li>
+      </ul>
+      <a href="#" class="btn btn-outline">Pilih Paket</a>
+    </div>
+
+    <div class="card popular">
+      <div style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 1rem; color: var(--primary);">Paling Diminati</div>
+      <h3>Gold</h3>
+      <p>Luxury Experience</p>
+      <span class="price">249k <span>/event</span></span>
+      <ul class="feature-list">
+        <li>Masa Aktif 1 Tahun</li>
+        <li>Foto Galeri Tanpa Batas</li>
+        <li>Custom Background Music</li>
+        <li>Fitur Kirim Angpao (E-Wallet)</li>
+        <li>Love Journey / Timeline</li>
+        <li>Countdown Timer</li>
+      </ul>
+      <a href="#" class="btn btn-gold">Pilih Paket</a>
+    </div>
+
+    <div class="card">
+      <h3>Platinum</h3>
+      <p>Full Customization</p>
+      <span class="price">399k <span>/event</span></span>
+      <ul class="feature-list">
+        <li>Masa Aktif Selamanya</li>
+        <li>Custom Domain (nama-anda.com)</li>
+        <li>Video Background</li>
+        <li>Prioritas Revisi (24 Jam)</li>
+        <li>Tanpa Watermark ArinEmir</li>
+      </ul>
+      <a href="#" class="btn btn-outline">Pilih Paket</a>
+    </div>
+  </div>
+
+  <div class="comparison-table-wrapper">
+    <h2 style="font-family: 'Playfair Display'; margin-bottom: 2rem; text-align: center;">Perbandingan Fitur</h2>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Fitur</th>
+          <th>Essential</th>
+          <th>Premium</th>
+          <th>Bespoke</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Masa Aktif</td>
+          <td>3 Bulan</td>
+          <td>1 Tahun</td>
+          <td>Selamanya</td>
+        </tr>
+        <tr>
+          <td>Custom Nama Tamu</td>
+          <td class="check">✓</td>
+          <td class="check">✓</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>E-Gift / Angpao</td>
+          <td>-</td>
+          <td class="check">✓</td>
+          <td class="check">✓</td>
+        </tr>
+        <tr>
+          <td>Custom Domain</td>
+          <td>-</td>
+          <td>-</td>
+          <td class="check">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="faq-section">
+  <h2 style="font-family: 'Playfair Display'; text-align: center;">Pertanyaan Umum</h2>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>Berapa lama proses pembuatannya?</h4>
+      <p>Normalnya 3-5 hari kerja setelah data kami terima lengkap. Untuk paket Bespoke, bisa lebih cepat dengan fitur Prioritas.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Apakah saya bisa mengubah data setelah link jadi?</h4>
+      <p>Tentu. Kami memberikan jatah revisi gratis sebanyak 3x untuk memastikan semua informasi sudah benar.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Bagaimana cara tamu mengisi RSVP?</h4>
+      <p>Tamu cukup mengisi form di website, dan notifikasi akan otomatis masuk ke dashboard atau WhatsApp Anda.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Apakah musik bisa dari file saya sendiri?</h4>
+      <p>Bisa! Untuk paket Premium dan Bespoke, Anda bebas menentukan lagu romantis pilihan Anda sendiri.</p>
+    </div>
+  </div>
+</section>
+
+<footer style="padding: 4rem 5%; background: var(--secondary); color: white; text-align: center;">
+  <p>© 2026 ArinEmir Digital Invitation. Crafted in Bandung.</p>
+</footer>
+
+</body>
+</html>
