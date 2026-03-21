@@ -2,14 +2,33 @@
   <div class="bg-layer"></div>
   <div class="content">
     <div class="frame">
-      <h1 data-groom></h1>
+      <h1 data-groom-short></h1>
       <div class="heart">+</div>
-      <h1 data-bride></h1>
+      <h1 data-bride-short></h1>
     </div>
     <div class="date" data-date-str></div>
     <p class="tag" data-tagline></p>
   </div>
 </div>
+
+<section class="moments" style="padding-bottom: 0;">
+  <div class="moment">
+    <h2 data-groom></h2>
+    <p class="where" style="font-style: italic;" data-groom-parent></p>
+    <a id="groom-ig" target="_blank" class="place" style="display:block; margin-top:1rem; font-size:1rem; color:var(--accent);"></a>
+  </div>
+  <div class="moment">
+    <h2 data-bride></h2>
+    <p class="where" style="font-style: italic;" data-bride-parent></p>
+    <a id="bride-ig" target="_blank" class="place" style="display:block; margin-top:1rem; font-size:1rem; color:var(--accent);"></a>
+  </div>
+</section>
+
+<section class="boho-gallery" style="background: white;">
+  <h2 style="font-size: 3rem;">Kisah Kami</h2>
+  <div id="story-list" style="max-width: 700px; margin: 0 auto; text-align: left; padding: 0 2rem;">
+    </div>
+</section>
 
 <section class="moments">
   <div class="moment akad">
@@ -17,6 +36,7 @@
     <div class="place" data-ceremony-venue></div>
     <div class="when" data-ceremony-time></div>
     <div class="where" data-ceremony-address></div>
+    <p class="where" style="font-size: 0.9rem; margin-top: 1rem; color: var(--accent);" data-ceremony-note></p>
   </div>
 
   <div class="moment resepsi">
@@ -24,7 +44,14 @@
     <div class="place" data-reception-venue></div>
     <div class="when" data-reception-time></div>
     <div class="where" data-reception-address></div>
+    <p class="where" style="font-size: 0.9rem; margin-top: 1rem; color: var(--accent);" data-reception-note></p>
   </div>
+</section>
+
+<section class="boho-gallery">
+  <h2 style="font-size: 2.5rem;">Tanda Kasih</h2>
+  <div id="gift-list" class="polaroid-grid" style="gap: 1.5rem;">
+    </div>
 </section>
 
 <section class="gallery boho-gallery">
@@ -33,6 +60,10 @@
 </section>
 
 <footer class="footer">
+  <div class="note" style="margin-bottom: 3rem;">
+    <p data-footer-quote></p>
+    <strong data-footer-verse style="display:block; margin-top: 1rem; color: var(--accent);"></strong>
+  </div>
   <div class="note" data-footer-message></div>
   <div class="love" data-footer-closing></div>
 </footer>
