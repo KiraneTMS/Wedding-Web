@@ -11,6 +11,7 @@
   },
   "dateStr": "15 Juni 2026",
   "dateISO": "2026-06-15T10:00:00+07:00",
+  "livestreamUrl": "https://youtube.com/@demo/live",
   "tagline": "Hari ini kita memulai selamanya bersama",
   "activeFrom": "2025-01-01T00:00:00+07:00",
   "activeUntil": "3000-01-01T00:00:00+07:00",
@@ -62,8 +63,8 @@
   },
   "gallery": [
     "https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "https://images.pexels.com/photos/301485/pexels-photo-301485.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://i.pinimg.com/1200x/4c/34/57/4c3457e166403456af1f87831a944bc9.jpg",
+    "https://i.pinimg.com/1200x/81/f6/d0/81f6d0bcb31a8c807e26e7fa4a8499cd.jpg",
     "https://images.pexels.com/photos/256737/pexels-photo-256737.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
   ]
 }

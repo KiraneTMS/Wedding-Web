@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Montserrat:wght@200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Montserrat:wght@200;400&family=Great+Vibes&display=swap');
 
 #wedding-root {
   font-family: 'Cormorant Garamond', serif;
   background-color: #1a0505;
+  width: 100%;
 }
 
 h1, h2 {
@@ -32,3 +33,41 @@ h1, h2 {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #1a0505; }
 ::-webkit-scrollbar-thumb { background: #b45309; }
+
+/* =========================================================
+   Shared theme standard (plan gating, color/font customization,
+   exclusive-plan flourish). Driven by the loader's shared widget —
+   see index.html's initPlanWidget(). No per-theme widget code needed,
+   just these hooks.
+   ========================================================= */
+
+/* Filter/font customization is scoped to the invitation content only,
+   never to #wedding-root itself — #heart-container is fixed-position
+   and lives outside #invitation-content precisely so a filter here
+   never turns an ancestor into a containing block that clips it. */
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+#wedding-root [data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+/* ===== Exclusive plan flourish ===== */
+@keyframes shimmer-border-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(180, 83, 9, 0); }
+  50% { box-shadow: 0 0 50px 10px rgba(180, 83, 9, 0.4); }
+}
+
+#wedding-root.is-exclusive #hero-bg {
+  animation: shimmer-border-red 4s ease-in-out infinite;
+}
+
+/* Font-toggle hook for the loader's shared "Ganti Font" button.
+   .pw-font-alt is a generic class name the loader toggles on
+   #invitation-content — this theme defines what it means. */
+#invitation-content.pw-font-alt h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  line-height: 1.1;
+}

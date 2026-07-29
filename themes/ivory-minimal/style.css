@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@200;300;400&family=Great+Vibes&display=swap');
+
+#wedding-root {
+  font-family: 'Inter', sans-serif;
+  background-color: #f7f4ef;
+  color: #3d3a36;
+  width: 100%;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+}
+
+/* Very subtle floating dots */
+.dot-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #c4b8a8;
+  pointer-events: none;
+  opacity: 0;
+  animation: softFloat linear infinite;
+}
+
+@keyframes softFloat {
+  0%   { transform: translateY(100vh) scale(0.5); opacity: 0; }
+  20%  { opacity: 0.35; }
+  80%  { opacity: 0.25; }
+  100% { transform: translateY(-5vh) scale(1); opacity: 0; }
+}
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Shared plan system */
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+#wedding-root [data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+/* Exclusive shimmer – very soft */
+@keyframes shimmer-ivory {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196, 184, 168, 0); }
+  50% { box-shadow: 0 0 40px 8px rgba(196, 184, 168, 0.25); }
+}
+
+#wedding-root.is-exclusive #hero-bg {
+  animation: shimmer-ivory 5s ease-in-out infinite;
+}
+
+/* Font toggle */
+#invitation-content.pw-font-alt h1,
+#invitation-content.pw-font-alt h2,
+#invitation-content.pw-font-alt h3 {
+  font-family: 'Great Vibes', cursive;
+}
+
+#invitation-content.pw-font-alt h1 {
+  font-size: clamp(2.8rem, 10vw, 5.8rem);
+  line-height: 1.15;
+}

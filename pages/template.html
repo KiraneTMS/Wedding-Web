@@ -10,11 +10,13 @@
 
   <style>
     :root {
-      --primary: #b38b59; 
-      --secondary: #2d1818; 
-      --bg: #fdfbf9;
+      --primary: #b38b59; /* Antique Gold */
+      --secondary: #6b4f4f; /* Warm Earth */
+      --accent: #eecda3;
+      --light: #fdfbf9;
       --white: #ffffff;
-      --border: #eceae7;
+      --glass: rgba(255, 255, 255, 0.8);
+      --border: rgba(179, 139, 89, 0.15);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -26,13 +28,16 @@
     }
 
     header {
-      background: var(--white);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
       padding: 1.2rem 8%;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
+      position: fixed;
+      width: 100%;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
     }
+
     nav {
       max-width: 1200px;
       margin: 0 auto;
@@ -48,14 +53,17 @@
       font-weight: 700;
     }
     .nav-links a {
-      margin-left: 2rem;
-      text-decoration: none;
+      margin-left: 2.5rem;
       color: var(--secondary);
+      text-decoration: none;
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 1px;
+      transition: 0.3s;
     }
+
+    .nav-links a:hover { color: var(--primary); }
 
     .catalog-header {
       text-align: center;
@@ -262,11 +270,11 @@
 
 <header>
   <nav>
-    <a href="index.html" class="logo">ArinEmir.</a>
+    <div class="logo">ArinEmir.</div>
     <div class="nav-links">
       <a href="index.html">Home</a>
-      <a href="pricing.html">Harga</a>
-      <a href="order.html" style="color: var(--primary)">Pesan</a>
+      <a href="/pages/template.html">Templates</a>
+      <a href="/pages/pricing.html">Harga</a>
     </div>
   </nav>
 </header>

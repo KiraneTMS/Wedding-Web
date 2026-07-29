@@ -319,6 +319,76 @@
       .nav-links a { margin: 1rem 0; width: 100%; text-align: center; }
       .price-card.featured { transform: scale(1); margin: 1rem 0; }
     }
+    /* <!-- --- Popup Modal for Plan Selection --- --> */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(107, 79, 79, 0.4); /* Matches --secondary with transparency */
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--light);
+      border: 1px solid var(--primary);
+      padding: 3rem 2rem;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--secondary);
+    }
+
+    .modal-content p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary);
+      cursor: pointer;
+      opacity: 0.5;
+      transition: 0.2s;
+    }
+
+    .modal-close:hover {
+      opacity: 1;
+    }
 
     /* --- Footer --- */
     footer {
@@ -341,6 +411,14 @@
     }
   </style>
 </head>
+<div class="modal-overlay" id="planModal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModal">&times;</button>
+    <h3>Langkah Selanjutnya</h3>
+    <p>Silakan pilih desain template undangan terlebih dahulu sebelum menentukan paket pilihan Anda.</p>
+    <a href="/pages/template.html" class="btn" style="text-transform: uppercase; font-size: 0.85rem;">Lihat Katalog Template</a>
+  </div>
+</div>
 <body>
 
 <header>
@@ -409,45 +487,99 @@
 
   <div class="pricing-grid">
     <div class="price-card">
-      <h4>Silver</h4>
-      <span class="amount">Rp 49rb</span>
+      <h4>🌸 Basic</h4>
+      <span class="amount">Rp 150rb</span>
+      <p style="font-size:0.85rem; color:#999; margin-top:-1.5rem; margin-bottom:1.5rem;">Untuk pasangan yang ingin undangan cantik dengan kustomisasi minimal.</p>
       <ul class="price-features">
-        <li>Masa Aktif 1 Bulan</li>
-        <li>Custom Nama Tamu</li>
-        <li>Gallery Foto (3 Foto)</li>
+        <li>Semua Template/Tema</li>
+        <li>1 Lagu Latar (Opsional)</li>
+        <li>Guest Name Links</li>
+        <li>Countdown</li>
         <li>Maps & Navigasi</li>
-        <li>RSVP Digital</li>
+        <li>Informasi Acara</li>
+        <li>Share ke WhatsApp</li>
+        <li>Galeri 20 Foto</li>
       </ul>
-      <a href="#" class="btn" style="width: 100%;">Pilih Silver</a>
+      <a href="#" class="btn" style="width: 100%;">Pilih Basic</a>
     </div>
 
     <div class="price-card featured">
       <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--primary); color: white; padding: 5px 15px; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px;">POPULAR</div>
-      <h4>Gold</h4>
-      <span class="amount">Rp 199rb</span>
+      <h4>💍 Premium</h4>
+      <span class="amount">Rp 200rb</span>
+      <p style="font-size:0.85rem; color:#999; margin-top:-1.5rem; margin-bottom:1.5rem;">Semua di Basic, plus fitur yang paling banyak diminati.</p>
       <ul class="price-features">
-        <li>Masa Aktif 3 Bulan</li>
-        <li>Background Music</li>
-        <li>Gallery Foto (10 Foto)</li>
-        <li>Love Stories Section</li>
-        <li>Fitur Kirim Angpao</li>
+        <li>Semua Fitur Basic</li>
+        <li>RSVP Digital</li>
+        <li>Informasi Hadiah Pernikahan</li>
+        <li>Love Story Section</li>
+        <li>Event Timeline</li>
+        <li>Galeri Unlimited</li>
+        <li>Live Streaming</li>
+        <li>Kustomisasi Warna & Font</li>
       </ul>
-      <a href="#" class="btn" style="width: 100%;">Pilih Gold</a>
+      <a href="#" class="btn" style="width: 100%;">Pilih Premium</a>
     </div>
 
     <div class="price-card">
-      <h4>Platinum</h4>
-      <span class="amount">Rp 399rb</span>
+      <h4>👑 Exclusive</h4>
+      <span class="amount">Rp 300rb</span>
+      <p style="font-size:0.85rem; color:#999; margin-top:-1.5rem; margin-bottom:1.5rem;">Untuk pasangan yang menginginkan undangan yang benar-benar satu-satunya.</p>
       <ul class="price-features">
-        <li>Masa Aktif 1 Tahun</li>
-        <li>Exclusive Domain (.com)</li>
-        <li>Video Background</li>
-        <li>Live Streaming Link</li>
-        <li>Filter Instagram Custom</li>
+        <li>Semua Fitur Premium</li>
+        <li>Modifikasi Layout Custom</li>
+        <li>Section Baru Sesuai Request</li>
+        <li>Animasi Custom</li>
+        <li>Ilustrasi Custom</li>
+        <li>Undangan Password Protected</li>
+        <li>Custom Domain Gratis</li>
+        <li>Revisi Unlimited</li>
+        <li>Priority Support</li>
       </ul>
-      <a href="#" class="btn" style="width: 100%;">Pilih Platinum</a>
+      <a href="#" class="btn" style="width: 100%;">Pilih Exclusive</a>
     </div>
   </div>
+</section>
+
+<section class="pricing-container" id="addons" style="background: var(--light); padding-top: 2rem;">
+  <div style="text-align: center; margin-bottom: 4rem;">
+    <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem;">Tambahan Fitur</h2>
+    <p>Lengkapi paket Anda dengan fitur tambahan sesuai kebutuhan.</p>
+  </div>
+
+  <div class="pricing-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>✨ Ilustrasi Custom Tambahan</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>🎥 Section Video Pre-Wedding</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>🌸 Efek Animasi Premium (kelopak bunga, kilauan, dll)</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>🌐 Custom Domain</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>📊 Dashboard RSVP</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>📸 Tambahan Kapasitas Galeri</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>📅 Halaman Save the Date</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>🎉 Halaman "Thank You" Setelah Acara</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>💌 Buku Tamu Digital</p>
+    </div>
+    <div class="price-card" style="padding: 2rem 1.5rem; text-align:left;">
+      <p>🌍 Undangan Dwi Bahasa (Indonesia & Inggris)</p>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:2.5rem; opacity:0.7; font-size:0.9rem;">*Hubungi kami untuk info harga masing-masing tambahan fitur.</p>
 </section>
 
 <div class="cta-container">
@@ -464,4 +596,39 @@
 </footer>
 
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('planModal');
+    const closeBtn = document.getElementById('closeModal');
+    
+    // Function to open the modal
+    const openModal = (e) => {
+      e.preventDefault();
+      modal.classList.add('active');
+    };
+
+    // 1. Target the pricing card buttons ("Pilih Plan")
+    const planButtons = document.querySelectorAll('.price-card .btn');
+    planButtons.forEach(button => {
+      if (button.textContent.includes('Pilih')) {
+        button.addEventListener('click', openModal);
+      }
+    });
+
+    // 2. Target the "Pesan Sekarang" link in the navbar
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+      if (link.textContent.trim() === 'Pesan Sekarang') {
+        link.addEventListener('click', openModal);
+      }
+    });
+
+    // Close modal actions
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  });
+</script>
 </html>

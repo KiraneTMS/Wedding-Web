@@ -10,32 +10,36 @@
 
   <style>
     :root {
-      --primary: #b38b59; 
-      --secondary: #2d1818; 
-      --light-gold: #f9f4ee;
+      --primary: #b38b59; /* Antique Gold */
+      --secondary: #6b4f4f; /* Warm Earth */
+      --accent: #eecda3;
+      --light: #fdfbf9;
       --white: #ffffff;
-      --gray: #666;
-      --border: #e5e5e5;
+      --glass: rgba(255, 255, 255, 0.8);
+      --border: rgba(179, 139, 89, 0.15);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--white);
+      background-color: var(--light);
       color: var(--secondary);
-      line-height: 1.6;
+      overflow-x: hidden;
     }
 
     /* --- Navigation --- */
     header {
-      padding: 1.5rem 8%;
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 8%;
+      position: fixed;
+      width: 100%;
       top: 0;
       z-index: 1000;
+      border-bottom: 1px solid var(--border);
     }
+
     nav {
       max-width: 1200px;
       margin: 0 auto;
@@ -43,158 +47,357 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
       color: var(--primary);
-      text-decoration: none;
       font-weight: 700;
+      letter-spacing: -0.5px;
+      text-decoration: none;
     }
+
     .nav-links a {
-      margin-left: 2rem;
-      text-decoration: none;
+      margin-left: 2.5rem;
       color: var(--secondary);
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* --- Pricing Header --- */
-    .pricing-header {
-      text-align: center;
-      padding: 5rem 5% 3rem;
-      background: linear-gradient(to bottom, var(--light-gold), #fff);
-    }
-    .pricing-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      margin-bottom: 1rem;
-    }
-    .pricing-header p {
-      color: var(--gray);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* --- Pricing Cards --- */
-    .pricing-section {
-      padding: 4rem 8%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-      margin-bottom: 5rem;
-    }
-    .card {
-      border: 1px solid var(--border);
-      padding: 3rem 2rem;
-      text-align: center;
-      transition: all 0.4s ease;
-      display: flex;
-      flex-direction: column;
-    }
-    .card:hover {
-      border-color: var(--primary);
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(179, 139, 89, 0.1);
-    }
-    .card.popular {
-      background: var(--secondary);
-      color: var(--white);
-      border: none;
-    }
-    .card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
-    .price {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 1.5rem 0;
-      display: block;
-    }
-    .price span { font-size: 1rem; font-weight: 400; opacity: 0.7; }
-    
-    .feature-list {
-      list-style: none;
-      margin: 2rem 0;
-      text-align: left;
-      flex-grow: 1;
-    }
-    .feature-list li {
-      padding: 0.6rem 0;
-      font-size: 0.95rem;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-    .popular .feature-list li { border-bottom: 1px solid rgba(255,255,255,0.1); }
-    
-    .btn {
-      display: block;
-      padding: 1.2rem;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       transition: 0.3s;
     }
-    .btn-outline { border: 2px solid var(--secondary); color: var(--secondary); }
-    .btn-gold { background: var(--primary); color: var(--white); }
-    .btn-outline:hover { background: var(--secondary); color: white; }
 
-    /* --- Comparison Table --- */
-    .comparison-table-wrapper {
-      overflow-x: auto;
-      margin-top: 4rem;
+    .nav-links a:hover { color: var(--primary); }
+
+    /* --- Pricing Header --- */
+    .pricing-header {
+      text-align: center;
+      padding: 10rem 5% 4rem;
+      background: radial-gradient(circle at center, #fff, var(--light));
     }
-    .comparison-table {
+
+    .pricing-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: 1.5rem;
+      color: var(--secondary);
+    }
+
+    .pricing-header p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.8;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- Pricing Cards Layout --- */
+    .pricing-container {
+      padding: 2rem 8% 6rem;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .price-card {
+      background: var(--white);
+      padding: 3.5rem 2rem;
+      border: 1px solid #f0efed;
+      border-radius: 4px; /* Classic sharp-luxe signature */
+      text-align: center;
+      transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+    }
+
+    .price-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(107, 79, 79, 0.05);
+    }
+
+    .price-card.featured {
+      border: 2px solid var(--primary);
+      background: var(--light);
+    }
+
+    .price-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-card .badge {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--primary);
+      color: white;
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+    }
+
+    .price-card .amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin: 1.5rem 0 2rem;
+      display: block;
+      font-weight: 700;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .price-features li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #f9f8f6;
+      opacity: 0.9;
+    }
+
+    .price-features li::before {
+      content: "✓";
+      margin-right: 12px;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      background: var(--secondary);
+      color: var(--white);
+      padding: 1.1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      border: 1px solid var(--secondary);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: var(--secondary);
+    }
+
+    .price-card.featured .btn {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .price-card.featured .btn:hover {
+      background: transparent;
+      color: var(--primary);
+    }
+
+    /* --- Structured Tables (Comparison & Addons) --- */
+    .table-section {
+      padding: 6rem 8%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--primary);
+      margin: 0.8rem auto 0;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--white);
+      border: 1px solid #f0efed;
+    }
+
+    table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
+      font-size: 0.95rem;
     }
-    .comparison-table th, .comparison-table td {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .comparison-table th { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
-    .check { color: var(--primary); font-weight: bold; }
 
-    /* --- FAQ --- */
+    th, td {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid #f0efed;
+    }
+
+    th {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      background: #faf6f0;
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    td { color: var(--secondary); }
+    
+    tr:last-child td { border-bottom: none; }
+
+    .check-mark { color: var(--primary); font-weight: bold; }
+    .dash-mark { color: #ccc; }
+
+    /* --- FAQ Section --- */
     .faq-section {
-      background: var(--light-gold);
+      background: #faf6f0;
       padding: 6rem 8%;
     }
+
     .faq-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       gap: 3rem;
-      max-width: 1200px;
-      margin: 3rem auto 0;
-    }
-    .faq-item h4 {
-      font-size: 1.1rem;
-      margin-bottom: 0.8rem;
-      color: var(--primary);
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
+    .faq-item h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: var(--secondary);
+    }
+
+    .faq-item p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+    /* <!-- --- Popup Modal for Plan Selection --- --> */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(107, 79, 79, 0.4); /* Matches --secondary with transparency */
+      backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--light);
+      border: 1px solid var(--primary);
+      padding: 3rem 2rem;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--secondary);
+    }
+
+    .modal-content p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary);
+      cursor: pointer;
+      opacity: 0.5;
+      transition: 0.2s;
+    }
+
+    .modal-close:hover {
+      opacity: 1;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 4rem 5% 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    footer a { color: var(--primary); text-decoration: none; }
+
+    /* Responsive Adjustments */
     @media (max-width: 768px) {
-      .faq-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .pricing-header { padding-top: 8rem; }
+      .faq-grid { grid-template-columns: 1fr; gap: 2rem; }
+      th, td { padding: 1rem; font-size: 0.9rem; }
     }
   </style>
 </head>
+<div class="modal-overlay" id="planModal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModal">&times;</button>
+    <h3>Langkah Selanjutnya</h3>
+    <p>Silakan pilih desain template undangan terlebih dahulu sebelum menentukan paket pilihan Anda.</p>
+    <a href="/pages/template.html" class="btn" style="text-transform: uppercase; font-size: 0.85rem;">Lihat Katalog Template</a>
+  </div>
+</div>
 <body>
 
 <header>
   <nav>
-    <a href="index.html" class="logo">ArinEmir.</a>
+    <div class="logo">ArinEmir.</div>
     <div class="nav-links">
       <a href="index.html">Home</a>
-      <a href="#">Template</a>
-      <a href="#" style="color: var(--primary)">Pesan</a>
+      <a href="/pages/template.html">Templates</a>
+      <a href="/pages/pricing.html">Harga</a>
+      <a href="#" style="color: var(--primary)">Pesan Sekarang</a>
     </div>
   </nav>
 </header>
@@ -204,88 +407,173 @@
   <p>Pilih paket yang paling sesuai dengan kebutuhan perayaan Anda. Semua paket sudah termasuk integrasi Google Maps dan RSVP Online.</p>
 </section>
 
-<section class="pricing-section">
+<section class="pricing-container">
   <div class="pricing-grid">
-    <div class="card">
-      <h3>Silver</h3>
-      <p>Simple & Elegant</p>
-      <span class="price">149k <span>/event</span></span>
-      <ul class="feature-list">
-        <li>Masa Aktif 3 Bulan</li>
-        <li>10 Foto Galeri</li>
-        <li>Background Music Standard</li>
-        <li>RSVP & Ucapan</li>
-        <li>Navigasi Google Maps</li>
+    <!-- Basic Card -->
+    <div class="price-card">
+      <h3>🌸 Basic</h3>
+      <span class="amount">Rp 150.000</span>
+      <ul class="price-features">
+        <li>Semua Template / Tema</li>
+        <li>1 Lagu Latar (Opsional)</li>
+        <li>Custom Nama Tamu</li>
+        <li>Countdown</li>
+        <li>Google Maps</li>
+        <li>Informasi Acara</li>
+        <li>Share WhatsApp</li>
+        <li>Galeri 20 Foto</li>
       </ul>
-      <a href="#" class="btn btn-outline">Pilih Paket</a>
+      <a href="#" class="btn">Pilih Basic</a>
     </div>
 
-    <div class="card popular">
-      <div style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 1rem; color: var(--primary);">Paling Diminati</div>
-      <h3>Gold</h3>
-      <p>Luxury Experience</p>
-      <span class="price">249k <span>/event</span></span>
-      <ul class="feature-list">
-        <li>Masa Aktif 1 Tahun</li>
-        <li>Foto Galeri Tanpa Batas</li>
-        <li>Custom Background Music</li>
-        <li>Fitur Kirim Angpao (E-Wallet)</li>
-        <li>Love Journey / Timeline</li>
-        <li>Countdown Timer</li>
+    <!-- Premium Card -->
+    <div class="price-card featured">
+      <div class="badge">POPULAR</div>
+      <h3>💍 Premium</h3>
+      <span class="amount">Rp 200.000</span>
+      <ul class="price-features">
+        <li>Semua Fitur Basic</li>
+        <li>RSVP Digital</li>
+        <li>Wedding Gift</li>
+        <li>Love Story</li>
+        <li>Timeline</li>
+        <li>Galeri Unlimited</li>
+        <li>Live Streaming</li>
+        <li>Kustomisasi Warna & Font</li>
       </ul>
-      <a href="#" class="btn btn-gold">Pilih Paket</a>
+      <a href="#" class="btn">Pilih Premium</a>
     </div>
 
-    <div class="card">
-      <h3>Platinum</h3>
-      <p>Full Customization</p>
-      <span class="price">399k <span>/event</span></span>
-      <ul class="feature-list">
-        <li>Masa Aktif Selamanya</li>
-        <li>Custom Domain (nama-anda.com)</li>
-        <li>Video Background</li>
-        <li>Prioritas Revisi (24 Jam)</li>
-        <li>Tanpa Watermark ArinEmir</li>
+    <!-- Exclusive Card -->
+    <div class="price-card">
+      <h3>👑 Exclusive</h3>
+      <span class="amount">Rp 300.000</span>
+      <ul class="price-features">
+        <li>Semua Fitur Premium</li>
+        <li>Custom Layout</li>
+        <li>Section Request</li>
+        <li>Animasi Custom</li>
+        <li>Ilustrasi Custom</li>
+        <li>Password Protection</li>
+        <li>Gratis Custom Domain</li>
+        <li>Unlimited Revisi</li>
+        <li>Priority Support</li>
       </ul>
-      <a href="#" class="btn btn-outline">Pilih Paket</a>
+      <a href="#" class="btn">Pilih Exclusive</a>
     </div>
   </div>
+</section>
 
-  <div class="comparison-table-wrapper">
-    <h2 style="font-family: 'Playfair Display'; margin-bottom: 2rem; text-align: center;">Perbandingan Fitur</h2>
-    <table class="comparison-table">
+<section class="table-section">
+  <div class="section-title">
+    <h2>Perbandingan Paket</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="table-wrapper">
+    <table>
       <thead>
         <tr>
           <th>Fitur</th>
-          <th>Essential</th>
+          <th>Basic</th>
           <th>Premium</th>
-          <th>Bespoke</th>
+          <th>Exclusive</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Masa Aktif</td>
-          <td>3 Bulan</td>
-          <td>1 Tahun</td>
-          <td>Selamanya</td>
+          <td>Semua Template</td>
+          <td class="check-mark">✓</td>
+          <td class="check-mark">✓</td>
+          <td class="check-mark">✓</td>
         </tr>
         <tr>
-          <td>Custom Nama Tamu</td>
-          <td class="check">✓</td>
-          <td class="check">✓</td>
-          <td class="check">✓</td>
+          <td>RSVP</td>
+          <td class="dash-mark">-</td>
+          <td class="check-mark">✓</td>
+          <td class="check-mark">✓</td>
         </tr>
         <tr>
-          <td>E-Gift / Angpao</td>
-          <td>-</td>
-          <td class="check">✓</td>
-          <td class="check">✓</td>
+          <td>Wedding Gift</td>
+          <td class="dash-mark">-</td>
+          <td class="check-mark">✓</td>
+          <td class="check-mark">✓</td>
+        </tr>
+        <tr>
+          <td>Live Streaming</td>
+          <td class="dash-mark">-</td>
+          <td class="check-mark">✓</td>
+          <td class="check-mark">✓</td>
+        </tr>
+        <tr>
+          <td>Custom Layout</td>
+          <td class="dash-mark">-</td>
+          <td class="dash-mark">-</td>
+          <td class="check-mark">✓</td>
         </tr>
         <tr>
           <td>Custom Domain</td>
-          <td>-</td>
-          <td>-</td>
-          <td class="check">✓</td>
+          <td class="dash-mark">-</td>
+          <td class="dash-mark">-</td>
+          <td class="check-mark">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="table-section" style="padding-top: 0;">
+  <div class="section-title">
+    <h2>Add-on Services</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Tambahan Fitur</th>
+          <th style="text-align: right;">Harga</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>✨ Ilustrasi Custom Tambahan</td>
+          <td style="text-align: right; font-weight: 600;">Rp 100.000</td>
+        </tr>
+        <tr>
+          <td>🎥 Section Video Pre-Wedding</td>
+          <td style="text-align: right; font-weight: 600;">Rp 50.000</td>
+        </tr>
+        <tr>
+          <td>🌸 Efek Animasi Premium</td>
+          <td style="text-align: right; font-weight: 600;">Rp 35.000</td>
+        </tr>
+        <tr>
+          <td>🌐 Custom Domain (1 Tahun)</td>
+          <td style="text-align: right; font-weight: 600;">Rp 50.000</td>
+        </tr>
+        <tr>
+          <td>📊 Dashboard RSVP</td>
+          <td style="text-align: right; font-weight: 600;">Rp 40.000</td>
+        </tr>
+        <tr>
+          <td>📸 Galeri Unlimited</td>
+          <td style="text-align: right; font-weight: 600;">Rp 25.000</td>
+        </tr>
+        <tr>
+          <td>📅 Save the Date</td>
+          <td style="text-align: right; font-weight: 600;">Rp 20.000</td>
+        </tr>
+        <tr>
+          <td>🎉 Thank You Page</td>
+          <td style="text-align: right; font-weight: 600;">Rp 15.000</td>
+        </tr>
+        <tr>
+          <td>💌 Buku Tamu Digital</td>
+          <td style="text-align: right; font-weight: 600;">Rp 25.000</td>
+        </tr>
+        <tr>
+          <td>🌍 Bahasa Indonesia & English</td>
+          <td style="text-align: right; font-weight: 600;">Rp 30.000</td>
         </tr>
       </tbody>
     </table>
@@ -293,7 +581,10 @@
 </section>
 
 <section class="faq-section">
-  <h2 style="font-family: 'Playfair Display'; text-align: center;">Pertanyaan Umum</h2>
+  <div class="section-title">
+    <h2>Pertanyaan Umum</h2>
+    <div class="divider"></div>
+  </div>
   <div class="faq-grid">
     <div class="faq-item">
       <h4>Berapa lama proses pembuatannya?</h4>
@@ -314,9 +605,45 @@
   </div>
 </section>
 
-<footer style="padding: 4rem 5%; background: var(--secondary); color: white; text-align: center;">
-  <p>© 2026 ArinEmir Digital Invitation. Crafted in Bandung.</p>
+<footer>
+  <p>© 2026 ArinEmir Digital Invitation • Crafted in Bandung<br><br>
+  <a href="#">Instagram</a> • <a href="#">Twitter</a></p>
 </footer>
 
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('planModal');
+    const closeBtn = document.getElementById('closeModal');
+    
+    // Function to open the modal
+    const openModal = (e) => {
+      e.preventDefault();
+      modal.classList.add('active');
+    };
+
+    // 1. Target the pricing card buttons ("Pilih Plan")
+    const planButtons = document.querySelectorAll('.price-card .btn');
+    planButtons.forEach(button => {
+      if (button.textContent.includes('Pilih')) {
+        button.addEventListener('click', openModal);
+      }
+    });
+
+    // 2. Target the "Pesan Sekarang" link in the navbar
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+      if (link.textContent.trim() === 'Pesan Sekarang') {
+        link.addEventListener('click', openModal);
+      }
+    });
+
+    // Close modal actions
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  });
+</script>
 </html>

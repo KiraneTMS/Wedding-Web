@@ -70,6 +70,40 @@ function initTheme(data) {
   safeSet('[data-footer-verse]', data.footer.verse);
   safeSet('[data-footer-message]', data.footer.message, true);
   safeSet('[data-footer-closing]', data.footer.closing, true);
+
+  // 7. Live Streaming (stays as placeholder until the event date/time arrives)
+  initLivestream(data);
+}
+
+function initLivestream(data) {
+  const statusEl = document.getElementById('livestream-status');
+  const linkEl = document.getElementById('livestream-link');
+  if (!linkEl) return;
+
+  const eventTime = new Date(data.dateISO).getTime();
+
+  function update() {
+    const isLive = data.livestreamUrl && Date.now() >= eventTime;
+    if (isLive) {
+      linkEl.href = data.livestreamUrl;
+      linkEl.target = '_blank';
+      linkEl.style.opacity = '';
+      linkEl.style.pointerEvents = '';
+      linkEl.removeAttribute('aria-disabled');
+      if (statusEl) statusEl.textContent = '🔴 Live sekarang! Klik tombol di bawah untuk menonton.';
+    } else {
+      linkEl.href = '#';
+      linkEl.removeAttribute('target');
+      linkEl.style.opacity = '0.5';
+      linkEl.style.pointerEvents = 'none';
+      linkEl.setAttribute('aria-disabled', 'true');
+      if (statusEl) statusEl.textContent = '▶ Live streaming akan dimulai pada hari-H';
+    }
+  }
+
+  update();
+  // Re-check periodically in case the page is left open across the event start time
+  setInterval(update, 30000);
 }
 
 window.initTheme = initTheme;

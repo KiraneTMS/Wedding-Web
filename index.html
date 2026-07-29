@@ -43,6 +43,346 @@
   // ────────────────────────────────────────────────
   // Hanya sampai sini jika ada parameter → lanjut load undangan
   // ────────────────────────────────────────────────
+  // ==========================================================
+  // Shared Plan Preview + Order Widget
+  // Works with ANY theme, as long as the theme follows the shared
+  // conventions: content wrapped in #wedding-root > #invitation-content,
+  // optional sections tagged data-plan-feature="story|gift|rsvp|livestream",
+  // and (optionally) a .pw-font-alt CSS hook for the font-toggle feature.
+  // No per-theme JS/CSS/HTML needed — this is injected once, here.
+  // ==========================================================
+
+  const PLAN_FEATURES = {
+    basic:     { story: false, gift: false, rsvp: false, livestream: false, customize: false, label: 'Basic',     icon: '🌸' },
+    premium:   { story: true,  gift: true,  rsvp: true,  livestream: true,  customize: true,  label: 'Premium',   icon: '💍' },
+    exclusive: { story: true,  gift: true,  rsvp: true,  livestream: true,  customize: true,  label: 'Exclusive', icon: '👑' }
+  };
+  const PLAN_PRICE = { basic: 150000, premium: 200000, exclusive: 300000 };
+  const PLAN_LABEL_FULL = { basic: '🌸 Basic', premium: '💍 Premium', exclusive: '👑 Exclusive' };
+
+  // TODO: ganti dengan nomor WhatsApp admin (format 62xxxxxxxxxx, tanpa +/spasi/strip)
+  const WHATSAPP_NUMBER = '6281567643275';
+
+  // TODO: sesuaikan daftar tambahan fitur sesuai layanan Anda.
+  // Tidak ada harga tetap di sini — sesuai list yang diberikan, harga
+  // tambahan fitur dikonfirmasi manual lewat WhatsApp.
+  const ADDONS = [
+    { id: 'illustration', label: '✨ Ilustrasi Custom Tambahan', price: 100000 },
+    { id: 'prewed',       label: '🎥 Section Video Pre-Wedding', price: 50000 },
+    { id: 'animation',    label: '🌸 Efek Animasi Premium', price: 35000 },
+    { id: 'domain',       label: '🌐 Custom Domain (1 Tahun)', price: 50000 },
+    { id: 'rsvp-dash',    label: '📊 Dashboard RSVP', price: 40000 },
+    { id: 'gallery-cap',  label: '📸 Galeri Unlimited', price: 25000 },
+    { id: 'savethedate',  label: '📅 Halaman Save the Date', price: 20000 },
+    { id: 'thankyou',     label: '🎉 Halaman Thank You', price: 15000 },
+    { id: 'guestbook',    label: '💌 Buku Tamu Digital', price: 25000 },
+    { id: 'bilingual',    label: '🌍 Bahasa Indonesia & English', price: 30000 }
+  ];
+
+  let currentPlanKey = 'exclusive';
+
+  function formatRupiah(n) {
+    return 'Rp ' + n.toLocaleString('id-ID');
+  }
+
+  // Turns a theme folder slug like "boho-rustic" into "Boho Rustic".
+  // Fill THEME_LABELS in if you want nicer/custom names per theme.
+  const THEME_LABELS = {
+    // rose: 'Rose Romance',
+    // boho: 'Boho Rustic',
+  };
+  function themeLabel(slug) {
+    return THEME_LABELS[slug] || slug.replace(/[-_]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  function applyPlan(planKey) {
+    const feat = PLAN_FEATURES[planKey];
+    if (!feat) return;
+    currentPlanKey = planKey;
+
+    document.querySelectorAll('[data-plan-feature]').forEach(el => {
+      const key = el.getAttribute('data-plan-feature');
+      el.classList.toggle('hidden', !feat[key]);
+    });
+
+    const label = document.getElementById('pw-plan-label');
+    const icon = document.getElementById('pw-plan-icon');
+    if (label) label.textContent = feat.label;
+    if (icon) icon.textContent = feat.icon;
+
+    document.querySelectorAll('#pw-plan-modal .pw-price-card').forEach(card => {
+      card.classList.toggle('pw-active-plan', card.getAttribute('data-plan') === planKey);
+    });
+
+    const customizeRow = document.getElementById('pw-customize-row');
+    if (customizeRow) customizeRow.classList.toggle('hidden', !feat.customize);
+
+    const wroot = document.getElementById('wedding-root');
+    if (wroot) wroot.classList.toggle('is-exclusive', planKey === 'exclusive');
+
+    const bar = document.getElementById('pw-exclusive-bar');
+    if (bar) bar.classList.toggle('pw-show', planKey === 'exclusive');
+
+    // Reset color/font customization when downgrading away from the feature
+    if (!feat.customize) {
+      const content = document.getElementById('invitation-content');
+      if (content) { content.style.filter = ''; content.classList.remove('pw-font-alt'); }
+    }
+  }
+
+  function injectPlanWidgetStyles() {
+    if (document.getElementById('pw-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'pw-styles';
+    style.textContent = `
+      #pw-exclusive-bar {
+        position: fixed; top: 0; left: 0; right: 0; height: 4px;
+        background: linear-gradient(90deg, #f0b429, #fda4af, #f0b429);
+        background-size: 200% 100%;
+        animation: pw-shimmer 3s linear infinite;
+        z-index: 99997; opacity: 0; transition: opacity .3s; pointer-events: none;
+      }
+      #pw-exclusive-bar.pw-show { opacity: 1; }
+      @keyframes pw-shimmer { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
+
+      .pw-swatch {
+        width: 1.5rem; height: 1.5rem; border-radius: 9999px; cursor: pointer;
+        border: 2px solid transparent; padding: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+      }
+      .pw-swatch.pw-swatch-active { border-color: #1e293b; }
+
+      .pw-pricing-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1.5rem; align-items: stretch;
+      }
+      .pw-price-card {
+        position: relative; background: #fff; border: 1px solid #fde4ec; border-radius: 1.5rem;
+        padding: 2rem 1.5rem; text-align: center; box-shadow: 0 4px 20px rgba(233,30,99,0.06);
+        display: flex; flex-direction: column; cursor: pointer;
+        transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      }
+      .pw-price-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(233,30,99,0.12); }
+      .pw-price-card.pw-featured { border-color: #e91e63; transform: scale(1.03); }
+      .pw-price-card.pw-active-plan { border-color: #e91e63; box-shadow: 0 0 0 3px rgba(233,30,99,0.25); }
+      .pw-price-card h4 { font-size: 1.4rem; margin: 0 0 0.5rem; }
+      .pw-price-card .pw-amount { display: block; font-size: 2rem; font-weight: 700; color: #e91e63; margin-bottom: 0.25rem; }
+      .pw-price-features { list-style: none; padding: 0; margin: 0 0 1.5rem; text-align: left; font-size: 0.85rem; color: #57534e; flex: 1; }
+      .pw-price-features li { padding: 0.35rem 0; border-bottom: 1px dashed #fde4ec; }
+      .pw-price-features li::before { content: "✓ "; color: #e91e63; font-weight: 700; }
+      .pw-btn { display: inline-block; border: none; cursor: pointer; background: #e91e63; color: #fff; padding: 0.75rem 1rem; border-radius: 999px; font-size: 0.9rem; font-weight: 600; width: 100%; transition: background .2s ease; }
+      .pw-btn:hover { background: #c2185b; }
+      .pw-popular-badge { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: #e91e63; color: #fff; padding: 5px 15px; font-size: 0.7rem; font-weight: bold; letter-spacing: 1px; border-radius: 999px; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function buildWidgetMarkup() {
+    const planCard = (key, icon, name, price, desc, features, featured) => `
+      <div class="pw-price-card ${featured ? 'pw-featured' : ''}" data-plan="${key}">
+        ${featured ? '<div class="pw-popular-badge">POPULAR</div>' : ''}
+        <h4>${icon} ${name}</h4>
+        <span class="pw-amount">${price}</span>
+        <p style="font-size:0.85rem;color:#999;margin-top:-1.5rem;margin-bottom:1.5rem;">${desc}</p>
+        <ul class="pw-price-features">${features.map(f => `<li>${f}</li>`).join('')}</ul>
+        <button type="button" class="pw-btn" data-select-plan="${key}">Pilih ${name}</button>
+      </div>`;
+
+    return `
+    <div id="pw-exclusive-bar"></div>
+
+    <div id="pw-widget" class="fixed bottom-5 right-5 z-[99998] flex flex-col items-end gap-3 font-sans">
+      <div id="pw-customize-row" class="hidden flex-col items-end gap-2 bg-white/95 backdrop-blur px-4 py-3 rounded-2xl shadow-lg border border-black/5">
+        <span class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Kustomisasi Warna</span>
+        <div class="flex gap-2">
+          <button type="button" class="pw-swatch pw-swatch-active" style="background:#e91e63" data-hue="0" title="Default"></button>
+          <button type="button" class="pw-swatch" style="background:#f0b429" data-hue="45" title="Gold"></button>
+          <button type="button" class="pw-swatch" style="background:#34d399" data-hue="140" title="Sage"></button>
+          <button type="button" class="pw-swatch" style="background:#818cf8" data-hue="220" title="Indigo"></button>
+        </div>
+        <button type="button" id="pw-font-toggle" class="mt-1 px-3 py-1 text-xs rounded-full border border-slate-200 bg-slate-50 hover:bg-slate-100">Ganti Font ✨</button>
+      </div>
+      <button id="pw-order-btn" type="button" class="flex items-center gap-2 pl-4 pr-5 py-3 bg-emerald-600 text-white rounded-full shadow-xl hover:bg-emerald-700 transition-all duration-300 text-sm font-semibold">
+        🛒 Pesan Sekarang
+      </button>
+      <button id="pw-preview-btn" type="button" class="flex items-center gap-2 pl-4 pr-5 py-3 bg-pink-600 text-white rounded-full shadow-xl hover:bg-pink-700 transition-all duration-300 text-sm font-semibold">
+        <span id="pw-plan-icon">👑</span>
+        <span>Preview: <span id="pw-plan-label">Exclusive</span></span>
+      </button>
+    </div>
+
+    <div id="pw-plan-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4 font-sans">
+      <div class="bg-white rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-y-auto p-6 md:p-10 relative">
+        <button id="pw-plan-modal-close" type="button" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center text-lg leading-none">✕</button>
+        <h3 class="text-center text-3xl text-pink-600 font-serif italic mb-2">Pilih Paket untuk Preview</h3>
+        <p class="text-center text-sm text-slate-400 mb-8">Klik salah satu paket untuk melihat bagaimana undangan ini tampil sesuai fiturnya</p>
+        <div class="pw-pricing-grid">
+          ${planCard('basic', '🌸', 'Basic', 'Rp 150rb', 'Untuk pasangan yang ingin undangan cantik dengan kustomisasi minimal.', [
+            'Semua Template/Tema', '1 Lagu Latar (Opsional)', 'Guest Name Links', 'Countdown', 'Maps & Navigasi', 'Informasi Acara', 'Share ke WhatsApp', 'Galeri 20 Foto'
+          ], false)}
+          ${planCard('premium', '💍', 'Premium', 'Rp 200rb', 'Semua di Basic, plus fitur yang paling banyak diminati.', [
+            'Semua Fitur Basic', 'RSVP Digital', 'Informasi Hadiah Pernikahan', 'Love Story Section', 'Event Timeline', 'Galeri Unlimited', 'Live Streaming', 'Kustomisasi Warna & Font'
+          ], true)}
+          ${planCard('exclusive', '👑', 'Exclusive', 'Rp 300rb', 'Untuk pasangan yang menginginkan undangan yang benar-benar satu-satunya.', [
+            'Semua Fitur Premium', 'Modifikasi Layout Custom', 'Section Baru Sesuai Request', 'Animasi Custom', 'Ilustrasi Custom', 'Undangan Password Protected', 'Custom Domain Gratis', 'Revisi Unlimited', 'Priority Support'
+          ], false)}
+        </div>
+      </div>
+    </div>
+
+    <div id="pw-order-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4 font-sans">
+      <div class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 md:p-8 relative">
+        <button id="pw-order-modal-close" type="button" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center text-lg leading-none">✕</button>
+        <h3 class="text-center text-2xl text-pink-600 font-serif italic mb-1">Pesan Undangan Ini</h3>
+        <p class="text-center text-sm text-slate-400 mb-6">Pilih paket dan tambahan, lalu lanjutkan ke WhatsApp</p>
+
+        <div class="mb-5">
+          <p class="text-xs uppercase tracking-wider text-pink-500 font-semibold mb-2">Pilih Paket</p>
+          <div id="pw-order-plan-options" class="space-y-2"></div>
+        </div>
+
+        <div class="mb-5">
+          <p class="text-xs uppercase tracking-wider text-pink-500 font-semibold mb-2">Tambahan Fitur (Opsional)</p>
+          <div id="pw-order-addon-options" class="space-y-2"></div>
+          <p class="text-[11px] text-slate-400 mt-2">*Hubungi kami untuk info harga masing-masing tambahan fitur.</p>
+        </div>
+
+        <div class="flex items-center justify-between border-t border-slate-100 pt-4 mb-5">
+          <span class="text-sm text-slate-500">Estimasi Paket</span>
+          <span id="pw-order-total" class="text-xl font-bold text-pink-600">Rp 0</span>
+        </div>
+
+        <a id="pw-order-wa-btn" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-semibold transition-colors">
+          Lanjutkan via WhatsApp
+        </a>
+        <p class="text-center text-[11px] text-slate-400 mt-3">Harga tambahan fitur akan dikonfirmasi melalui WhatsApp.</p>
+      </div>
+    </div>`;
+  }
+
+  function initPlanWidget(theme, data) {
+    injectPlanWidgetStyles();
+    document.body.insertAdjacentHTML('beforeend', buildWidgetMarkup());
+
+    const planModal = document.getElementById('pw-plan-modal');
+    const orderModal = document.getElementById('pw-order-modal');
+    const previewBtn = document.getElementById('pw-preview-btn');
+    const orderBtn = document.getElementById('pw-order-btn');
+
+    const openPlanModal = () => { planModal.classList.remove('hidden'); planModal.classList.add('flex'); };
+    const closePlanModal = () => { planModal.classList.add('hidden'); planModal.classList.remove('flex'); };
+    previewBtn.addEventListener('click', openPlanModal);
+    document.getElementById('pw-plan-modal-close').addEventListener('click', closePlanModal);
+    planModal.addEventListener('click', e => { if (e.target === planModal) closePlanModal(); });
+
+    document.querySelectorAll('#pw-plan-modal [data-select-plan]').forEach(btn => {
+      btn.addEventListener('click', () => { applyPlan(btn.getAttribute('data-select-plan')); closePlanModal(); });
+    });
+
+    document.querySelectorAll('.pw-swatch').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const content = document.getElementById('invitation-content');
+        if (content) content.style.filter = btn.dataset.hue === '0' ? '' : `hue-rotate(${btn.dataset.hue}deg)`;
+        document.querySelectorAll('.pw-swatch').forEach(b => b.classList.remove('pw-swatch-active'));
+        btn.classList.add('pw-swatch-active');
+      });
+    });
+
+    document.getElementById('pw-font-toggle').addEventListener('click', () => {
+      const content = document.getElementById('invitation-content');
+      if (content) content.classList.toggle('pw-font-alt');
+    });
+
+    // ----- Order flow -----
+    const planWrap = document.getElementById('pw-order-plan-options');
+    const addonWrap = document.getElementById('pw-order-addon-options');
+    const totalEl = document.getElementById('pw-order-total');
+    const waBtn = document.getElementById('pw-order-wa-btn');
+    const selectedAddons = new Set();
+    let orderSelectedPlan = currentPlanKey;
+
+    function renderPlanOptions() {
+      planWrap.innerHTML = Object.keys(PLAN_PRICE).map(key => `
+        <label class="flex items-center justify-between gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${orderSelectedPlan === key ? 'border-pink-400 bg-pink-50' : 'border-slate-200'}">
+          <span class="flex items-center gap-2">
+            <input type="radio" name="pw-order-plan" value="${key}" ${orderSelectedPlan === key ? 'checked' : ''} class="accent-pink-600">
+            <span class="text-sm font-semibold">${PLAN_LABEL_FULL[key]}</span>
+          </span>
+          <span class="text-sm text-pink-600 font-semibold">${formatRupiah(PLAN_PRICE[key])}</span>
+        </label>
+      `).join('');
+      planWrap.querySelectorAll('input[name="pw-order-plan"]').forEach(input => {
+        input.addEventListener('change', () => { orderSelectedPlan = input.value; renderPlanOptions(); updateTotal(); });
+      });
+    }
+
+    function renderAddonOptions() {
+      addonWrap.innerHTML = ADDONS.map(a => `
+        <label class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer text-sm">
+          <span class="flex items-center gap-2">
+            <input type="checkbox" value="${a.id}" class="accent-pink-600">
+            ${a.label}
+          </span>
+          <span class="font-semibold text-pink-600">
+            +${formatRupiah(a.price)}
+          </span>
+        </label>
+      `).join('');
+
+      addonWrap.querySelectorAll('input[type="checkbox"]').forEach(input => {
+        input.addEventListener('change', () => {
+          if (input.checked) selectedAddons.add(input.value);
+          else selectedAddons.delete(input.value);
+          updateTotal();
+        });
+      });
+    }
+
+    function updateTotal() {
+      const addonTotal = ADDONS
+        .filter(a => selectedAddons.has(a.id))
+        .reduce((sum, a) => sum + a.price, 0);
+
+      const total = PLAN_PRICE[orderSelectedPlan] + addonTotal;
+
+      totalEl.textContent = formatRupiah(total);
+
+      const addonLines = ADDONS
+      .filter(a => selectedAddons.has(a.id))
+      .map(a => `- ${a.label} (${formatRupiah(a.price)})`)
+      .join('\n');
+      const coupleNames = data && data.groom && data.bride
+        ? `${data.groom.name.split(',')[0]} & ${data.bride.name.split(',')[0]}`
+        : '(nama belum diisi)';
+
+      const message = [
+        `Halo, saya ingin memesan undangan digital 💌`,
+        ``,
+        `Tema: ${themeLabel(theme)}`,
+        `Paket: ${PLAN_LABEL_FULL[orderSelectedPlan]} (${formatRupiah(PLAN_PRICE[orderSelectedPlan])})`,
+        addonLines ? `Tambahan Fitur (mohon info harga):\n${addonLines}` : `Tambahan Fitur: -`,
+        ``
+      ].join('\n');
+
+      if (waBtn) waBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
+    const openOrderModal = () => {
+      orderSelectedPlan = currentPlanKey;
+      renderPlanOptions();
+      renderAddonOptions();
+      updateTotal();
+      orderModal.classList.remove('hidden');
+      orderModal.classList.add('flex');
+    };
+    const closeOrderModal = () => { orderModal.classList.add('hidden'); orderModal.classList.remove('flex'); };
+
+    orderBtn.addEventListener('click', openOrderModal);
+    document.getElementById('pw-order-modal-close').addEventListener('click', closeOrderModal);
+    orderModal.addEventListener('click', e => { if (e.target === orderModal) closeOrderModal(); });
+
+    applyPlan(currentPlanKey);
+  }
+
   async function loadInvitation() {
     try {
       const dataRes = await fetch(`data/${couple}.json`);
@@ -88,6 +428,15 @@
           scroll-behavior: smooth;
           margin: 0 !important;
           padding: 0 !important;
+          /* body was a flex container (display:flex; align-items:center;
+             justify-content:center) just for centering the loading text.
+             Left in place, it makes #root a shrink-to-fit flex item
+             instead of a full-width block, which distorts the real
+             invitation's layout. Reset it back to normal block flow. */
+          display: block !important;
+        }
+        #root {
+          width: 100% !important;
         }
         #root, #root > * {
           min-height: auto !important;
@@ -130,6 +479,7 @@
           if (typeof window.initTheme === 'function') {
             window.initTheme(data);
             document.title = `${data.groom.name} × ${data.bride.name}`;
+            initPlanWidget(theme, data);
           } else {
             console.warn('initTheme tidak ditemukan di script tema:', theme);
             root.innerHTML += `

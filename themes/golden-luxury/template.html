@@ -1,11 +1,11 @@
-<div id="wedding-root" class="min-h-screen bg-[#0f0f0f] text-[#d4af37] selection:bg-amber-900 overflow-x-hidden font-serif">
-  <div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
+<div id="wedding-root" class="min-h-screen bg-[#0f0f0f] text-[#d4af37] selection:bg-amber-900 font-serif">
+<div id="invitation-content" class="relative overflow-x-hidden">
 
   <section class="relative h-screen flex items-center justify-center overflow-hidden border-b-4 border-[#d4af37]">
     <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-transform duration-[25s] scale-100 group-hover:scale-110">
       <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black/90"></div>
     </div>
-    
+
     <div class="absolute inset-10 border border-[#d4af37]/30 pointer-events-none"></div>
     <div class="absolute inset-12 border-2 border-[#d4af37]/10 pointer-events-none"></div>
 
@@ -15,11 +15,11 @@
         <span class="text-xs tracking-[0.6em] uppercase text-white font-light" data-tagline></span>
         <div class="h-[1px] w-12 bg-[#d4af37]"></div>
       </div>
-      
+
       <h1 class="text-6xl md:text-9xl font-extralight italic leading-none text-white drop-shadow-[0_5px_15px_rgba(212,175,55,0.5)]">
         <span data-groom-short></span> <span class="text-[#d4af37]">&</span> <span data-bride-short></span>
       </h1>
-      
+
       <div class="py-4 border-y border-[#d4af37]/40 inline-block px-12">
         <p class="text-xl md:text-2xl tracking-[0.3em] font-light text-white" data-date-str></p>
       </div>
@@ -35,8 +35,8 @@
   </section>
 
   <section id="grand-profile" class="py-32 px-4 relative z-10 bg-gradient-to-b from-[#0f0f0f] to-[#1a1a1a]">
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20">
-      
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 md:gap-20">
+
       <div class="relative">
         <div class="relative z-10 p-2 bg-[#d4af37] rounded-t-full">
            <div class="overflow-hidden rounded-t-full aspect-[3/4]">
@@ -47,6 +47,7 @@
           <h3 class="text-sm tracking-[0.4em] uppercase text-[#d4af37] mb-4">The Groom</h3>
           <h2 class="text-4xl text-white mb-4" data-groom></h2>
           <p class="text-stone-400 italic leading-relaxed" data-groom-parent></p>
+          <a id="groom-ig" target="_blank" class="inline-block mt-4 text-[#d4af37] text-xs tracking-[0.3em] uppercase hover:text-white transition-colors"></a>
         </div>
       </div>
 
@@ -60,9 +61,121 @@
           <h3 class="text-sm tracking-[0.4em] uppercase text-[#d4af37] mb-4">The Bride</h3>
           <h2 class="text-4xl text-white mb-4" data-bride></h2>
           <p class="text-stone-400 italic leading-relaxed" data-bride-parent></p>
+          <a id="bride-ig" target="_blank" class="inline-block mt-4 text-[#d4af37] text-xs tracking-[0.3em] uppercase hover:text-white transition-colors"></a>
         </div>
       </div>
 
     </div>
   </section>
+
+  <section class="py-20 px-4 relative z-10 bg-[#0f0f0f] border-y border-[#d4af37]/20">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-6 border-r border-[#d4af37]/20">
+          <div id="days" class="text-5xl font-light text-white">0</div>
+          <div class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37] mt-2">Days</div>
+        </div>
+        <div class="p-6 md:border-r border-[#d4af37]/20">
+          <div id="hours" class="text-5xl font-light text-white">0</div>
+          <div class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37] mt-2">Hours</div>
+        </div>
+        <div class="p-6 border-r border-[#d4af37]/20">
+          <div id="minutes" class="text-5xl font-light text-white">0</div>
+          <div class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37] mt-2">Mins</div>
+        </div>
+        <div class="p-6">
+          <div id="seconds" class="text-5xl font-light text-white">0</div>
+          <div class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37] mt-2">Secs</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-32 px-4 relative z-10 bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f]" data-plan-feature="story">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-center text-sm tracking-[0.5em] uppercase text-[#d4af37] mb-16">Kisah Kami</h2>
+      <div id="story-list" class="space-y-10"></div>
+    </div>
+  </section>
+
+  <section class="py-32 px-4 relative z-10 bg-[#0f0f0f] border-y border-[#d4af37]/20">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+      <div class="bg-black border border-[#d4af37]/40 p-10 text-center">
+        <h3 class="text-[#d4af37] text-xs tracking-[0.4em] uppercase mb-4" data-ceremony-title></h3>
+        <p class="text-2xl text-white font-light mb-2" data-ceremony-venue></p>
+        <p class="text-stone-400 text-sm" data-ceremony-address></p>
+        <div class="my-6 border-t border-[#d4af37]/20"></div>
+        <p class="text-[#d4af37]/90" data-ceremony-time></p>
+        <p class="text-xs italic text-stone-500 mt-2" data-ceremony-note></p>
+        <a id="ceremony-maps" target="_blank" class="inline-block mt-6 px-8 py-3 border border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-black transition-all uppercase tracking-widest text-xs">Lihat Lokasi</a>
+      </div>
+      <div class="bg-black border border-[#d4af37]/40 p-10 text-center">
+        <h3 class="text-[#d4af37] text-xs tracking-[0.4em] uppercase mb-4" data-reception-title></h3>
+        <p class="text-2xl text-white font-light mb-2" data-reception-venue></p>
+        <p class="text-stone-400 text-sm" data-reception-address></p>
+        <div class="my-6 border-t border-[#d4af37]/20"></div>
+        <p class="text-[#d4af37]/90" data-reception-time></p>
+        <p class="text-xs italic text-stone-500 mt-2" data-reception-note></p>
+        <a id="reception-maps" target="_blank" class="inline-block mt-6 px-8 py-3 border border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-black transition-all uppercase tracking-widest text-xs">Lihat Lokasi</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-32 px-4 relative z-10 bg-gradient-to-b from-[#0f0f0f] to-[#1a1a1a]" data-plan-feature="livestream">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-sm tracking-[0.5em] uppercase text-[#d4af37] mb-4">Live Streaming</h2>
+      <p class="text-stone-400 text-sm mb-8">Tidak bisa hadir langsung? Ikuti momen sakral kami secara live.</p>
+      <div class="aspect-video border border-[#d4af37]/40 flex items-center justify-center bg-black">
+        <span id="livestream-status" class="text-stone-400 text-sm px-4 text-center">▶ Live streaming akan dimulai pada hari-H</span>
+      </div>
+      <a id="livestream-link" href="#" class="inline-block mt-6 px-8 py-3 border border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-black transition-all uppercase tracking-widest text-xs">Tonton di YouTube</a>
+    </div>
+  </section>
+
+  <section class="py-32 px-4 relative z-10 bg-[#0f0f0f] border-y border-[#d4af37]/20" data-plan-feature="rsvp">
+    <div class="max-w-md mx-auto text-center">
+      <h2 class="text-sm tracking-[0.5em] uppercase text-[#d4af37] mb-4">RSVP</h2>
+      <p class="text-stone-400 text-sm mb-8">Mohon konfirmasi kehadiran Anda melalui form berikut.</p>
+      <form class="space-y-4 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
+        <input type="text" placeholder="Nama Anda" class="w-full px-4 py-3 bg-black border border-[#d4af37]/40 text-white placeholder-stone-500 focus:outline-none focus:border-[#d4af37]">
+        <select class="w-full px-4 py-3 bg-black border border-[#d4af37]/40 text-white focus:outline-none focus:border-[#d4af37]">
+          <option>Hadir</option>
+          <option>Tidak Hadir</option>
+          <option>Masih Ragu</option>
+        </select>
+        <textarea rows="3" placeholder="Ucapan & Doa" class="w-full px-4 py-3 bg-black border border-[#d4af37]/40 text-white placeholder-stone-500 focus:outline-none focus:border-[#d4af37]"></textarea>
+        <button type="submit" class="w-full py-3 bg-[#d4af37] text-black uppercase tracking-widest text-xs hover:bg-white transition-colors font-bold">Kirim RSVP</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="py-32 px-4 relative z-10 bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f]" data-plan-feature="gift">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-sm tracking-[0.5em] uppercase text-[#d4af37] mb-12">Tanda Kasih</h2>
+      <div id="gift-list" class="grid md:grid-cols-2 gap-6"></div>
+    </div>
+  </section>
+
+  <section class="py-32 px-4 relative z-10 bg-[#0f0f0f] border-y border-[#d4af37]/20">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-sm tracking-[0.5em] uppercase text-[#d4af37] mb-12">Galeri</h2>
+      <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+    </div>
+  </section>
+
+  <footer class="py-32 px-4 relative z-10 text-center bg-gradient-to-b from-[#0f0f0f] to-black">
+    <div class="max-w-xl mx-auto mb-12">
+      <p class="text-stone-400 italic text-lg" data-footer-quote></p>
+      <strong class="block mt-4 text-[#d4af37] text-xs tracking-[0.4em] uppercase" data-footer-verse></strong>
+    </div>
+    <div class="text-stone-400 mb-8" data-footer-message></div>
+    <div class="text-3xl text-[#d4af37] italic" data-footer-closing></div>
+  </footer>
+
 </div>
+<!-- ^ /invitation-content -->
+
+<div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+</div>
+<!-- ^ /wedding-root -->

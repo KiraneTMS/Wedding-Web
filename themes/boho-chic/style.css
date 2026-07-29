@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap');
+
 :root {
   --bg: #fdfaf5;
   --text: #4a3c31;
@@ -189,3 +191,39 @@ h1 {
   100% { transform: translateY(-200vh) rotate(720deg); }
 }
 
+/* ===== Plan preview: base ===== */
+#wedding-root { width: 100%; }
+
+/* Filter/font customization is scoped to the invitation content only,
+   never to #wedding-root — the widget/modal are portaled to <body> by
+   script.js, so this scoping doesn't even reach them, but keeping the
+   filter off any ancestor of a position:fixed element (like .leaves)
+   avoids turning that ancestor into a containing block that clips it. */
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+.hidden { display: none !important; }
+
+/* ===== Gated sections ===== */
+[data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+/* ===== Exclusive plan flourish ===== */
+@keyframes shimmer-frame {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 163, 115, 0); }
+  50% { box-shadow: 0 0 50px 10px rgba(212, 163, 115, 0.45); }
+}
+
+#wedding-root.is-exclusive .frame {
+  animation: shimmer-frame 4s ease-in-out infinite;
+}
+
+/* ===== Elegant font toggle (Premium+) ===== */
+#invitation-content.pw-font-alt h1,
+#invitation-content.pw-font-alt .love,
+#invitation-content.pw-font-alt .boho-gallery h2 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}

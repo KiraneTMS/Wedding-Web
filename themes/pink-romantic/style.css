@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0); }
   50% { transform: translateY(-20px) rotate(10deg); }
@@ -19,4 +21,53 @@
 #hero-bg {
   background-size: cover;
   background-position: center;
+}
+
+/* ===== Plan preview: shared vars ===== */
+#wedding-root {
+  width: 100%;
+}
+
+/* Filter/font customization (driven by the loader's shared widget) is
+   scoped to the invitation content only, never to #wedding-root itself —
+   the widget/modal live directly under <body>, appended by the loader,
+   but keeping this scoped here is still correct in case any theme markup
+   nests differently. */
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+/* ===== Plan-gated sections ===== */
+#wedding-root [data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+/* ===== Exclusive plan flourish ===== */
+@keyframes shimmer-border {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240, 180, 41, 0.0); }
+  50% { box-shadow: 0 0 40px 6px rgba(240, 180, 41, 0.35); }
+}
+
+#wedding-root.is-exclusive #hero-bg {
+  animation: shimmer-border 4s ease-in-out infinite;
+}
+
+/* Font-toggle hook for the loader's shared "Ganti Font" button.
+   .pw-font-alt is a generic class name the loader toggles on
+   #invitation-content — this theme defines what it means. */
+#invitation-content.pw-font-alt .font-serif,
+#invitation-content.pw-font-alt h2,
+#invitation-content.pw-font-alt h3 {
+  font-family: 'Great Vibes', cursive;
+}
+
+/* The hero title uses a huge tailwind size (text-7xl/9xl) sized for a
+   normal serif. Great Vibes runs much wider per character at the same
+   size, so give it its own smaller, viewport-clamped size instead of
+   inheriting the tailwind class size — otherwise it overflows sideways. */
+#invitation-content.pw-font-alt h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.5rem, 11vw, 5.5rem);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
 }

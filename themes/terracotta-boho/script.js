@@ -5,10 +5,15 @@ function initTheme(data) {
   };
 
   // 1. Hero & Names
+  const groomShort = data.groom.name.split(',')[0];
+  const brideShort = data.bride.name.split(',')[0];
+
   safeSet('[data-tagline]', data.tagline);
   safeSet('[data-date-str]', data.dateStr);
-  safeSet('[data-groom-short]', data.groom.name.split(',')[0]);
-  safeSet('[data-bride-short]', data.bride.name.split(',')[0]);
+  safeSet('[data-groom-short]', groomShort);
+  safeSet('[data-bride-short]', brideShort);
+  safeSet('[data-groom-initial]', groomShort.trim().charAt(0).toUpperCase());
+  safeSet('[data-bride-initial]', brideShort.trim().charAt(0).toUpperCase());
   safeSet('[data-groom]', data.groom.name);
   safeSet('[data-bride]', data.bride.name);
   safeSet('[data-groom-parent]', data.groom.parent);
@@ -51,10 +56,10 @@ function initTheme(data) {
   const storyList = document.getElementById('story-list');
   if (storyList && data.story) {
     storyList.innerHTML = data.story.map(item => `
-      <div class="border-l border-[#d4af37]/40 pl-6">
-        <span class="text-[#d4af37] text-xs tracking-widest uppercase">${item.date}</span>
-        <h4 class="text-2xl text-white font-light my-1">${item.title}</h4>
-        <p class="text-stone-400 text-sm">${item.desc}</p>
+      <div class="border-l-2 border-[#c1502e]/40 pl-6">
+        <span class="text-[#c1502e] text-xs tracking-widest uppercase">${item.date}</span>
+        <h4 class="font-display text-2xl text-[#4a2f1c] my-1">${item.title}</h4>
+        <p class="text-[#7a5c3e] text-sm">${item.desc}</p>
       </div>
     `).join('');
   }
@@ -63,25 +68,26 @@ function initTheme(data) {
   const giftList = document.getElementById('gift-list');
   if (giftList && data.gift) {
     giftList.innerHTML = data.gift.map(g => `
-      <div class="border border-[#d4af37]/40 p-8 bg-black">
-        <p class="text-[#d4af37] text-xs uppercase tracking-widest mb-2">${g.bank}</p>
-        <p class="text-2xl text-white tracking-widest my-2">${g.accountNumber}</p>
-        <p class="text-stone-400 text-xs uppercase">a/n ${g.accountHolder}</p>
+      <div class="clay-tile">
+        <p class="text-[#c1502e] text-xs uppercase tracking-widest mb-2">${g.bank}</p>
+        <p class="text-2xl text-[#4a2f1c] tracking-widest my-2">${g.accountNumber}</p>
+        <p class="text-[#7a5c3e] text-xs uppercase">a/n ${g.accountHolder}</p>
       </div>
     `).join('');
   }
 
-  // 6. Gallery grid
+  // 6. Gallery — hanging macrame frames, each with a slight organic tilt
   const galleryGrid = document.getElementById('gallery-grid');
   if (galleryGrid && data.gallery) {
-    data.gallery.forEach(url => {
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = "Moment";
-      img.loading = "lazy";
-      img.className = "w-full aspect-square object-cover border border-[#d4af37]/30";
-      galleryGrid.appendChild(img);
-    });
+    galleryGrid.innerHTML = data.gallery.map((url, i) => {
+      const angle = (i % 2 === 0 ? -1 : 1) * (3 + ((i * 7) % 6));
+      return `
+        <div class="boho-frame-wrap" style="transform: rotate(${angle}deg);">
+          <span class="boho-knot"></span>
+          <img src="${url}" alt="Moment" loading="lazy" class="boho-frame">
+        </div>
+      `;
+    }).join('');
   }
 
   // 7. Footer
@@ -102,8 +108,8 @@ function initTheme(data) {
     document.getElementById('seconds').innerText = Math.floor((d % 6e4) / 1000);
   }, 1000);
 
-  // 9. Visual Effects
-  spawnCrystals();
+  // 9. Floating dried-leaf particles
+  spawnLeaves();
 
   // 10. Live Streaming (stays as placeholder until the event date/time arrives)
   initLivestream(data);
@@ -140,32 +146,27 @@ function initLivestream(data) {
   setInterval(update, 30000);
 }
 
-function spawnCrystals() {
+function spawnLeaves() {
   const container = document.getElementById('heart-container');
   if (!container) return;
 
-  // Membuat partikel kristal berkilau
-  for (let i = 0; i < 40; i++) {
-    const crystal = document.createElement('div');
-    crystal.className = 'crystal';
+  // Dedaunan kering & rumput pampas melayang perlahan
+  const symbols = ['🍂', '🌾', '🥀', '✦'];
 
-    const size = Math.random() * 4 + 1;
-    crystal.style.width = size + 'px';
-    crystal.style.height = size + 'px';
+  for (let i = 0; i < 18; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'boho-particle';
+    leaf.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
 
-    crystal.style.left = Math.random() * 100 + '%';
-    crystal.style.top = Math.random() * 100 + '%';
+    leaf.style.left = Math.random() * 100 + '%';
+    leaf.style.top = Math.random() * 100 + '%';
+    leaf.style.fontSize = (12 + Math.random() * 16) + 'px';
 
-    crystal.style.animationDelay = Math.random() * 5 + 's';
-    crystal.style.animationDuration = (2 + Math.random() * 3) + 's';
+    const duration = 12 + Math.random() * 14;
+    leaf.style.animation = `driftLeaf ${duration}s infinite ease-in-out`;
+    leaf.style.animationDelay = `-${Math.random() * duration}s`;
 
-    // Memberikan rona emas tipis pada beberapa kristal
-    if (Math.random() > 0.7) {
-      crystal.style.backgroundColor = '#d4af37';
-      crystal.style.boxShadow = '0 0 10px 2px rgba(212, 175, 55, 0.8)';
-    }
-
-    container.appendChild(crystal);
+    container.appendChild(leaf);
   }
 }
 

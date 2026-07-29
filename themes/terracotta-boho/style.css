@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,500&family=Jost:wght@300;400;500&family=Great+Vibes&display=swap');
+
+#wedding-root {
+  font-family: 'Jost', sans-serif;
+  background-color: #f5efe6;
+  width: 100%;
+}
+
+.font-display, h1, h2, h3 {
+  font-family: 'Fraunces', serif;
+}
+
+/* ===== Signature shape: the arch (used for hero + profile photos) ===== */
+.clay-arch {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 50% 50% 0 0 / 32% 32% 0 0;
+  border: 10px solid #f5efe6;
+  box-shadow: 0 0 0 2px rgba(193, 80, 46, 0.55), 0 25px 55px rgba(74, 47, 28, 0.35);
+}
+
+.clay-arch--sm {
+  border-width: 7px;
+}
+
+/* ===== Clay seal monogram (wax-stamp style) ===== */
+.clay-seal {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 32% 28%, #d97a4d, #a8442a 70%);
+  border: 3px solid #f5efe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5efe6;
+  font-family: 'Fraunces', serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.05em;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), inset 0 2px 5px rgba(255, 255, 255, 0.25);
+}
+
+/* ===== Clay tile (info card) ===== */
+.clay-tile {
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px solid rgba(138, 109, 59, 0.25);
+  border-radius: 1.75rem;
+  padding: 2rem 1.75rem;
+}
+
+/* ===== Macrame fringe (small, under hero title) and divider (full-width, between sections) ===== */
+.macrame-fringe {
+  height: 18px;
+  background-image: repeating-linear-gradient(90deg, #c1502e 0 2px, transparent 2px 10px);
+  opacity: 0.6;
+}
+
+.macrame-divider {
+  position: relative;
+  height: 30px;
+  background-image: repeating-linear-gradient(90deg, rgba(138, 109, 59, 0.35) 0 2px, transparent 2px 16px);
+}
+
+.macrame-divider::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 12px;
+  height: 20px;
+  background-image: radial-gradient(circle at 8px 0, transparent 9px, #f5efe6 10px);
+  background-size: 16px 20px;
+  background-repeat: repeat-x;
+}
+
+/* ===== Hanging-frame gallery ===== */
+.boho-frame-wrap {
+  position: relative;
+  display: inline-block;
+  margin-top: 16px;
+}
+
+.boho-knot {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #8a6d3b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
+}
+
+.boho-knot::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 2px;
+  height: 14px;
+  background: #8a6d3b;
+  transform: translateX(-50%);
+}
+
+.boho-frame {
+  display: block;
+  width: 160px;
+  height: 200px;
+  object-fit: cover;
+  border: 6px solid #fff;
+  outline: 2px solid rgba(138, 109, 59, 0.4);
+  box-shadow: 0 10px 25px rgba(74, 47, 28, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.boho-frame-wrap:hover .boho-frame {
+  transform: scale(1.06) rotate(0deg) !important;
+  position: relative;
+  z-index: 5;
+}
+
+/* ===== Floating dried-leaf particles ===== */
+.boho-particle {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
+}
+
+@keyframes driftLeaf {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.55; }
+  50% { transform: translate(20px, -60px) rotate(180deg); }
+  90% { opacity: 0.55; }
+  100% { transform: translate(-10px, -120px) rotate(360deg); opacity: 0; }
+}
+
+/* =========================================================
+   Shared theme standard (plan gating, color/font customization,
+   exclusive-plan flourish). Driven by the loader's shared widget —
+   see index.html's initPlanWidget(). No per-theme widget code needed,
+   just these hooks.
+   ========================================================= */
+
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+#wedding-root [data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+@keyframes shimmer-border-terracotta {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(193, 80, 46, 0.55), 0 25px 55px rgba(74, 47, 28, 0.35); }
+  50% { box-shadow: 0 0 0 2px rgba(193, 80, 46, 0.55), 0 0 60px 14px rgba(193, 80, 46, 0.45); }
+}
+
+#wedding-root.is-exclusive .clay-arch {
+  animation: shimmer-border-terracotta 4s ease-in-out infinite;
+}
+
+/* Font-toggle hook for the loader's shared "Ganti Font" button. */
+#invitation-content.pw-font-alt h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1.15;
+}
