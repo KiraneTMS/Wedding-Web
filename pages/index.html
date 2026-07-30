@@ -20,6 +20,9 @@
 
     * { margin:0; padding:0; box-sizing:border-box; }
 
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--light);
@@ -302,23 +305,6 @@
 
     .btn:hover { background: transparent; color: var(--secondary); }
 
-    @media (max-width: 768px) {
-      .menu-icon { display: block; }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: white;
-        flex-direction: column;
-        padding: 2rem;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-      }
-      #menu-toggle:checked ~ .nav-links { display: flex; }
-      .nav-links a { margin: 1rem 0; width: 100%; text-align: center; }
-      .price-card.featured { transform: scale(1); margin: 1rem 0; }
-    }
     /* <!-- --- Popup Modal for Plan Selection --- --> */
     .modal-overlay {
       position: fixed;
@@ -406,7 +392,14 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      .hero {
+        padding-top: 10rem;
+      }
+      .section-title { margin-top: 3rem; }
+      .templates-grid { grid-template-columns: 1fr; }
+      .img-container { height: 420px; }
+      nav { flex-direction: column; gap: 1rem; }
+      .nav-links a { margin: 0 1rem; }
       .hero h1 { font-size: 3rem; }
     }
   </style>
@@ -427,7 +420,6 @@
     <div class="nav-links">
       <a href="/pages/template.html">Templates</a>
       <a href="/pages/pricing.html">Harga</a>
-      <a href="#" style="color: var(--primary)">Pesan Sekarang</a>
     </div>
   </nav>
 </header>
@@ -435,7 +427,7 @@
 <section class="hero">
   <h1>Abadikan Momen <span>Indah</span><br>Dalam Satu Tautan.</h1>
   <p>Eksklusif, ramah lingkungan, dan sepenuhnya custom. Sampaikan kabar bahagia Anda dengan cara yang lebih elegan.</p>
-  <a href="#order" class="btn">Mulai Konsultasi Gratis</a>
+  <a href="#pricing" class="btn">Pilih Paket</a>
 </section>
 
 <section>
