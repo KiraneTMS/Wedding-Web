@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Parisienne&family=Quicksand:wght@300;400;500&display=swap');
+
+#wedding-root {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #f6f2fb;
+  width: 100%;
+}
+
+.font-display, h1, h2, h3 {
+  font-family: 'Lora', serif;
+}
+
+.font-script {
+  font-family: 'Parisienne', cursive;
+}
+
+/* ===== Dreamy background wash ===== */
+.dream-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(55px);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== Signature shape: the organic blob frame ===== */
+.blob-frame {
+  width: 220px;
+  height: 220px;
+  border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+  padding: 8px;
+  background: #fff;
+  box-shadow: 0 20px 45px rgba(107, 79, 140, 0.25);
+}
+
+.blob-frame--md {
+  width: 200px;
+  height: 220px;
+}
+
+.blob-frame--alt {
+  border-radius: 42% 58% 40% 60% / 48% 42% 58% 52%;
+}
+
+.blob-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== CSS ribbon bow (no image needed) ===== */
+.ribbon-bow {
+  position: relative;
+  width: 50px;
+  height: 28px;
+  display: inline-block;
+}
+
+.ribbon-bow span {
+  position: absolute;
+  top: 0;
+  width: 22px;
+  height: 28px;
+  background: #c3b1e1;
+}
+
+.ribbon-bow span:first-child { left: 0; clip-path: polygon(100% 0, 100% 100%, 0% 50%); }
+.ribbon-bow span:last-child { right: 0; clip-path: polygon(0% 0, 0% 100%, 100% 50%); }
+
+.ribbon-bow i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 14px;
+  background: #9b86c2;
+  font-style: normal;
+}
+
+.ribbon-bow--sm {
+  transform: scale(0.55);
+}
+
+/* ===== Ribbon divider (thin lilac rule with a bow in the middle) ===== */
+.ribbon-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ribbon-divider span:not(.ribbon-bow) {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c3b1e1, transparent);
+}
+
+/* ===== Dream card (soft translucent info panel) ===== */
+.dream-card {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(195, 177, 225, 0.4);
+  border-radius: 2rem;
+  padding: 2rem 1.75rem;
+}
+
+/* ===== Small blob frames for the gallery ===== */
+.dream-frame {
+  width: 8.5rem;
+  height: 9.5rem;
+  border-radius: 58% 42% 44% 56% / 50% 46% 54% 50%;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(107, 79, 140, 0.2);
+  border: 5px solid #fff;
+}
+
+.dream-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Floating dreamy bokeh orbs ===== */
+.dream-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(3px);
+  pointer-events: none;
+  opacity: 0;
+}
+
+@keyframes floatOrb {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  15%  { opacity: 0.55; }
+  50%  { transform: translate(18px, -50vh); }
+  85%  { opacity: 0.55; }
+  100% { transform: translate(-12px, -100vh); opacity: 0; }
+}
+
+/* =========================================================
+   Shared theme standard (plan gating, color/font customization,
+   exclusive-plan flourish). Driven by the loader's shared widget —
+   see index.html's initPlanWidget(). No per-theme widget code needed,
+   just these hooks.
+   ========================================================= */
+
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+#wedding-root [data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+@keyframes shimmer-border-lavender {
+  0%, 100% { box-shadow: 0 20px 45px rgba(107, 79, 140, 0.25); }
+  50% { box-shadow: 0 0 45px 14px rgba(195, 177, 225, 0.6); }
+}
+
+#wedding-root.is-exclusive .blob-frame {
+  animation: shimmer-border-lavender 4s ease-in-out infinite;
+}
+
+/* Font-toggle hook for the loader's shared "Ganti Font" button —
+   this theme already owns a script font, so the toggle switches the
+   main heading into it instead of pulling in a new font. */
+#invitation-content.pw-font-alt h1 {
+  font-family: 'Parisienne', cursive;
+  font-weight: 400;
+  font-size: clamp(3rem, 9vw, 5.5rem);
+}

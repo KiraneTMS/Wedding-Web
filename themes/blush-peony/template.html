@@ -1,0 +1,192 @@
+<div id="wedding-root" class="min-h-screen bg-[#fffaf7] text-[#5c3a42] selection:bg-[#f3c9d4]/60 font-sans">
+<div id="invitation-content" class="relative overflow-x-hidden">
+
+  <section class="relative min-h-screen flex flex-col items-center justify-center py-20 px-6 overflow-hidden">
+    <div class="watercolor-blob w-72 h-72 -top-10 -left-16 bg-[#f3c9d4]"></div>
+    <div class="watercolor-blob w-96 h-96 -bottom-24 -right-20 bg-[#f7dfe3]"></div>
+    <div class="watercolor-blob w-56 h-56 top-1/3 right-0 bg-[#e8b8c6]"></div>
+
+    <svg class="absolute top-8 left-8 w-16 h-16 text-[#d68fa0]/30" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="50" cy="50" r="10" />
+      <circle cx="50" cy="30" r="10" /><circle cx="50" cy="70" r="10" />
+      <circle cx="30" cy="50" r="10" /><circle cx="70" cy="50" r="10" />
+    </svg>
+    <svg class="absolute bottom-10 right-8 w-20 h-20 text-[#d4af8c]/40 rotate-12" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="50" cy="50" r="12" />
+      <circle cx="50" cy="26" r="12" /><circle cx="50" cy="74" r="12" />
+      <circle cx="26" cy="50" r="12" /><circle cx="74" cy="50" r="12" />
+    </svg>
+
+    <div class="cameo-frame mx-auto mb-10 relative z-10">
+      <div id="hero-bg" class="cameo-photo"></div>
+    </div>
+
+    <div class="relative z-10 text-center max-w-lg mx-auto">
+      <p class="tracking-[0.5em] uppercase text-xs text-[#c9a96b] mb-5" data-tagline></p>
+      <h1 class="font-display text-5xl md:text-7xl leading-tight text-[#5c3a42] mb-6">
+        <span data-groom-short></span> <span class="font-script text-[#d68fa0] text-4xl md:text-6xl align-middle">&amp;</span> <span data-bride-short></span>
+      </h1>
+      <div class="peony-divider mb-6">
+        <span></span><span class="peony-divider-icon">🌸</span><span></span>
+      </div>
+      <p class="text-lg italic text-[#8a5b68] mb-10" data-date-str></p>
+      <button onclick="document.getElementById('couple-section').scrollIntoView({behavior: 'smooth'})"
+        class="px-10 py-3 rounded-full border border-[#d4af8c] text-[#a9724f] hover:bg-[#d4af8c] hover:text-white transition-all duration-500 uppercase tracking-widest text-xs">
+        Buka Undangan
+      </button>
+    </div>
+  </section>
+
+  <section id="couple-section" class="py-24 px-6 relative z-10">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
+
+      <div class="text-center">
+        <div class="cameo-frame cameo-frame--md mx-auto mb-6">
+          <img id="groom-img" src="" class="cameo-photo object-cover">
+        </div>
+        <p class="text-[10px] tracking-[0.4em] uppercase text-[#c9a96b] mb-2">The Groom</p>
+        <h2 class="font-display text-3xl mb-2" data-groom></h2>
+        <p class="text-[#8a5b68] italic text-sm" data-groom-parent></p>
+        <a id="groom-ig" target="_blank" class="inline-block mt-3 text-[#c9a96b] text-xs tracking-widest uppercase hover:text-[#a9724f] transition-colors"></a>
+      </div>
+
+      <div class="text-center">
+        <div class="cameo-frame cameo-frame--md mx-auto mb-6">
+          <img id="bride-img" src="" class="cameo-photo object-cover">
+        </div>
+        <p class="text-[10px] tracking-[0.4em] uppercase text-[#c9a96b] mb-2">The Bride</p>
+        <h2 class="font-display text-3xl mb-2" data-bride></h2>
+        <p class="text-[#8a5b68] italic text-sm" data-bride-parent></p>
+        <a id="bride-ig" target="_blank" class="inline-block mt-3 text-[#c9a96b] text-xs tracking-widest uppercase hover:text-[#a9724f] transition-colors"></a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="peony-divider max-w-xs mx-auto py-4"><span></span><span class="peony-divider-icon">🌸</span><span></span></div>
+
+  <section class="py-16 px-6 relative z-10">
+    <div class="max-w-3xl mx-auto blush-card flex items-center justify-center gap-6 md:gap-14 text-center flex-wrap mx-6">
+      <div>
+        <div id="days" class="font-display text-4xl md:text-6xl text-[#a9724f]">0</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#c9a96b] mt-2">Hari</div>
+      </div>
+      <div class="text-[#d4af8c] text-xl">✦</div>
+      <div>
+        <div id="hours" class="font-display text-4xl md:text-6xl text-[#a9724f]">0</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#c9a96b] mt-2">Jam</div>
+      </div>
+      <div class="text-[#d4af8c] text-xl">✦</div>
+      <div>
+        <div id="minutes" class="font-display text-4xl md:text-6xl text-[#a9724f]">0</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#c9a96b] mt-2">Menit</div>
+      </div>
+      <div class="text-[#d4af8c] text-xl">✦</div>
+      <div>
+        <div id="seconds" class="font-display text-4xl md:text-6xl text-[#a9724f]">0</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#c9a96b] mt-2">Detik</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="peony-divider max-w-xs mx-auto py-4"><span></span><span class="peony-divider-icon">🌸</span><span></span></div>
+
+  <section class="py-24 px-6 relative z-10" data-plan-feature="story">
+    <div class="max-w-2xl mx-auto">
+      <p class="text-center text-xs tracking-[0.5em] uppercase text-[#c9a96b] mb-16">Kisah Kami</p>
+      <div id="story-list" class="space-y-10"></div>
+    </div>
+  </section>
+
+  <div class="peony-divider max-w-xs mx-auto py-4"><span></span><span class="peony-divider-icon">🌸</span><span></span></div>
+
+  <section class="py-24 px-6 relative z-10">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+      <div class="blush-card text-center">
+        <h3 class="font-display text-2xl text-[#a9724f] mb-3" data-ceremony-title></h3>
+        <p class="text-lg mb-1" data-ceremony-venue></p>
+        <p class="text-[#8a5b68] text-sm" data-ceremony-address></p>
+        <div class="my-5 h-px bg-[#d4af8c]/30"></div>
+        <p class="text-[#8a5b68]" data-ceremony-time></p>
+        <p class="text-xs italic text-[#8a5b68]/70 mt-2" data-ceremony-note></p>
+        <a id="ceremony-maps" target="_blank" class="inline-block mt-6 px-8 py-2.5 rounded-full border border-[#d4af8c] text-[#a9724f] hover:bg-[#d4af8c] hover:text-white transition-all uppercase tracking-widest text-xs">Lihat Lokasi</a>
+      </div>
+      <div class="blush-card text-center">
+        <h3 class="font-display text-2xl text-[#a9724f] mb-3" data-reception-title></h3>
+        <p class="text-lg mb-1" data-reception-venue></p>
+        <p class="text-[#8a5b68] text-sm" data-reception-address></p>
+        <div class="my-5 h-px bg-[#d4af8c]/30"></div>
+        <p class="text-[#8a5b68]" data-reception-time></p>
+        <p class="text-xs italic text-[#8a5b68]/70 mt-2" data-reception-note></p>
+        <a id="reception-maps" target="_blank" class="inline-block mt-6 px-8 py-2.5 rounded-full border border-[#d4af8c] text-[#a9724f] hover:bg-[#d4af8c] hover:text-white transition-all uppercase tracking-widest text-xs">Lihat Lokasi</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="peony-divider max-w-xs mx-auto py-4"><span></span><span class="peony-divider-icon">🌸</span><span></span></div>
+
+  <section class="py-24 px-6 relative z-10" data-plan-feature="livestream">
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-xs tracking-[0.5em] uppercase text-[#c9a96b] mb-4">Live Streaming</p>
+      <p class="text-[#8a5b68] text-sm mb-8">Tidak bisa hadir langsung? Ikuti momen sakral kami secara live.</p>
+      <div class="aspect-video rounded-[2rem] border border-[#d4af8c]/40 flex items-center justify-center bg-white/60">
+        <span id="livestream-status" class="text-[#8a5b68] text-sm px-4 text-center">▶ Live streaming akan dimulai pada hari-H</span>
+      </div>
+      <a id="livestream-link" href="#" class="inline-block mt-6 px-8 py-2.5 rounded-full border border-[#d4af8c] text-[#a9724f] hover:bg-[#d4af8c] hover:text-white transition-all uppercase tracking-widest text-xs">Tonton di YouTube</a>
+    </div>
+  </section>
+
+  <div class="peony-divider max-w-xs mx-auto py-4"><span></span><span class="peony-divider-icon">🌸</span><span></span></div>
+
+  <section class="py-24 px-6 relative z-10" data-plan-feature="rsvp">
+    <div class="max-w-md mx-auto text-center">
+      <p class="text-xs tracking-[0.5em] uppercase text-[#c9a96b] mb-4">RSVP</p>
+      <p class="text-[#8a5b68] text-sm mb-8">Mohon konfirmasi kehadiran Anda melalui form berikut.</p>
+      <form class="space-y-4 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
+        <input type="text" placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl bg-white/70 border border-[#d4af8c]/30 text-[#5c3a42] placeholder-[#8a5b68]/50 focus:outline-none focus:border-[#d4af8c]">
+        <select class="w-full px-4 py-3 rounded-xl bg-white/70 border border-[#d4af8c]/30 text-[#5c3a42] focus:outline-none focus:border-[#d4af8c]">
+          <option>Hadir</option>
+          <option>Tidak Hadir</option>
+          <option>Masih Ragu</option>
+        </select>
+        <textarea rows="3" placeholder="Ucapan & Doa" class="w-full px-4 py-3 rounded-xl bg-white/70 border border-[#d4af8c]/30 text-[#5c3a42] placeholder-[#8a5b68]/50 focus:outline-none focus:border-[#d4af8c]"></textarea>
+        <button type="submit" class="w-full py-3 rounded-full bg-[#d68fa0] text-white uppercase tracking-widest text-xs hover:bg-[#a9724f] transition-colors">Kirim RSVP</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="peony-divider max-w-xs mx-auto py-4"><span></span><span class="peony-divider-icon">🌸</span><span></span></div>
+
+  <section class="py-24 px-6 relative z-10" data-plan-feature="gift">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-xs tracking-[0.5em] uppercase text-[#c9a96b] mb-12">Tanda Kasih</p>
+      <div id="gift-list" class="grid md:grid-cols-2 gap-6"></div>
+    </div>
+  </section>
+
+  <div class="peony-divider max-w-xs mx-auto py-4"><span></span><span class="peony-divider-icon">🌸</span><span></span></div>
+
+  <section class="py-24 px-6 relative z-10">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-xs tracking-[0.5em] uppercase text-[#c9a96b] mb-12">Galeri</p>
+      <div id="gallery-grid" class="flex flex-wrap justify-center gap-6"></div>
+    </div>
+  </section>
+
+  <footer class="py-24 px-6 relative z-10 text-center">
+    <div class="peony-divider max-w-xs mx-auto mb-12"><span></span><span class="peony-divider-icon">🌸</span><span></span></div>
+    <div class="max-w-xl mx-auto mb-12">
+      <p class="text-[#8a5b68] italic text-lg" data-footer-quote></p>
+      <strong class="block mt-4 text-[#c9a96b] text-xs tracking-widest uppercase" data-footer-verse></strong>
+    </div>
+    <div class="text-[#8a5b68] mb-8" data-footer-message></div>
+    <div class="font-script text-4xl text-[#d68fa0]" data-footer-closing></div>
+  </footer>
+
+</div>
+<!-- ^ /invitation-content -->
+
+<div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+</div>
+<!-- ^ /wedding-root -->

@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Petit+Formal+Script&family=Poppins:wght@300;400;500&display=swap');
+
+#wedding-root {
+  font-family: 'Poppins', sans-serif;
+  background-color: #fffaf7;
+  width: 100%;
+}
+
+.font-display, h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-script {
+  font-family: 'Petit Formal Script', cursive;
+}
+
+/* ===== Watercolor wash blobs ===== */
+.watercolor-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(50px);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== Signature shape: the cameo/locket frame ===== */
+.cameo-frame {
+  width: 200px;
+  height: 200px;
+  border-radius: 9999px;
+  padding: 8px;
+  box-shadow: 0 0 0 2px #d4af8c, 0 0 0 9px #fffaf7, 0 0 0 11px #d4af8c, 0 20px 45px rgba(92, 58, 66, 0.25);
+  background: #fffaf7;
+}
+
+.cameo-frame--md {
+  width: 220px;
+  height: 220px;
+}
+
+.cameo-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+}
+
+/* ===== Peony divider (thin gold rules with a flower mark between) ===== */
+.peony-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.peony-divider span:not(.peony-divider-icon) {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d4af8c, transparent);
+}
+
+.peony-divider-icon {
+  font-size: 1.1rem;
+  flex: 0 0 auto;
+}
+
+/* ===== Blush card (soft translucent info panel) ===== */
+.blush-card {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(212, 175, 140, 0.35);
+  border-radius: 2rem;
+  padding: 2rem 1.75rem;
+}
+
+/* ===== Hanging gallery — oval frames, smaller scale ===== */
+.peony-frame-wrap {
+  display: inline-block;
+}
+
+.peony-frame {
+  width: 8rem;
+  height: 10rem;
+  border-radius: 50% / 40%;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px #d4af8c, 0 0 0 6px #fffaf7, 0 10px 25px rgba(92, 58, 66, 0.2);
+}
+
+.peony-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Falling petal particles ===== */
+.peony-particle {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  top: -5%;
+}
+
+@keyframes fallPetal {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(115vh) translateX(30px) rotate(300deg); opacity: 0; }
+}
+
+/* =========================================================
+   Shared theme standard (plan gating, color/font customization,
+   exclusive-plan flourish). Driven by the loader's shared widget —
+   see index.html's initPlanWidget(). No per-theme widget code needed,
+   just these hooks.
+   ========================================================= */
+
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+#wedding-root [data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+@keyframes shimmer-border-blush {
+  0%, 100% { box-shadow: 0 0 0 2px #d4af8c, 0 0 0 9px #fffaf7, 0 0 0 11px #d4af8c, 0 20px 45px rgba(92, 58, 66, 0.25); }
+  50% { box-shadow: 0 0 0 2px #d4af8c, 0 0 0 9px #fffaf7, 0 0 0 11px #d4af8c, 0 0 45px 16px rgba(212, 175, 140, 0.55); }
+}
+
+#wedding-root.is-exclusive .cameo-frame {
+  animation: shimmer-border-blush 4s ease-in-out infinite;
+}
+
+/* Font-toggle hook for the loader's shared "Ganti Font" button —
+   this theme already owns a script font, so the toggle switches the
+   main heading into it instead of pulling in a new font. */
+#invitation-content.pw-font-alt h1 {
+  font-family: 'Petit Formal Script', cursive;
+  font-weight: 400;
+  font-size: clamp(3rem, 9vw, 5.5rem);
+}

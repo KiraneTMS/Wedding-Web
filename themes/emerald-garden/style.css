@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@300;400;500;600&family=Great+Vibes&display=swap');
+
+#wedding-root {
+  font-family: 'Manrope', sans-serif;
+  background-color: #0b3d2e;
+  width: 100%;
+}
+
+.font-display, h1, h2, h3 {
+  font-family: 'Marcellus', serif;
+}
+
+/* ===== Signature shape: the hexagon frame ===== */
+.hex-frame {
+  width: 220px;
+  height: 240px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: #c9a66b;
+  padding: 6px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+.hex-frame-inner {
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  overflow: hidden;
+  background: #0b3d2e;
+}
+
+.hex-frame-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Gold corner-bracket frame (stationery-style) ===== */
+.corner-frame {
+  position: relative;
+  padding: 2.5rem 1.5rem;
+}
+
+.corner-frame .corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: #c9a66b;
+  pointer-events: none;
+}
+
+.corner-frame .corner.tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
+.corner-frame .corner.tr { top: 6px; right: 6px; border-top: 2px solid; border-right: 2px solid; }
+.corner-frame .corner.bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; }
+.corner-frame .corner.br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
+
+/* ===== Leaf divider (thin gold rules with a leaf mark between) ===== */
+.leaf-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.leaf-divider span:not(.leaf-divider-icon) {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c9a66b, transparent);
+}
+
+.leaf-divider-icon {
+  font-size: 1.1rem;
+  flex: 0 0 auto;
+}
+
+/* ===== Drifting gold-fleck / leaf particles (diagonal sway, not straight up) ===== */
+.garden-particle {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes driftGarden {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  15%  { opacity: 0.55; }
+  35%  { transform: translate(30px, -25vh) rotate(90deg); }
+  65%  { transform: translate(-20px, -55vh) rotate(200deg); }
+  85%  { opacity: 0.55; }
+  100% { transform: translate(15px, -95vh) rotate(320deg); opacity: 0; }
+}
+
+/* =========================================================
+   Shared theme standard (plan gating, color/font customization,
+   exclusive-plan flourish). Driven by the loader's shared widget —
+   see index.html's initPlanWidget(). No per-theme widget code needed,
+   just these hooks.
+   ========================================================= */
+
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+#wedding-root [data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+@keyframes shimmer-border-emerald {
+  0%, 100% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4); }
+  50% { box-shadow: 0 0 45px 12px rgba(201, 166, 107, 0.45); }
+}
+
+#wedding-root.is-exclusive .hex-frame {
+  animation: shimmer-border-emerald 4s ease-in-out infinite;
+}
+
+/* Font-toggle hook for the loader's shared "Ganti Font" button. */
+#invitation-content.pw-font-alt h1 {
+  font-family: 'Great Vibes', cursive;
+  font-style: normal;
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1.15;
+}

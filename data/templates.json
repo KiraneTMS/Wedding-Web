@@ -76,8 +76,8 @@
     "title": "Emerald Garden",
     "tag": "Botanical Elegance",
     "desc": "Hijau emerald dengan daun dan bunga tropis yang mewah.",
-    "img": "https://images.unsplash.com/photo-1522156373667-4c7234bbd804?auto=format&fit=crop&w=800&q=80",
-    "category": "floral",
+    "img": "https://static.vecteezy.com/system/resources/previews/030/662/217/non_2x/aquamarine-texture-high-quality-free-photo.jpg",
+    "category": "luxury",
     "demoUrl": "/?theme=emerald-garden&couple=demo"
   },
   {
@@ -85,7 +85,7 @@
     "title": "Black & Gold Lux",
     "tag": "Luxury Modern",
     "desc": "Hitam premium dengan aksen foil emas, sangat sophisticated.",
-    "img": "https://images.unsplash.com/photo-1511285560929-80b456fe4726?auto=format&fit=crop&w=800&q=80",
+    "img": "https://static.vecteezy.com/system/resources/previews/004/755/518/non_2x/marble-ink-pattern-texture-abstract-background-black-gold-and-white-tone-free-photo.jpg",
     "category": "luxury",
     "demoUrl": "/?theme=black-gold-lux&couple=demo"
   },
@@ -94,7 +94,7 @@
     "title": "Terracotta Boho",
     "tag": "Earthy Boho",
     "desc": "Warna tanah liat dengan elemen makrame dan daun kering.",
-    "img": "https://images.unsplash.com/photo-1519227359830-910141b0d8e2?auto=format&fit=crop&w=800&q=80",
+    "img": "https://static.vecteezy.com/system/resources/previews/071/010/128/non_2x/natural-stone-on-soft-textured-background-with-warm-tones-and-simplicity-free-photo.jpeg",
     "category": "boho",
     "demoUrl": "/?theme=terracotta-boho&couple=demo"
   },
