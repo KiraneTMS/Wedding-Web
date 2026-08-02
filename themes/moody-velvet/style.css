@@ -1,0 +1,620 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap');
+
+#wedding-root {
+  font-family: 'Cormorant Garamond', serif;
+  background-color: #120608;
+  color: #e8d5b7;
+  width: 100%;
+}
+
+.font-display, h1, h2, h3, h4 {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.06em;
+}
+
+/* ===== Ornate diamond outer ring + double-border frame ===== */
+.velvet-diamond-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.35rem;
+}
+
+.velvet-diamond-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid #c9a227;
+  transform: rotate(45deg) scale(0.72);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.velvet-frame {
+  position: relative;
+  border: 1px solid #8a6d3b;
+  padding: 6px;
+  background: linear-gradient(160deg, rgba(90, 20, 25, 0.55), rgba(18, 6, 8, 0.85));
+  box-shadow:
+    0 0 0 1px rgba(201, 162, 39, 0.2),
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    inset 0 0 30px rgba(0, 0, 0, 0.35);
+}
+
+.velvet-frame::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  pointer-events: none;
+}
+
+.velvet-photo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  filter: contrast(1.05) saturate(0.92);
+}
+
+/* ===== Ornamental gold divider (diamond center, not plain line) ===== */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #c9a227;
+  opacity: 0.85;
+}
+
+.ornament-divider .line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #8a6d3b, transparent);
+}
+
+.ornament-divider .diamond {
+  width: 7px;
+  height: 7px;
+  border: 1px solid #c9a227;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ===== Event card — arched top + diamond crown ===== */
+.velvet-event-card {
+  position: relative;
+  padding: 2.25rem 1.5rem 2rem;
+  border: 1px solid #5c3a2e;
+  background: linear-gradient(180deg, rgba(40, 12, 16, 0.9), rgba(18, 6, 8, 0.95));
+  border-radius: 1.5rem 1.5rem 0.35rem 0.35rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.velvet-event-card::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c9a227, transparent);
+}
+
+.velvet-event-card::after {
+  content: '◆';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 6px;
+  color: #c9a227;
+  line-height: 1;
+}
+
+/* ===== Gift card — cut corner (envelope / seal feel) ===== */
+.velvet-gift-card {
+  position: relative;
+  padding: 1.75rem 1.25rem;
+  background: linear-gradient(135deg, rgba(50, 14, 18, 0.95), rgba(18, 6, 8, 0.98));
+  border: 1px solid #6b4c2a;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+
+.velvet-gift-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, transparent 50%, #c9a227 50%);
+  opacity: 0.7;
+}
+
+/* ===== Underline inputs ===== */
+.velvet-input {
+  width: 100%;
+  padding: 0.85rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #5c3a2e;
+  color: #e8d5b7;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+}
+
+.velvet-input::placeholder {
+  color: #7a5a5a;
+}
+
+.velvet-input:focus {
+  outline: none;
+  border-bottom-color: #c9a227;
+}
+
+.velvet-input option {
+  background: #1a0a0c;
+  color: #e8d5b7;
+}
+
+/* ===== Gallery — inset gold ring + hover scale ===== */
+.velvet-gallery-item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid #6b4c2a;
+  background: #1a0a0c;
+}
+
+.velvet-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+  filter: brightness(0.92) contrast(1.05);
+}
+
+.velvet-gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.velvet-gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  pointer-events: none;
+}
+
+/* ===== Soft gold particles ===== */
+.velvet-particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: #c9a227;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 0 6px rgba(201, 162, 39, 0.5);
+}
+
+@keyframes fadeDrift {
+  0%   { transform: translateY(0) scale(0.8); opacity: 0; }
+  15%  { opacity: 0.6; }
+  85%  { opacity: 0.5; }
+  100% { transform: translateY(-50vh) scale(1.1); opacity: 0; }
+}
+
+/* ===== Story — diamond marker ===== */
+.story-item {
+  position: relative;
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+.story-item + .story-item {
+  margin-top: 3rem;
+}
+
+.story-item .story-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #c9a227;
+  transform: rotate(45deg);
+  margin-bottom: 0.75rem;
+  background: #120608;
+}
+
+/* ===== Hero name flourish ===== */
+.hero-flourish {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.hero-flourish .bar {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a227, transparent);
+}
+
+.hero-flourish .gem {
+  width: 6px;
+  height: 6px;
+  border: 1px solid #c9a227;
+  transform: rotate(45deg);
+}
+
+/* ===== Countdown medallion cells ===== */
+.countdown-cell {
+  min-width: 4.5rem;
+  padding: 0.75rem 0.5rem;
+  border: 1px solid #5c3a2e;
+  border-radius: 0.25rem 0.25rem 1rem 1rem;
+  background: linear-gradient(180deg, rgba(40, 12, 16, 0.6), transparent);
+}
+
+/* ===== Buttons ===== */
+.btn-velvet {
+  display: inline-block;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid #c9a227;
+  color: #e8d5b7;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 10px;
+  transition: all 0.45s ease;
+}
+
+.btn-velvet:hover {
+  background: #c9a227;
+  color: #120608;
+  box-shadow: 0 0 24px rgba(201, 162, 39, 0.25);
+}
+
+.btn-velvet-solid {
+  display: inline-block;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: linear-gradient(135deg, #c9a227, #a88b3a);
+  color: #120608;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 10px;
+  font-weight: 600;
+  border: none;
+  transition: filter 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-velvet-solid:hover {
+  filter: brightness(1.1);
+}
+
+/* =========================================================
+   Shared theme standard hooks
+   ========================================================= */
+
+#invitation-content {
+  transition: filter 0.5s ease;
+}
+
+#wedding-root [data-plan-feature] {
+  transition: opacity 0.3s ease;
+}
+
+@keyframes shimmer-border-velvet {
+  0%, 100% {
+    border-color: #8a6d3b;
+    box-shadow: 0 0 0 1px rgba(201, 162, 39, 0.15), 0 12px 40px rgba(0, 0, 0, 0.55);
+  }
+  50% {
+    border-color: #c9a227;
+    box-shadow: 0 0 12px rgba(201, 162, 39, 0.35), 0 12px 40px rgba(0, 0, 0, 0.55);
+  }
+}
+
+#wedding-root.is-exclusive .velvet-frame {
+  animation: shimmer-border-velvet 5s ease-in-out infinite;
+}
+
+#invitation-content.pw-font-alt h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.85rem, 9.5vw, 5.5rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+/* Hero vignette */
+.velvet-hero {
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 20%, rgba(80, 18, 24, 0.35) 0%, transparent 70%),
+    #120608;
+}
+
+.velvet-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, #120608 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.velvet-hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+.section-deep {
+  background: linear-gradient(180deg, #120608 0%, #1a0a0e 50%, #120608 100%);
+}
+
+/* =========================================================
+   EFFECTS — reveal, glass, tilt, magnetic, parallax
+   ========================================================= */
+
+/* --- Reveal on scroll (stronger so it's obvious) --- */
+[data-reveal] {
+  opacity: 0 !important;
+  transform: translateY(56px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+[data-reveal="left"] {
+  transform: translateX(-64px);
+}
+[data-reveal="left"].is-visible {
+  transform: translateX(0);
+}
+
+[data-reveal="right"] {
+  transform: translateX(64px);
+}
+[data-reveal="right"].is-visible {
+  transform: translateX(0);
+}
+
+[data-reveal="scale"] {
+  transform: scale(0.85);
+}
+[data-reveal="scale"].is-visible {
+  transform: scale(1);
+}
+
+[data-reveal-delay="1"] { transition-delay: 0.15s; }
+[data-reveal-delay="2"] { transition-delay: 0.3s; }
+[data-reveal-delay="3"] { transition-delay: 0.45s; }
+[data-reveal-delay="4"] { transition-delay: 0.6s; }
+
+/* --- Glassmorphism --- */
+.glass-panel {
+  background: linear-gradient(
+    160deg,
+    rgba(60, 18, 24, 0.55) 0%,
+    rgba(18, 6, 8, 0.72) 100%
+  );
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.glass-panel-soft {
+  background: rgba(30, 10, 14, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(201, 162, 39, 0.15);
+}
+
+/* Event cards get glass treatment */
+.velvet-event-card {
+  background: linear-gradient(
+    180deg,
+    rgba(50, 16, 22, 0.65) 0%,
+    rgba(18, 6, 8, 0.8) 100%
+  );
+  backdrop-filter: blur(12px) saturate(1.15);
+  -webkit-backdrop-filter: blur(12px) saturate(1.15);
+}
+
+.velvet-gift-card {
+  background: linear-gradient(
+    135deg,
+    rgba(55, 16, 22, 0.7) 0%,
+    rgba(18, 6, 8, 0.85) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* --- Card tilt (3D) — desktop only --- */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tilt-card:hover {
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 20px rgba(201, 162, 39, 0.12);
+  }
+}
+
+/* --- Magnetic buttons --- */
+.btn-velvet,
+.btn-velvet-solid {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease,
+    filter 0.3s ease;
+  will-change: transform;
+}
+
+/* --- Parallax layers --- */
+.parallax-layer {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.parallax-slow {
+  will-change: transform;
+}
+
+/* Hero crest floats gently */
+@keyframes floatCrest {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.velvet-hero > svg {
+  animation: floatCrest 5s ease-in-out infinite;
+}
+
+/* Soft ambient glow pulse behind hero frame */
+@keyframes ambientGlow {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.45; }
+}
+
+.velvet-diamond-wrap {
+  position: relative;
+}
+
+.velvet-diamond-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: -1;
+  animation: ambientGlow 6s ease-in-out infinite;
+}
+
+/* Gallery hover glow */
+.velvet-gallery-item {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.velvet-gallery-item:hover {
+  border-color: #c9a227;
+  box-shadow: 0 0 20px rgba(201, 162, 39, 0.2);
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .tilt-card,
+  .btn-velvet,
+  .btn-velvet-solid,
+  .parallax-layer,
+  .velvet-hero > svg,
+  .velvet-diamond-wrap::after,
+  .velvet-particle {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* --- Mobile responsive polish --- */
+@media (max-width: 768px) {
+  .velvet-diamond-wrap {
+    max-width: 220px;
+    padding: 1rem;
+  }
+
+  .velvet-diamond-wrap::before {
+    transform: rotate(45deg) scale(0.68);
+  }
+
+  .countdown-cell {
+    min-width: 3.75rem;
+    padding: 0.55rem 0.35rem;
+  }
+
+  .ornament-divider {
+    max-width: 200px;
+  }
+
+  .velvet-event-card {
+    padding: 1.75rem 1.15rem 1.5rem;
+    border-radius: 1.15rem 1.15rem 0.3rem 0.3rem;
+  }
+
+  /* Disable heavy effects on touch devices */
+  .tilt-card {
+    transform: none !important;
+  }
+
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(28px);
+  }
+
+  [data-reveal="left"].is-visible,
+  [data-reveal="right"].is-visible {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .velvet-diamond-wrap {
+    max-width: 190px;
+  }
+
+  .hero-flourish .bar {
+    width: 28px;
+  }
+
+  .btn-velvet {
+    padding: 0.75rem 1.5rem;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+  }
+}
+
+/* ===== Scroll overshoot / settle on text ===== */
+.scroll-settle {
+  will-change: transform;
+  transition: transform 0.55s cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-settle {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-settle {
+    transition: transform 0.4s cubic-bezier(0.22, 1.25, 0.36, 1);
+  }
+}

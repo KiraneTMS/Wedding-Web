@@ -1,0 +1,233 @@
+<div id="wedding-root" class="min-h-screen bg-[#f2e8d8] text-[#5c4033] selection:bg-[#b6717a]/40 font-serif">
+<div id="invitation-content" class="relative overflow-x-hidden">
+
+  <!-- HERO — centered scrapbook stack: oval + overlapping stamp -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center py-20 px-6 overflow-hidden">
+    <div class="vintage-vignette absolute inset-0 pointer-events-none z-0"></div>
+
+    <svg class="corner-flourish absolute top-5 left-5 w-20 h-20 md:w-28 md:h-28 text-[#6b2737]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 12 C 32 16, 16 32, 22 48 M12 12 C 16 32, 32 16, 48 22" />
+      <path d="M18 40 Q 28 28 40 18" opacity="0.5" />
+    </svg>
+    <svg class="corner-flourish absolute bottom-5 right-5 w-20 h-20 md:w-28 md:h-28 text-[#6b2737] rotate-180" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 12 C 32 16, 16 32, 22 48 M12 12 C 16 32, 32 16, 48 22" />
+      <path d="M18 40 Q 28 28 40 18" opacity="0.5" />
+    </svg>
+
+    <div class="relative z-10 flex flex-col items-center w-full max-w-xl">
+      <div class="vintage-oval hero-sway mx-auto mb-2" data-reveal="scale">
+        <div id="hero-bg" class="vintage-photo"></div>
+      </div>
+
+      <div class="stamp-badge relative z-10 -mt-7 mb-8" data-reveal data-reveal-delay="1">
+        <span><span data-groom-initial></span>&amp;<span data-bride-initial></span></span>
+      </div>
+
+      <div class="text-center px-2" data-reveal data-reveal-delay="2">
+        <p class="tracking-[0.45em] uppercase text-[11px] text-[#a8626e] mb-4" data-tagline></p>
+        <h1 class="font-script text-6xl md:text-8xl leading-[0.95] text-[#6b2737] mb-5">
+          <span data-groom-short></span><br class="md:hidden">
+          <span class="text-4xl md:text-5xl text-[#a8626e] mx-1">&</span>
+          <br class="md:hidden">
+          <span data-bride-short></span>
+        </h1>
+        <div class="vintage-divider max-w-[200px] mx-auto mb-5">
+          <span></span><span class="vintage-divider-icon">❦</span><span></span>
+        </div>
+        <p class="text-base md:text-lg italic text-[#7a5c4d] mb-10 ink-line" data-date-str></p>
+        <button onclick="document.getElementById('couple-section').scrollIntoView({behavior: 'smooth'})"
+          class="btn-vintage magnetic-btn">
+          Buka Undangan
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUPLE — 3-col band: groom | ornament | bride (asymmetric tilts) -->
+  <section id="couple-section" class="py-20 md:py-28 px-6 relative z-10">
+    <div class="max-w-5xl mx-auto couple-band">
+
+      <div class="text-center" data-reveal="left">
+        <div class="vintage-oval vintage-oval--md vintage-oval--tilt-l mx-auto mb-5">
+          <img id="groom-img" src="" class="vintage-photo object-cover" alt="">
+        </div>
+        <p class="text-[10px] tracking-[0.4em] uppercase text-[#a8626e] mb-1">The Groom</p>
+        <h2 class="font-display text-2xl md:text-3xl mb-1 text-[#6b2737]" data-groom></h2>
+        <p class="text-[#7a5c4d] italic text-sm" data-groom-parent></p>
+        <a id="groom-ig" target="_blank" class="inline-block mt-2 text-[#a8626e] text-xs tracking-widest uppercase hover:text-[#6b2737] transition-colors"></a>
+      </div>
+
+      <div class="couple-center-ornament" aria-hidden="true">
+        <span class="text-3xl text-[#a8626e]">❦</span>
+        <span class="block w-px h-16 bg-[#a8626e]/40 my-3"></span>
+        <span class="text-3xl text-[#a8626e]">❦</span>
+      </div>
+
+      <div class="text-center" data-reveal="right" data-reveal-delay="1">
+        <div class="vintage-oval vintage-oval--md vintage-oval--tilt-r mx-auto mb-5">
+          <img id="bride-img" src="" class="vintage-photo object-cover" alt="">
+        </div>
+        <p class="text-[10px] tracking-[0.4em] uppercase text-[#a8626e] mb-1">The Bride</p>
+        <h2 class="font-display text-2xl md:text-3xl mb-1 text-[#6b2737]" data-bride></h2>
+        <p class="text-[#7a5c4d] italic text-sm" data-bride-parent></p>
+        <a id="bride-ig" target="_blank" class="inline-block mt-2 text-[#a8626e] text-xs tracking-widest uppercase hover:text-[#6b2737] transition-colors"></a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="vintage-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="vintage-divider-icon">❦</span><span></span>
+  </div>
+
+  <!-- COUNTDOWN — ribbon panel -->
+  <section class="py-14 px-6 relative z-10">
+    <div class="max-w-3xl mx-auto countdown-ribbon flex items-center justify-center gap-5 md:gap-10 text-center flex-wrap" data-reveal>
+      <div data-reveal-delay="1">
+        <div id="days" class="font-display text-4xl md:text-5xl text-[#6b2737]">0</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#a8626e] mt-1">Hari</div>
+      </div>
+      <div class="text-[#a8626e] text-lg hidden sm:block">❦</div>
+      <div data-reveal-delay="2">
+        <div id="hours" class="font-display text-4xl md:text-5xl text-[#6b2737]">0</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#a8626e] mt-1">Jam</div>
+      </div>
+      <div class="text-[#a8626e] text-lg hidden sm:block">❦</div>
+      <div data-reveal-delay="3">
+        <div id="minutes" class="font-display text-4xl md:text-5xl text-[#6b2737]">0</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#a8626e] mt-1">Menit</div>
+      </div>
+      <div class="text-[#a8626e] text-lg hidden sm:block">❦</div>
+      <div data-reveal-delay="4">
+        <div id="seconds" class="font-display text-4xl md:text-5xl text-[#6b2737]">0</div>
+        <div class="text-[10px] uppercase tracking-[0.3em] text-[#a8626e] mt-1">Detik</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="vintage-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="vintage-divider-icon">❦</span><span></span>
+  </div>
+
+  <!-- STORY — vertical ink timeline -->
+  <section class="py-20 px-6 relative z-10" data-plan-feature="story">
+    <div class="max-w-xl mx-auto">
+      <p class="text-center text-[11px] tracking-[0.5em] uppercase text-[#a8626e] mb-12" data-reveal>
+        <span class="ink-line">Kisah Kami</span>
+      </p>
+      <div id="story-list" class="story-timeline"></div>
+    </div>
+  </section>
+
+  <div class="vintage-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="vintage-divider-icon">❦</span><span></span>
+  </div>
+
+  <!-- EVENTS — offset grid (second card drops lower on desktop) -->
+  <section class="py-20 px-6 relative z-10">
+    <div class="max-w-5xl mx-auto events-offset">
+      <div class="vintage-card text-center tilt-card" data-reveal="left">
+        <h3 class="font-display text-xl md:text-2xl text-[#6b2737] mb-3" data-ceremony-title></h3>
+        <p class="text-base md:text-lg mb-1" data-ceremony-venue></p>
+        <p class="text-[#7a5c4d] text-sm" data-ceremony-address></p>
+        <div class="my-5 h-px bg-[#a8626e]/30"></div>
+        <p class="text-[#7a5c4d]" data-ceremony-time></p>
+        <p class="text-xs italic text-[#7a5c4d]/70 mt-2" data-ceremony-note></p>
+        <a id="ceremony-maps" target="_blank" class="btn-vintage magnetic-btn mt-6 text-[10px]">Lihat Lokasi</a>
+      </div>
+      <div class="vintage-card text-center tilt-card" data-reveal="right" data-reveal-delay="1">
+        <h3 class="font-display text-xl md:text-2xl text-[#6b2737] mb-3" data-reception-title></h3>
+        <p class="text-base md:text-lg mb-1" data-reception-venue></p>
+        <p class="text-[#7a5c4d] text-sm" data-reception-address></p>
+        <div class="my-5 h-px bg-[#a8626e]/30"></div>
+        <p class="text-[#7a5c4d]" data-reception-time></p>
+        <p class="text-xs italic text-[#7a5c4d]/70 mt-2" data-reception-note></p>
+        <a id="reception-maps" target="_blank" class="btn-vintage magnetic-btn mt-6 text-[10px]">Lihat Lokasi</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="vintage-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="vintage-divider-icon">❦</span><span></span>
+  </div>
+
+  <!-- LIVESTREAM -->
+  <section class="py-20 px-6 relative z-10" data-plan-feature="livestream">
+    <div class="max-w-xl mx-auto text-center" data-reveal>
+      <p class="text-[11px] tracking-[0.5em] uppercase text-[#a8626e] mb-3">Live Streaming</p>
+      <p class="text-[#7a5c4d] text-sm mb-8">Tidak bisa hadir langsung? Ikuti momen sakral kami secara live.</p>
+      <div class="aspect-video border-double border-4 border-[#6b2737]/55 flex items-center justify-center bg-white/40">
+        <span id="livestream-status" class="text-[#7a5c4d] text-sm px-4 text-center">▶ Live streaming akan dimulai pada hari-H</span>
+      </div>
+      <a id="livestream-link" href="#" class="btn-vintage magnetic-btn mt-6 text-[10px]">Tonton di YouTube</a>
+    </div>
+  </section>
+
+  <div class="vintage-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="vintage-divider-icon">❦</span><span></span>
+  </div>
+
+  <!-- RSVP — letter form -->
+  <section class="py-20 px-6 relative z-10" data-plan-feature="rsvp">
+    <div class="max-w-md mx-auto text-center" data-reveal>
+      <p class="text-[11px] tracking-[0.5em] uppercase text-[#a8626e] mb-3">RSVP</p>
+      <p class="text-[#7a5c4d] text-sm mb-8">Mohon konfirmasi kehadiran Anda melalui form berikut.</p>
+      <form class="vintage-card space-y-4 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
+        <input type="text" placeholder="Nama Anda" class="w-full px-4 py-3 bg-white/60 border border-[#a8626e]/35 text-[#5c4033] placeholder-[#7a5c4d]/50 focus:outline-none focus:border-[#6b2737]">
+        <select class="w-full px-4 py-3 bg-white/60 border border-[#a8626e]/35 text-[#5c4033] focus:outline-none focus:border-[#6b2737]">
+          <option>Hadir</option>
+          <option>Tidak Hadir</option>
+          <option>Masih Ragu</option>
+        </select>
+        <textarea rows="3" placeholder="Ucapan & Doa" class="w-full px-4 py-3 bg-white/60 border border-[#a8626e]/35 text-[#5c4033] placeholder-[#7a5c4d]/50 focus:outline-none focus:border-[#6b2737]"></textarea>
+        <button type="submit" class="btn-vintage-solid magnetic-btn">Kirim RSVP</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="vintage-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="vintage-divider-icon">❦</span><span></span>
+  </div>
+
+  <!-- GIFT -->
+  <section class="py-20 px-6 relative z-10" data-plan-feature="gift">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-[11px] tracking-[0.5em] uppercase text-[#a8626e] mb-10" data-reveal>
+        <span class="ink-line">Tanda Kasih</span>
+      </p>
+      <div id="gift-list" class="grid md:grid-cols-2 gap-5"></div>
+    </div>
+  </section>
+
+  <div class="vintage-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="vintage-divider-icon">❦</span><span></span>
+  </div>
+
+  <!-- GALLERY — scattered scrapbook ovals -->
+  <section class="py-20 px-6 relative z-10">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-[11px] tracking-[0.5em] uppercase text-[#a8626e] mb-10" data-reveal>
+        <span class="ink-line">Galeri</span>
+      </p>
+      <div id="gallery-grid" class="gallery-scrapbook"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-20 px-6 relative z-10 text-center" data-reveal>
+    <div class="vintage-divider max-w-xs mx-auto mb-10">
+      <span></span><span class="vintage-divider-icon">❦</span><span></span>
+    </div>
+    <div class="max-w-xl mx-auto mb-10">
+      <p class="text-[#7a5c4d] italic text-lg leading-relaxed" data-footer-quote></p>
+      <strong class="block mt-4 text-[#a8626e] text-[10px] tracking-widest uppercase" data-footer-verse></strong>
+    </div>
+    <div class="text-[#7a5c4d] mb-8 text-sm" data-footer-message></div>
+    <div class="font-script text-4xl md:text-5xl text-[#6b2737]" data-footer-closing></div>
+  </footer>
+
+</div>
+
+<div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+</div>

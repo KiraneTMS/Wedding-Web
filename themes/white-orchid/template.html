@@ -1,0 +1,191 @@
+<div id="wedding-root" class="min-h-screen bg-white text-[#2d2d2d] selection:bg-[#c9ccd1]/50 font-sans">
+<div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+<div id="invitation-content" class="relative overflow-x-hidden">
+
+  <section class="min-h-screen flex flex-col items-center justify-center py-24 px-6">
+    <svg class="w-12 h-20 text-[#9ca3ac] mb-8 hero-crest parallax-layer" data-parallax="0.12" viewBox="0 0 60 100" fill="none" stroke="currentColor" stroke-width="1.2">
+      <path d="M30 95 C 30 70, 30 50, 30 20" />
+      <path d="M30 30 C 15 25, 8 12, 15 3 C 22 8, 24 20, 30 30 Z" />
+      <path d="M30 45 C 45 40, 52 27, 45 18 C 38 23, 36 35, 30 45 Z" />
+      <path d="M30 60 C 15 55, 8 42, 15 33 C 22 38, 24 50, 30 60 Z" />
+    </svg>
+
+    <div class="minimal-frame w-full max-w-xs mx-auto mb-12 parallax-layer" data-parallax="0.06" data-reveal="scale">
+      <div id="hero-bg" class="minimal-photo aspect-[4/5] bg-cover bg-center"></div>
+    </div>
+
+    <div class="text-center max-w-lg mx-auto" data-reveal>
+      <p class="tracking-[0.6em] uppercase text-[11px] text-[#9ca3ac] mb-6" data-tagline></p>
+      <h1 class="font-display text-5xl md:text-7xl font-normal tracking-tight mb-6">
+        <span data-groom-short class="hero-letters"></span>
+        <span class="inline-block align-middle w-10 h-px bg-[#9ca3ac] mx-4"></span>
+        <span data-bride-short class="hero-letters"></span>
+      </h1>
+      <p class="text-xs tracking-[0.4em] uppercase text-[#6b6f76] mb-12" data-date-str></p>
+      <button onclick="document.getElementById('couple-section').scrollIntoView({behavior: 'smooth'}); if (window.spawnPetalBurst) window.spawnPetalBurst();"
+        class="btn-orchid magnetic-btn">
+        Buka Undangan
+      </button>
+    </div>
+  </section>
+
+  <section id="couple-section" class="py-28 px-6 relative z-10">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-16 md:gap-20">
+
+      <div class="text-center" data-reveal="left">
+        <div class="minimal-frame mx-auto mb-8">
+          <img id="groom-img" src="" class="minimal-photo aspect-[4/5] object-cover">
+        </div>
+        <p class="text-[10px] tracking-[0.4em] uppercase text-[#9ca3ac] mb-3">The Groom</p>
+        <h2 class="font-display text-2xl mb-2" data-groom></h2>
+        <p class="text-[#6b6f76] text-sm" data-groom-parent></p>
+        <a id="groom-ig" target="_blank" class="inline-block mt-3 text-[#9ca3ac] text-xs tracking-widest uppercase hover:text-[#2d2d2d] transition-colors"></a>
+      </div>
+
+      <div class="text-center" data-reveal="right" data-reveal-delay="1">
+        <div class="minimal-frame mx-auto mb-8">
+          <img id="bride-img" src="" class="minimal-photo aspect-[4/5] object-cover">
+        </div>
+        <p class="text-[10px] tracking-[0.4em] uppercase text-[#9ca3ac] mb-3">The Bride</p>
+        <h2 class="font-display text-2xl mb-2" data-bride></h2>
+        <p class="text-[#6b6f76] text-sm" data-bride-parent></p>
+        <a id="bride-ig" target="_blank" class="inline-block mt-3 text-[#9ca3ac] text-xs tracking-widest uppercase hover:text-[#2d2d2d] transition-colors"></a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="hairline max-w-xs mx-auto" data-reveal></div>
+
+  <section class="py-20 px-6 relative z-10">
+    <div class="max-w-3xl mx-auto flex items-center justify-center gap-10 md:gap-20 text-center flex-wrap">
+      <div data-reveal data-reveal-delay="1">
+        <div id="days" class="font-display text-4xl md:text-6xl font-light">0</div>
+        <div class="text-[10px] uppercase tracking-[0.35em] text-[#9ca3ac] mt-3">Hari</div>
+      </div>
+      <div data-reveal data-reveal-delay="2">
+        <div id="hours" class="font-display text-4xl md:text-6xl font-light">0</div>
+        <div class="text-[10px] uppercase tracking-[0.35em] text-[#9ca3ac] mt-3">Jam</div>
+      </div>
+      <div data-reveal data-reveal-delay="3">
+        <div id="minutes" class="font-display text-4xl md:text-6xl font-light">0</div>
+        <div class="text-[10px] uppercase tracking-[0.35em] text-[#9ca3ac] mt-3">Menit</div>
+      </div>
+      <div data-reveal data-reveal-delay="4">
+        <div id="seconds" class="font-display text-4xl md:text-6xl font-light">0</div>
+        <div class="text-[10px] uppercase tracking-[0.35em] text-[#9ca3ac] mt-3">Detik</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hairline max-w-xs mx-auto" data-reveal></div>
+
+  <section class="py-28 px-6 relative z-10" data-plan-feature="story">
+    <div class="max-w-xl mx-auto">
+      <p class="text-center text-[11px] tracking-[0.5em] uppercase text-[#9ca3ac] mb-16" data-reveal>Kisah Kami</p>
+      <div class="relative">
+        <div class="story-timeline-track" aria-hidden="true"></div>
+        <div id="story-timeline-fill" class="story-timeline-fill" aria-hidden="true"></div>
+        <div id="story-list" class="space-y-12 relative"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hairline max-w-xs mx-auto" data-reveal></div>
+
+  <section class="py-28 px-6 relative z-10">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+      <div class="minimal-card text-center tilt-card glass-soft rounded-sm px-6 pb-8" data-reveal="left">
+        <h3 class="font-display text-xl mb-3" data-ceremony-title></h3>
+        <p class="text-base mb-1" data-ceremony-venue></p>
+        <p class="text-[#6b6f76] text-sm" data-ceremony-address></p>
+        <div class="my-5 w-10 h-px bg-[#9ca3ac] mx-auto"></div>
+        <p class="text-[#6b6f76]" data-ceremony-time></p>
+        <p class="text-xs italic text-[#9ca3ac] mt-2" data-ceremony-note></p>
+        <a id="ceremony-maps" target="_blank" class="btn-orchid magnetic-btn mt-6 text-[10px]">Lihat Lokasi</a>
+      </div>
+      <div class="minimal-card text-center tilt-card glass-soft rounded-sm px-6 pb-8" data-reveal="right" data-reveal-delay="1">
+        <h3 class="font-display text-xl mb-3" data-reception-title></h3>
+        <p class="text-base mb-1" data-reception-venue></p>
+        <p class="text-[#6b6f76] text-sm" data-reception-address></p>
+        <div class="my-5 w-10 h-px bg-[#9ca3ac] mx-auto"></div>
+        <p class="text-[#6b6f76]" data-reception-time></p>
+        <p class="text-xs italic text-[#9ca3ac] mt-2" data-reception-note></p>
+        <a id="reception-maps" target="_blank" class="btn-orchid magnetic-btn mt-6 text-[10px]">Lihat Lokasi</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="hairline max-w-xs mx-auto" data-reveal></div>
+
+  <section class="py-28 px-6 relative z-10" data-plan-feature="livestream">
+    <div class="max-w-xl mx-auto text-center" data-reveal>
+      <p class="text-[11px] tracking-[0.5em] uppercase text-[#9ca3ac] mb-4">Live Streaming</p>
+      <p class="text-[#6b6f76] text-sm mb-8">Tidak bisa hadir langsung? Ikuti momen sakral kami secara live.</p>
+      <div class="aspect-video border border-[#e2e4e8] flex items-center justify-center bg-[#fafafa] glass-soft">
+        <span id="livestream-status" class="text-[#6b6f76] text-sm px-4 text-center">▶ Live streaming akan dimulai pada hari-H</span>
+      </div>
+      <a id="livestream-link" href="#" class="btn-orchid magnetic-btn mt-6 text-[10px]">Tonton di YouTube</a>
+    </div>
+  </section>
+
+  <div class="hairline max-w-xs mx-auto" data-reveal></div>
+
+  <section class="py-28 px-6 relative z-10" data-plan-feature="rsvp">
+    <div class="max-w-sm mx-auto text-center" data-reveal>
+      <p class="text-[11px] tracking-[0.5em] uppercase text-[#9ca3ac] mb-4">RSVP</p>
+      <p class="text-[#6b6f76] text-sm mb-8">Mohon konfirmasi kehadiran Anda melalui form berikut.</p>
+      <form class="space-y-6 text-left glass-soft rounded-sm p-6" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
+        <input type="text" placeholder="Nama Anda" class="minimal-input">
+        <select class="minimal-input">
+          <option>Hadir</option>
+          <option>Tidak Hadir</option>
+          <option>Masih Ragu</option>
+        </select>
+        <textarea rows="2" placeholder="Ucapan & Doa" class="minimal-input"></textarea>
+        <button type="submit" class="btn-orchid-solid magnetic-btn">Kirim RSVP</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="hairline max-w-xs mx-auto" data-reveal></div>
+
+  <section class="py-28 px-6 relative z-10" data-plan-feature="gift">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-[11px] tracking-[0.5em] uppercase text-[#9ca3ac] mb-12" data-reveal>Tanda Kasih</p>
+      <div id="gift-list" class="grid md:grid-cols-2 gap-6"></div>
+    </div>
+  </section>
+
+  <div class="hairline max-w-xs mx-auto" data-reveal></div>
+
+  <section class="py-28 px-6 relative z-10">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="text-[11px] tracking-[0.5em] uppercase text-[#9ca3ac] mb-12" data-reveal>Galeri</p>
+      <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
+    </div>
+  </section>
+
+  <footer class="py-28 px-6 relative z-10 text-center" data-reveal>
+    <div class="hairline max-w-xs mx-auto mb-12"></div>
+    <div class="max-w-lg mx-auto mb-12">
+      <p class="text-[#6b6f76] italic text-base" data-footer-quote></p>
+      <strong class="block mt-4 text-[#9ca3ac] text-[10px] tracking-widest uppercase" data-footer-verse></strong>
+    </div>
+    <div class="text-[#6b6f76] text-sm mb-8" data-footer-message></div>
+    <div class="font-display text-2xl tracking-widest" data-footer-closing></div>
+  </footer>
+
+</div>
+
+<div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <button id="lightbox-close" class="lightbox-btn lightbox-close" aria-label="Tutup galeri">&times;</button>
+  <button id="lightbox-prev" class="lightbox-btn lightbox-prev" aria-label="Foto sebelumnya">&#8249;</button>
+  <img id="lightbox-img" class="lightbox-img" src="" alt="Momen">
+  <button id="lightbox-next" class="lightbox-btn lightbox-next" aria-label="Foto berikutnya">&#8250;</button>
+  <div id="lightbox-counter" class="lightbox-counter"></div>
+</div>
+
+</div>
