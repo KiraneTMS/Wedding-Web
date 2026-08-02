@@ -4,7 +4,6 @@ function initTheme(data) {
     if (el) el[isHTML ? 'innerHTML' : 'textContent'] = value || "";
   };
 
-  // 1. Hero & Names
   const groomShort = data.groom.name.split(',')[0];
   const brideShort = data.bride.name.split(',')[0];
 
@@ -19,7 +18,6 @@ function initTheme(data) {
   safeSet('[data-groom-parent]', data.groom.parent);
   safeSet('[data-bride-parent]', data.bride.parent);
 
-  // Socials
   const gIg = document.getElementById('groom-ig');
   if (gIg && data.groom.instagram) {
     gIg.textContent = data.groom.instagram;
@@ -31,7 +29,6 @@ function initTheme(data) {
     bIg.href = `https://instagram.com/${data.bride.instagram.replace('@', '')}`;
   }
 
-  // 2. Gallery images (hero bg + profile photos)
   if (data.gallery && data.gallery.length > 0) {
     const heroBg = document.getElementById('hero-bg');
     if (heroBg) heroBg.style.backgroundImage = `url('${data.gallery[0]}')`;
@@ -41,7 +38,6 @@ function initTheme(data) {
     if (brideImg) brideImg.src = data.gallery[2] || data.gallery[0];
   }
 
-  // 3. Event Details
   ['ceremony', 'reception'].forEach(key => {
     safeSet(`[data-${key}-title]`, data[key].title);
     safeSet(`[data-${key}-venue]`, data[key].venue);
@@ -52,37 +48,41 @@ function initTheme(data) {
     if (map) map.href = data[key].mapsUrl;
   });
 
-  // 4. Love Story
+  // Story — expandable journal
   const storyList = document.getElementById('story-list');
   if (storyList && data.story) {
-    storyList.innerHTML = data.story.map(item => `
-      <div class="border-l-2 border-[#c1502e]/40 pl-6">
+    storyList.innerHTML = data.story.map((item, i) => `
+      <div class="journal-item" data-reveal data-reveal-delay="${(i % 4) + 1}" data-journal>
         <span class="text-[#c1502e] text-xs tracking-widest uppercase">${item.date}</span>
-        <h4 class="font-display text-2xl text-[#4a2f1c] my-1">${item.title}</h4>
-        <p class="text-[#7a5c3e] text-sm">${item.desc}</p>
+        <h4 class="font-display text-xl md:text-2xl text-[#4a2f1c] my-1">${item.title}</h4>
+        <div class="journal-toggle">Buka cerita ↓</div>
+        <div class="journal-body">
+          <p class="text-[#7a5c3e] text-sm leading-relaxed">${item.desc}</p>
+        </div>
       </div>
     `).join('');
   }
 
-  // 5. Gifts
+  // Gifts — blurred until hover/tap
   const giftList = document.getElementById('gift-list');
   if (giftList && data.gift) {
-    giftList.innerHTML = data.gift.map(g => `
-      <div class="clay-tile">
+    giftList.innerHTML = data.gift.map((g, i) => `
+      <div class="clay-tile gift-peek text-left" data-reveal data-reveal-delay="${(i % 2) + 1}" data-gift-peek>
         <p class="text-[#c1502e] text-xs uppercase tracking-widest mb-2">${g.bank}</p>
-        <p class="text-2xl text-[#4a2f1c] tracking-widest my-2">${g.accountNumber}</p>
+        <p class="text-2xl text-[#4a2f1c] tracking-widest my-2 gift-number">${g.accountNumber}</p>
         <p class="text-[#7a5c3e] text-xs uppercase">a/n ${g.accountHolder}</p>
+        <p class="gift-hint">Hover / ketuk untuk lihat nomor</p>
       </div>
     `).join('');
   }
 
-  // 6. Gallery — hanging macrame frames, each with a slight organic tilt
+  // Gallery — swinging frames
   const galleryGrid = document.getElementById('gallery-grid');
   if (galleryGrid && data.gallery) {
     galleryGrid.innerHTML = data.gallery.map((url, i) => {
       const angle = (i % 2 === 0 ? -1 : 1) * (3 + ((i * 7) % 6));
       return `
-        <div class="boho-frame-wrap" style="transform: rotate(${angle}deg);">
+        <div class="boho-frame-wrap" style="--tilt: ${angle}deg;" data-reveal data-reveal-delay="${(i % 4) + 1}">
           <span class="boho-knot"></span>
           <img src="${url}" alt="Moment" loading="lazy" class="boho-frame">
         </div>
@@ -90,29 +90,35 @@ function initTheme(data) {
     }).join('');
   }
 
-  // 7. Footer
   safeSet('[data-footer-quote]', data.footer.quote);
   safeSet('[data-footer-verse]', data.footer.verse);
   safeSet('[data-footer-message]', data.footer.message, true);
   safeSet('[data-footer-closing]', data.footer.closing, true);
 
-  // 8. Countdown
   const target = new Date(data.dateISO).getTime();
   setInterval(() => {
-    const now = new Date().getTime();
-    const d = target - now;
+    const d = target - Date.now();
     if (d < 0) return;
-    document.getElementById('days').innerText = Math.floor(d / 864e5);
-    document.getElementById('hours').innerText = Math.floor((d % 864e5) / 36e5);
-    document.getElementById('minutes').innerText = Math.floor((d % 36e5) / 6e4);
-    document.getElementById('seconds').innerText = Math.floor((d % 6e4) / 1000);
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
+    set('days', Math.floor(d / 864e5));
+    set('hours', Math.floor((d % 864e5) / 36e5));
+    set('minutes', Math.floor((d % 36e5) / 6e4));
+    set('seconds', Math.floor((d % 6e4) / 1000));
   }, 1000);
 
-  // 9. Floating dried-leaf particles
   spawnLeaves();
-
-  // 10. Live Streaming (stays as placeholder until the event date/time arrives)
   initLivestream(data);
+
+  requestAnimationFrame(() => {
+    initRevealOnScroll();
+    initMagneticButtons();
+    initScrollSettle();
+    initFlipCards();
+    initJournal();
+    initGiftPeek();
+    initSealPress();
+    console.log('[boho-clay] effects ready');
+  });
 }
 
 function initLivestream(data) {
@@ -142,7 +148,6 @@ function initLivestream(data) {
   }
 
   update();
-  // Re-check periodically in case the page is left open across the event start time
   setInterval(update, 30000);
 }
 
@@ -150,23 +155,180 @@ function spawnLeaves() {
   const container = document.getElementById('heart-container');
   if (!container) return;
 
-  // Dedaunan kering & rumput pampas melayang perlahan
   const symbols = ['🍂', '🌾', '🥀', '✦'];
-
-  for (let i = 0; i < 18; i++) {
+  for (let i = 0; i < 16; i++) {
     const leaf = document.createElement('div');
     leaf.className = 'boho-particle';
     leaf.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-
     leaf.style.left = Math.random() * 100 + '%';
     leaf.style.top = Math.random() * 100 + '%';
     leaf.style.fontSize = (12 + Math.random() * 16) + 'px';
-
     const duration = 12 + Math.random() * 14;
     leaf.style.animation = `driftLeaf ${duration}s infinite ease-in-out`;
     leaf.style.animationDelay = `-${Math.random() * duration}s`;
-
     container.appendChild(leaf);
+  }
+}
+
+function initRevealOnScroll() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -28px 0px' });
+  els.forEach(el => observer.observe(el));
+}
+
+function initMagneticButtons() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.magnetic-btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0, 0)';
+    });
+  });
+}
+
+function initScrollSettle() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const selectors = [
+    'h1.font-display',
+    '[data-tagline]',
+    '[data-date-str]',
+    '.couple-info h2',
+    'footer .font-display',
+    '[data-footer-quote]'
+  ];
+
+  const targets = [];
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      el.classList.add('scroll-settle');
+      targets.push(el);
+    });
+  });
+  if (!targets.length) return;
+
+  let lastY = window.scrollY || 0;
+  let offset = 0;
+  let stopTimer = null;
+  let phase = 'idle';
+  const maxOffset = window.matchMedia('(max-width: 768px)').matches ? 8 : 14;
+
+  function apply(y) {
+    const val = `translate3d(0, ${y}px, 0)`;
+    targets.forEach(el => { el.style.transform = val; });
+  }
+
+  function onScroll() {
+    const y = window.scrollY || 0;
+    const dy = y - lastY;
+    lastY = y;
+    offset = Math.max(-maxOffset, Math.min(maxOffset, -dy * 0.32));
+    phase = 'dragging';
+    apply(offset);
+
+    clearTimeout(stopTimer);
+    stopTimer = setTimeout(() => {
+      phase = 'overshoot';
+      const bounce = Math.max(-maxOffset * 0.4, Math.min(maxOffset * 0.4, -offset * 0.45));
+      apply(bounce);
+      setTimeout(() => {
+        if (phase !== 'overshoot') return;
+        phase = 'idle';
+        apply(0);
+        offset = 0;
+      }, 120);
+    }, 70);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+/* Flip cards — hover on desktop, tap toggle on touch */
+function initFlipCards() {
+  document.querySelectorAll('[data-flip]').forEach(scene => {
+    scene.addEventListener('click', (e) => {
+      // Don't toggle when clicking the maps link on the back
+      if (e.target.closest('a')) return;
+      scene.classList.toggle('is-flipped');
+    });
+  });
+}
+
+/* Journal expand/collapse */
+function initJournal() {
+  document.querySelectorAll('[data-journal]').forEach(item => {
+    item.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('is-open');
+      document.querySelectorAll('[data-journal]').forEach(el => {
+        el.classList.remove('is-open');
+        const t = el.querySelector('.journal-toggle');
+        if (t) t.textContent = 'Buka cerita ↓';
+      });
+      if (!wasOpen) {
+        item.classList.add('is-open');
+        const t = item.querySelector('.journal-toggle');
+        if (t) t.textContent = 'Tutup ↑';
+      }
+    });
+  });
+}
+
+/* Gift number reveal on tap (mobile) — hover handled by CSS */
+function initGiftPeek() {
+  document.querySelectorAll('[data-gift-peek]').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('is-revealed');
+    });
+  });
+}
+
+/* Wax seal press animation */
+function initSealPress() {
+  const seal = document.getElementById('clay-seal-btn');
+  if (!seal) return;
+  seal.addEventListener('click', () => {
+    seal.classList.add('is-pressed');
+    setTimeout(() => seal.classList.remove('is-pressed'), 180);
+    // Soft confetti of leaves burst near seal
+    burstLeavesNear(seal);
+  });
+}
+
+function burstLeavesNear(el) {
+  const container = document.getElementById('heart-container');
+  if (!container) return;
+  const rect = el.getBoundingClientRect();
+  const symbols = ['✦', '🍂', '🌾'];
+  for (let i = 0; i < 6; i++) {
+    const p = document.createElement('div');
+    p.className = 'boho-particle';
+    p.innerHTML = symbols[i % symbols.length];
+    p.style.left = (rect.left + rect.width / 2 + (Math.random() - 0.5) * 40) + 'px';
+    p.style.top = (rect.top + window.scrollY) + 'px';
+    p.style.fontSize = '14px';
+    p.style.opacity = '0.8';
+    p.style.position = 'absolute';
+    p.style.animation = `driftLeaf ${2 + Math.random()}s ease-out forwards`;
+    container.appendChild(p);
+    setTimeout(() => p.remove(), 3000);
   }
 }
 

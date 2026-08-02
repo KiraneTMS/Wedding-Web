@@ -4,26 +4,29 @@
   font-family: 'Jost', sans-serif;
   background-color: #f5efe6;
   width: 100%;
+  color: #4a2f1c;
 }
 
-.font-display, h1, h2, h3 {
+.font-display, h1, h2, h3, h4 {
   font-family: 'Fraunces', serif;
 }
 
-/* ===== Signature shape: the arch (used for hero + profile photos) ===== */
+/* ===== Clay arch ===== */
 .clay-arch {
   width: 100%;
   aspect-ratio: 3 / 4;
   border-radius: 50% 50% 0 0 / 32% 32% 0 0;
   border: 10px solid #f5efe6;
   box-shadow: 0 0 0 2px rgba(193, 80, 46, 0.55), 0 25px 55px rgba(74, 47, 28, 0.35);
+  overflow: hidden;
+  position: relative;
 }
 
 .clay-arch--sm {
   border-width: 7px;
 }
 
-/* ===== Clay seal monogram (wax-stamp style) ===== */
+/* ===== Wax seal ===== */
 .clay-seal {
   width: 5.5rem;
   height: 5.5rem;
@@ -38,9 +41,21 @@
   font-size: 1.35rem;
   letter-spacing: 0.05em;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), inset 0 2px 5px rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
 }
 
-/* ===== Clay tile (info card) ===== */
+.clay-seal:hover {
+  transform: scale(1.08) rotate(-6deg);
+}
+
+.clay-seal.is-pressed {
+  transform: scale(0.88);
+  transition-duration: 0.12s;
+}
+
+/* ===== Clay tile ===== */
 .clay-tile {
   background: rgba(255, 255, 255, 0.55);
   border: 2px solid rgba(138, 109, 59, 0.25);
@@ -48,7 +63,7 @@
   padding: 2rem 1.75rem;
 }
 
-/* ===== Macrame fringe (small, under hero title) and divider (full-width, between sections) ===== */
+/* ===== Macrame ===== */
 .macrame-fringe {
   height: 18px;
   background-image: repeating-linear-gradient(90deg, #c1502e 0 2px, transparent 2px 10px);
@@ -71,11 +86,21 @@
   background-repeat: repeat-x;
 }
 
-/* ===== Hanging-frame gallery ===== */
+/* ===== Hanging gallery frames ===== */
 .boho-frame-wrap {
   position: relative;
   display: inline-block;
-  margin-top: 16px;
+  margin-top: 18px;
+  transform-origin: top center;
+  animation: frameSway 5s ease-in-out infinite;
+}
+
+.boho-frame-wrap:nth-child(odd) { animation-duration: 5.5s; }
+.boho-frame-wrap:nth-child(even) { animation-duration: 4.5s; animation-delay: -1.2s; }
+
+@keyframes frameSway {
+  0%, 100% { transform: rotate(var(--tilt, -3deg)); }
+  50% { transform: rotate(calc(var(--tilt, -3deg) * -1)); }
 }
 
 .boho-knot {
@@ -88,6 +113,7 @@
   background: #8a6d3b;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transform: translateX(-50%);
+  z-index: 2;
 }
 
 .boho-knot::after {
@@ -103,22 +129,26 @@
 
 .boho-frame {
   display: block;
-  width: 160px;
-  height: 200px;
+  width: 150px;
+  height: 190px;
   object-fit: cover;
   border: 6px solid #fff;
   outline: 2px solid rgba(138, 109, 59, 0.4);
   box-shadow: 0 10px 25px rgba(74, 47, 28, 0.25);
-  transition: transform 0.3s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.boho-frame-wrap:hover .boho-frame {
-  transform: scale(1.06) rotate(0deg) !important;
-  position: relative;
+.boho-frame-wrap:hover {
+  animation-play-state: paused;
   z-index: 5;
 }
 
-/* ===== Floating dried-leaf particles ===== */
+.boho-frame-wrap:hover .boho-frame {
+  transform: scale(1.08);
+  box-shadow: 0 16px 36px rgba(74, 47, 28, 0.35);
+}
+
+/* ===== Particles ===== */
 .boho-particle {
   position: absolute;
   pointer-events: none;
@@ -135,12 +165,278 @@
 }
 
 /* =========================================================
-   Shared theme standard (plan gating, color/font customization,
-   exclusive-plan flourish). Driven by the loader's shared widget —
-   see index.html's initPlanWidget(). No per-theme widget code needed,
-   just these hooks.
+   STRUCTURE — distinctive layout pieces
    ========================================================= */
 
+/* Couple: zigzag — photo left/card right alternating */
+.couple-zigzag {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .couple-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .couple-row--reverse .couple-photo { order: 2; }
+  .couple-row--reverse .couple-info { order: 1; text-align: right; }
+  .couple-row--reverse .couple-info .clay-tile { margin-left: auto; }
+}
+
+/* Flip card for events */
+.flip-scene {
+  perspective: 1000px;
+  min-height: 280px;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip-scene.is-flipped .flip-card,
+.flip-scene:hover .flip-card {
+  transform: rotateY(180deg);
+}
+
+@media (hover: none) {
+  .flip-scene:hover .flip-card {
+    transform: none;
+  }
+  .flip-scene.is-flipped .flip-card {
+    transform: rotateY(180deg);
+  }
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1.75rem;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.flip-front {
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(138, 109, 59, 0.25);
+}
+
+.flip-back {
+  background: linear-gradient(160deg, #c1502e 0%, #8a3d24 100%);
+  color: #f5efe6;
+  border: 2px solid rgba(193, 80, 46, 0.5);
+  transform: rotateY(180deg);
+}
+
+.flip-hint {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-top: 1rem;
+}
+
+/* Story journal — expandable */
+.journal-item {
+  border-left: 2px solid rgba(193, 80, 46, 0.35);
+  padding-left: 1.25rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.75rem;
+}
+
+.journal-item:hover {
+  background: rgba(193, 80, 46, 0.06);
+}
+
+.journal-item .journal-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.35s ease;
+  margin-top: 0;
+}
+
+.journal-item.is-open .journal-body {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+
+.journal-item .journal-toggle {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c1502e;
+  margin-top: 0.35rem;
+}
+
+/* Gift — account peek on hover */
+.gift-peek .gift-number {
+  filter: blur(5px);
+  transition: filter 0.4s ease;
+  user-select: none;
+}
+
+.gift-peek:hover .gift-number,
+.gift-peek.is-revealed .gift-number {
+  filter: blur(0);
+  user-select: text;
+}
+
+.gift-peek .gift-hint {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a6d3b;
+  opacity: 0.7;
+  margin-top: 0.5rem;
+}
+
+.gift-peek:hover .gift-hint,
+.gift-peek.is-revealed .gift-hint {
+  opacity: 0;
+}
+
+/* Countdown as clay rings */
+.countdown-ring {
+  width: 4.75rem;
+  height: 4.75rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(193, 80, 46, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: inset 0 2px 8px rgba(74, 47, 28, 0.06);
+}
+
+@media (min-width: 768px) {
+  .countdown-ring {
+    width: 5.75rem;
+    height: 5.75rem;
+  }
+}
+
+/* Hero name overlaid on arch bottom (desktop polish) */
+.hero-arch-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 22rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== EFFECTS ===== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="left"] { transform: translateX(-36px); }
+[data-reveal="left"].is-visible { transform: translateX(0); }
+[data-reveal="right"] { transform: translateX(36px); }
+[data-reveal="right"].is-visible { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(0.92); }
+[data-reveal="scale"].is-visible { transform: scale(1); }
+
+[data-reveal-delay="1"] { transition-delay: 0.1s; }
+[data-reveal-delay="2"] { transition-delay: 0.2s; }
+[data-reveal-delay="3"] { transition-delay: 0.3s; }
+[data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+.btn-boho {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  border-radius: 9999px;
+  border: 2px solid #c1502e;
+  color: #c1502e;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  font-weight: 600;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.4s ease,
+    color 0.4s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.btn-boho:hover {
+  background: #c1502e;
+  color: #fff;
+}
+
+.btn-boho-solid {
+  display: inline-block;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background: #c1502e;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  font-weight: 600;
+  transition: transform 0.25s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-boho-solid:hover {
+  background: #8a3d24;
+}
+
+.scroll-settle {
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.22, 1.35, 0.36, 1);
+}
+
+/* Slow Ken Burns on hero */
+@keyframes kenBurns {
+  0% { transform: scale(1.08) translate(0, 0); }
+  50% { transform: scale(1.18) translate(-2%, 1%); }
+  100% { transform: scale(1.08) translate(0, 0); }
+}
+
+.hero-ken {
+  animation: kenBurns 22s ease-in-out infinite;
+}
+
+/* Shared hooks */
 #invitation-content {
   transition: filter 0.5s ease;
 }
@@ -158,9 +454,39 @@
   animation: shimmer-border-terracotta 4s ease-in-out infinite;
 }
 
-/* Font-toggle hook for the loader's shared "Ganti Font" button. */
 #invitation-content.pw-font-alt h1 {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(3rem, 10vw, 6rem);
   line-height: 1.15;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .btn-boho,
+  .btn-boho-solid,
+  .scroll-settle,
+  .boho-frame-wrap,
+  .hero-ken,
+  .boho-particle,
+  .flip-card {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(24px);
+  }
+  [data-reveal="left"].is-visible,
+  [data-reveal="right"].is-visible {
+    transform: translateY(0);
+  }
+  .boho-frame {
+    width: 130px;
+    height: 165px;
+  }
 }
