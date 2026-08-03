@@ -4,7 +4,6 @@ function initTheme(data) {
     if (el) el[isHTML ? 'innerHTML' : 'textContent'] = value || "";
   };
 
-  // 1. Hero & Names
   safeSet('[data-tagline]', data.tagline);
   safeSet('[data-date-str]', data.dateStr);
   safeSet('[data-groom-short]', data.groom.name.split(',')[0]);
@@ -14,7 +13,6 @@ function initTheme(data) {
   safeSet('[data-groom-parent]', data.groom.parent);
   safeSet('[data-bride-parent]', data.bride.parent);
 
-  // Socials
   const gIg = document.getElementById('groom-ig');
   if (gIg && data.groom.instagram) {
     gIg.textContent = data.groom.instagram;
@@ -26,7 +24,6 @@ function initTheme(data) {
     bIg.href = `https://instagram.com/${data.bride.instagram.replace('@', '')}`;
   }
 
-  // 2. Gallery images (hero blob + profile blobs)
   if (data.gallery && data.gallery.length > 0) {
     const heroBg = document.getElementById('hero-bg');
     if (heroBg) heroBg.style.backgroundImage = `url('${data.gallery[0]}')`;
@@ -36,7 +33,6 @@ function initTheme(data) {
     if (brideImg) brideImg.src = data.gallery[2] || data.gallery[0];
   }
 
-  // 3. Event Details
   ['ceremony', 'reception'].forEach(key => {
     safeSet(`[data-${key}-title]`, data[key].title);
     safeSet(`[data-${key}-venue]`, data[key].venue);
@@ -47,66 +43,74 @@ function initTheme(data) {
     if (map) map.href = data[key].mapsUrl;
   });
 
-  // 4. Love Story
   const storyList = document.getElementById('story-list');
   if (storyList && data.story) {
-    storyList.innerHTML = data.story.map(item => `
-      <div class="flex gap-4">
-        <span class="text-[#c56fa0] text-xl leading-none mt-1">✿</span>
-        <div>
-          <span class="text-[#9b86c2] text-xs tracking-widest uppercase">${item.date}</span>
-          <h4 class="font-display text-2xl text-[#5b4b73] my-1">${item.title}</h4>
-          <p class="text-[#7a6693] text-sm">${item.desc}</p>
+    storyList.innerHTML = data.story.map((item, i) => `
+      <div class="story-dream" data-reveal data-reveal-delay="${(i % 4) + 1}" data-journal>
+        <div class="flex gap-3 items-start">
+          <span class="text-[#c56fa0] text-lg leading-none mt-1">✿</span>
+          <div class="flex-1">
+            <span class="text-[#9b86c2] text-xs tracking-widest uppercase">${item.date}</span>
+            <h4 class="font-display text-xl md:text-2xl text-[#5b4b73] my-1">${item.title}</h4>
+            <div class="story-toggle">Buka cerita ↓</div>
+            <div class="story-body">
+              <p class="text-[#7a6693] text-sm leading-relaxed">${item.desc}</p>
+            </div>
+          </div>
         </div>
       </div>
     `).join('');
   }
 
-  // 5. Gifts
   const giftList = document.getElementById('gift-list');
   if (giftList && data.gift) {
-    giftList.innerHTML = data.gift.map(g => `
-      <div class="dream-card">
+    giftList.innerHTML = data.gift.map((g, i) => `
+      <div class="dream-card gift-peek text-left" data-reveal data-reveal-delay="${(i % 2) + 1}" data-gift-peek>
         <p class="text-[#9b86c2] text-xs uppercase tracking-widest mb-2">${g.bank}</p>
-        <p class="text-2xl text-[#5b4b73] tracking-widest my-2">${g.accountNumber}</p>
+        <p class="text-2xl text-[#5b4b73] tracking-widest my-2 gift-number">${g.accountNumber}</p>
         <p class="text-[#7a6693] text-xs uppercase">a/n ${g.accountHolder}</p>
+        <p class="gift-hint">Hover / ketuk untuk lihat nomor</p>
       </div>
     `).join('');
   }
 
-  // 6. Gallery — small organic blob frames
   const galleryGrid = document.getElementById('gallery-grid');
   if (galleryGrid && data.gallery) {
     galleryGrid.innerHTML = data.gallery.map((url, i) => `
-      <div class="dream-frame" style="${i % 2 === 1 ? 'border-radius: 42% 58% 58% 42% / 46% 50% 50% 54%;' : ''}">
+      <div class="dream-frame" style="${i % 2 === 1 ? 'border-radius: 42% 58% 58% 42% / 46% 50% 50% 54%;' : ''}" data-reveal data-reveal-delay="${(i % 4) + 1}">
         <img src="${url}" alt="Moment" loading="lazy">
       </div>
     `).join('');
   }
 
-  // 7. Footer
   safeSet('[data-footer-quote]', data.footer.quote);
   safeSet('[data-footer-verse]', data.footer.verse);
   safeSet('[data-footer-message]', data.footer.message, true);
   safeSet('[data-footer-closing]', data.footer.closing, true);
 
-  // 8. Countdown
   const target = new Date(data.dateISO).getTime();
   setInterval(() => {
-    const now = new Date().getTime();
-    const d = target - now;
+    const d = target - Date.now();
     if (d < 0) return;
-    document.getElementById('days').innerText = Math.floor(d / 864e5);
-    document.getElementById('hours').innerText = Math.floor((d % 864e5) / 36e5);
-    document.getElementById('minutes').innerText = Math.floor((d % 36e5) / 6e4);
-    document.getElementById('seconds').innerText = Math.floor((d % 6e4) / 1000);
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
+    set('days', Math.floor(d / 864e5));
+    set('hours', Math.floor((d % 864e5) / 36e5));
+    set('minutes', Math.floor((d % 36e5) / 6e4));
+    set('seconds', Math.floor((d % 6e4) / 1000));
   }, 1000);
 
-  // 9. Floating dreamy bokeh orbs
   spawnOrbs();
-
-  // 10. Live Streaming (stays as placeholder until the event date/time arrives)
   initLivestream(data);
+
+  requestAnimationFrame(() => {
+    initRevealOnScroll();
+    initMagneticButtons();
+    initScrollSettle();
+    initFlipCards();
+    initJournal();
+    initGiftPeek();
+    console.log('[dream-lavender] effects ready');
+  });
 }
 
 function initLivestream(data) {
@@ -136,7 +140,6 @@ function initLivestream(data) {
   }
 
   update();
-  // Re-check periodically in case the page is left open across the event start time
   setInterval(update, 30000);
 }
 
@@ -144,26 +147,147 @@ function spawnOrbs() {
   const container = document.getElementById('heart-container');
   if (!container) return;
 
-  // Bola cahaya lembut melayang naik perlahan, seperti kabut mimpi
-  const colors = ['#c3b1e1', '#f0d9e8', '#dcd0f0'];
-
-  for (let i = 0; i < 20; i++) {
+  const colors = ['#c3b1e1', '#f0d9e8', '#dcd0f0', '#f0aecb'];
+  for (let i = 0; i < 18; i++) {
     const orb = document.createElement('div');
     orb.className = 'dream-orb';
-
     const size = 6 + Math.random() * 14;
     orb.style.width = size + 'px';
     orb.style.height = size + 'px';
     orb.style.left = Math.random() * 100 + '%';
     orb.style.top = Math.random() * 100 + '%';
     orb.style.background = colors[Math.floor(Math.random() * colors.length)];
-
     const duration = 16 + Math.random() * 18;
     orb.style.animation = `floatOrb ${duration}s infinite ease-in-out`;
     orb.style.animationDelay = `-${Math.random() * duration}s`;
-
     container.appendChild(orb);
   }
+}
+
+function initRevealOnScroll() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -28px 0px' });
+  els.forEach(el => observer.observe(el));
+}
+
+function initMagneticButtons() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.magnetic-btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0, 0)';
+    });
+  });
+}
+
+function initScrollSettle() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const selectors = [
+    'h1.font-display',
+    '[data-tagline]',
+    '[data-date-str]',
+    '.couple-info h2',
+    'footer .font-script',
+    '[data-footer-quote]'
+  ];
+
+  const targets = [];
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      el.classList.add('scroll-settle');
+      targets.push(el);
+    });
+  });
+  if (!targets.length) return;
+
+  let lastY = window.scrollY || 0;
+  let offset = 0;
+  let stopTimer = null;
+  let phase = 'idle';
+  const maxOffset = window.matchMedia('(max-width: 768px)').matches ? 8 : 14;
+
+  function apply(y) {
+    const val = `translate3d(0, ${y}px, 0)`;
+    targets.forEach(el => { el.style.transform = val; });
+  }
+
+  function onScroll() {
+    const y = window.scrollY || 0;
+    const dy = y - lastY;
+    lastY = y;
+    offset = Math.max(-maxOffset, Math.min(maxOffset, -dy * 0.32));
+    phase = 'dragging';
+    apply(offset);
+
+    clearTimeout(stopTimer);
+    stopTimer = setTimeout(() => {
+      phase = 'overshoot';
+      const bounce = Math.max(-maxOffset * 0.4, Math.min(maxOffset * 0.4, -offset * 0.45));
+      apply(bounce);
+      setTimeout(() => {
+        if (phase !== 'overshoot') return;
+        phase = 'idle';
+        apply(0);
+        offset = 0;
+      }, 120);
+    }, 70);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+function initFlipCards() {
+  document.querySelectorAll('[data-flip]').forEach(scene => {
+    scene.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      scene.classList.toggle('is-flipped');
+    });
+  });
+}
+
+function initJournal() {
+  document.querySelectorAll('[data-journal]').forEach(item => {
+    item.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('is-open');
+      document.querySelectorAll('[data-journal]').forEach(el => {
+        el.classList.remove('is-open');
+        const t = el.querySelector('.story-toggle');
+        if (t) t.textContent = 'Buka cerita ↓';
+      });
+      if (!wasOpen) {
+        item.classList.add('is-open');
+        const t = item.querySelector('.story-toggle');
+        if (t) t.textContent = 'Tutup ↑';
+      }
+    });
+  });
+}
+
+function initGiftPeek() {
+  document.querySelectorAll('[data-gift-peek]').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('is-revealed');
+    });
+  });
 }
 
 window.initTheme = initTheme;

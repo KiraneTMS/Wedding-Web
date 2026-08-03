@@ -4,14 +4,12 @@ function initTheme(data) {
     if (el) el[isHTML ? 'innerHTML' : 'textContent'] = value || "";
   };
 
+  applyOrchidBatik();
+
   safeSet('[data-tagline]', data.tagline);
   safeSet('[data-date-str]', data.dateStr);
-  const groomShort = data.groom.name.split(',')[0];
-  const brideShort = data.bride.name.split(',')[0];
-  safeSet('[data-groom-short]', groomShort);
-  safeSet('[data-bride-short]', brideShort);
-  splitLetters(document.querySelector('[data-groom-short]'), 0.1);
-  splitLetters(document.querySelector('[data-bride-short]'), 0.1 + groomShort.length * 0.045 + 0.15);
+  safeSet('[data-groom-short]', data.groom.name.split(',')[0]);
+  safeSet('[data-bride-short]', data.bride.name.split(',')[0]);
   safeSet('[data-groom]', data.groom.name);
   safeSet('[data-bride]', data.bride.name);
   safeSet('[data-groom-parent]', data.groom.parent);
@@ -51,9 +49,9 @@ function initTheme(data) {
   if (storyList && data.story) {
     storyList.innerHTML = data.story.map((item, i) => `
       <div class="text-center" data-reveal data-reveal-delay="${(i % 4) + 1}">
-        <span class="text-[#9ca3ac] text-[10px] tracking-widest uppercase">${item.date}</span>
+        <span class="text-soft text-[10px] tracking-widest uppercase">${item.date}</span>
         <h4 class="font-display text-2xl my-1">${item.title}</h4>
-        <p class="text-[#6b6f76] text-sm">${item.desc}</p>
+        <p class="text-muted text-sm">${item.desc}</p>
       </div>
     `).join('');
   }
@@ -62,9 +60,9 @@ function initTheme(data) {
   if (giftList && data.gift) {
     giftList.innerHTML = data.gift.map((g, i) => `
       <div class="minimal-card tilt-card glass-soft rounded-sm px-6 pb-6" data-reveal data-reveal-delay="${(i % 2) + 1}">
-        <p class="text-[#9ca3ac] text-[10px] uppercase tracking-widest mb-2">${g.bank}</p>
+        <p class="text-soft text-[10px] uppercase tracking-widest mb-2">${g.bank}</p>
         <p class="text-xl tracking-widest my-2">${g.accountNumber}</p>
-        <p class="text-[#6b6f76] text-xs uppercase">a/n ${g.accountHolder}</p>
+        <p class="text-muted text-xs uppercase">a/n ${g.accountHolder}</p>
       </div>
     `).join('');
   }
@@ -76,7 +74,6 @@ function initTheme(data) {
         <img src="${url}" alt="Moment" loading="lazy">
       </div>
     `).join('');
-    initGalleryLightbox(data.gallery);
   }
 
   safeSet('[data-footer-quote]', data.footer.quote);
@@ -104,147 +101,162 @@ function initTheme(data) {
     initCardTilt();
     initMagneticButtons();
     initScrollSettle();
-    initScrollProgress();
-    initStoryTimeline();
-    console.log('[orchid] effects ready');
+    console.log('[orchid] light batik + effects ready');
   });
 }
 
-function splitLetters(el, baseDelay = 0) {
-  if (!el) return;
-  const text = el.textContent;
-  if (!text) return;
-  el.setAttribute('aria-label', text);
-  el.innerHTML = text.split('').map((ch, i) => {
-    const delay = (baseDelay + i * 0.045).toFixed(3);
-    const glyph = ch === ' ' ? '&nbsp;' : ch;
-    return `<span style="animation-delay:${delay}s" aria-hidden="true">${glyph}</span>`;
-  }).join('');
-}
+/* Batik follows theme colors (silver / soft charcoal on white), drawn semi-transparent */
+function applyOrchidBatik() {
+  const root = document.getElementById('wedding-root');
+  if (!root) return;
 
-function spawnPetalBurst(count = 16) {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const container = document.getElementById('heart-container');
-  if (!container) return;
+  try {
+    const tile = document.createElement('canvas');
+    const ctx = tile.getContext('2d');
+    const size = 300;
+    tile.width = size;
+    tile.height = size;
 
-  for (let i = 0; i < count; i++) {
-    const petal = document.createElement('div');
-    petal.className = 'orchid-particle orchid-burst';
-    const size = 3 + Math.random() * 3;
-    petal.style.width = size + 'px';
-    petal.style.height = size + 'px';
-    petal.style.left = Math.random() * 100 + '%';
-    petal.style.top = '-4%';
-    petal.style.setProperty('--drift', (Math.random() * 80 - 40) + 'px');
-    const duration = 2.5 + Math.random() * 1.5;
-    petal.style.animation = `petalFall ${duration}s ease-in forwards`;
-    petal.style.animationDelay = (Math.random() * 0.3) + 's';
-    container.appendChild(petal);
-    setTimeout(() => petal.remove(), (duration + 0.5) * 1000);
-  }
-}
-window.spawnPetalBurst = spawnPetalBurst;
+    // Theme-matched palette (minimal orchid greys)
+    const cBg = '#ffffff';
+    const cPetal = '#b8bcc2';       // soft silver-grey petal
+    const cCenter = '#9ca3ac';      // mid grey core
+    const cVine = '#c9ccd1';        // light vine
+    const cIsen = 'rgba(156, 163, 172, 0.18)';
+    const cCrackle = 'rgba(45, 45, 45, 0.04)';
+    const cStroke = 'rgba(255, 255, 255, 0.6)';
 
-function initScrollProgress() {
-  const bar = document.getElementById('scroll-progress');
-  if (!bar) return;
+    ctx.fillStyle = cBg;
+    ctx.fillRect(0, 0, size, size);
 
-  function update() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const pct = height > 0 ? (scrollTop / height) * 100 : 0;
-    bar.style.width = pct + '%';
-  }
-
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-}
-
-function initStoryTimeline() {
-  const track = document.getElementById('story-timeline-fill');
-  const wrapper = track ? track.parentElement : null;
-  if (!track || !wrapper) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  let ticking = false;
-  function update() {
-    ticking = false;
-    const rect = wrapper.getBoundingClientRect();
-    const viewH = window.innerHeight || document.documentElement.clientHeight;
-    const total = rect.height;
-    if (total <= 0) return;
-    const visibleTravel = viewH - rect.top;
-    const pct = Math.max(0, Math.min(1, visibleTravel / (total + viewH * 0.3)));
-    track.style.height = (pct * 100) + '%';
-  }
-
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-}
-
-function initGalleryLightbox(gallery) {
-  const lightbox = document.getElementById('lightbox');
-  const imgEl = document.getElementById('lightbox-img');
-  const counterEl = document.getElementById('lightbox-counter');
-  const closeBtn = document.getElementById('lightbox-close');
-  const prevBtn = document.getElementById('lightbox-prev');
-  const nextBtn = document.getElementById('lightbox-next');
-  const frames = document.querySelectorAll('#gallery-grid .orchid-frame');
-  if (!lightbox || !imgEl || !frames.length || !gallery || !gallery.length) return;
-
-  let currentIndex = 0;
-
-  function show(index) {
-    currentIndex = (index + gallery.length) % gallery.length;
-    imgEl.src = gallery[currentIndex];
-    if (counterEl) counterEl.textContent = `${currentIndex + 1} / ${gallery.length}`;
-  }
-
-  function open(index) {
-    show(index);
-    lightbox.classList.add('is-open');
-    lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.setProperty('overflow', 'hidden', 'important');
-  }
-
-  function close() {
-    lightbox.classList.remove('is-open');
-    lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.removeProperty('overflow');
-  }
-
-  frames.forEach((frame, i) => {
-    frame.addEventListener('click', () => open(i));
-  });
-
-  if (closeBtn) closeBtn.addEventListener('click', close);
-  if (prevBtn) prevBtn.addEventListener('click', () => show(currentIndex - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => show(currentIndex + 1));
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
-
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('is-open')) return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft') show(currentIndex - 1);
-    if (e.key === 'ArrowRight') show(currentIndex + 1);
-  });
-
-  let touchStartX = 0;
-  lightbox.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-  lightbox.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].screenX - touchStartX;
-    if (Math.abs(dx) > 40) {
-      dx > 0 ? show(currentIndex - 1) : show(currentIndex + 1);
+    // Isen-isen
+    ctx.fillStyle = cIsen;
+    for (let x = 0; x < size; x += 15) {
+      for (let y = 0; y < size; y += 15) {
+        const xOffset = (y % 30 === 0) ? 7.5 : 0;
+        ctx.beginPath();
+        ctx.arc(x + xOffset, y, 1.15, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
-  }, { passive: true });
+
+    // Suluran
+    ctx.strokeStyle = cVine;
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+
+    ctx.beginPath();
+    ctx.moveTo(-20, size + 20);
+    ctx.bezierCurveTo(size * 0.3, size * 0.7, size * 0.4, size * 0.3, size + 20, -20);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(size * 0.35, size * 0.55);
+    ctx.bezierCurveTo(size * 0.1, size * 0.4, 0, size * 0.1, size * 0.2, -20);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(size * 0.7, size * 0.25);
+    ctx.bezierCurveTo(size * 0.9, size * 0.5, size + 20, size * 0.6, size * 0.8, size + 20);
+    ctx.stroke();
+
+    function drawOrchid(cx, cy, scale, rot) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(rot);
+      ctx.scale(scale, scale);
+
+      ctx.fillStyle = cPetal;
+      ctx.strokeStyle = cStroke;
+      ctx.lineWidth = 1.5;
+
+      const angles = [-Math.PI / 2, Math.PI / 5, Math.PI - Math.PI / 5];
+      angles.forEach(a => {
+        ctx.save();
+        ctx.rotate(a);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(15, -35, 40, -35, 0, -65);
+        ctx.bezierCurveTo(-40, -35, -15, -35, 0, 0);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      [-Math.PI / 12, Math.PI + Math.PI / 12].forEach(a => {
+        ctx.save();
+        ctx.rotate(a);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(45, -15, 55, 20, 70, 0);
+        ctx.bezierCurveTo(55, -35, 25, -25, 0, 0);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      ctx.fillStyle = cCenter;
+      ctx.beginPath();
+      ctx.moveTo(0, -5);
+      ctx.bezierCurveTo(20, 5, 15, 35, 0, 30);
+      ctx.bezierCurveTo(-15, 35, -20, 5, 0, -5);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#e8eaed';
+      ctx.beginPath();
+      ctx.arc(0, 5, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    drawOrchid(size * 0.5, size * 0.45, 0.75, 0.2);
+    drawOrchid(0, 0, 0.55, -0.5);
+    drawOrchid(size, 0, 0.55, 0.5);
+    drawOrchid(0, size, 0.55, 0.8);
+    drawOrchid(size, size, 0.55, -0.3);
+
+    // Soft crackle
+    ctx.strokeStyle = cCrackle;
+    ctx.lineWidth = 0.7;
+    for (let i = 0; i < 12; i++) {
+      ctx.beginPath();
+      ctx.moveTo(Math.random() * size, 0);
+      let currentX = Math.random() * size;
+      let currentY = 0;
+      while (currentY < size) {
+        currentX += (Math.random() - 0.5) * 25;
+        currentY += Math.random() * 30;
+        ctx.lineTo(currentX, currentY);
+      }
+      ctx.stroke();
+    }
+
+    const dataUrl = tile.toDataURL();
+
+    // Apply as fixed layer at half opacity so theme stays white-dominant
+    let layer = document.getElementById('batik-layer');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.id = 'batik-layer';
+      layer.setAttribute('aria-hidden', 'true');
+      layer.style.cssText = [
+        'position:fixed',
+        'inset:0',
+        'z-index:0',
+        'pointer-events:none',
+        'opacity:0.5',
+        'background-repeat:repeat',
+        'background-size:300px 300px'
+      ].join(';');
+      root.insertBefore(layer, root.firstChild);
+    }
+    layer.style.backgroundImage = `url(${dataUrl})`;
+    root.style.backgroundColor = '#ffffff';
+  } catch (e) {
+    console.warn('[orchid] batik canvas failed', e);
+    root.style.backgroundColor = '#ffffff';
+  }
 }
 
 function initLivestream(data) {

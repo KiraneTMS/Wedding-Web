@@ -3,14 +3,21 @@
 #wedding-root {
   font-family: 'Outfit', sans-serif;
   background-color: #000;
+  color: #fff;
   width: 100%;
 }
 
-.font-display, h1, h2, h3 {
+.font-display, h1, h2, h3, h4 {
   font-family: 'Bodoni Moda', serif;
 }
 
-/* ===== Signature shape: the offset gold-line frame ===== */
+/* Soft vignette */
+.noir-vignette {
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%);
+}
+
+/* Offset gold-line frame */
 .offset-frame {
   position: relative;
 }
@@ -22,10 +29,23 @@
   border: 1px solid #c9a227;
   transform: translate(14px, 14px);
   z-index: 0;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+
+.offset-frame:hover::before {
+  transform: translate(8px, 8px);
 }
 
 .offset-frame--tl::before {
   transform: translate(-14px, -14px);
+}
+
+.offset-frame--tl:hover::before {
+  transform: translate(-8px, -8px);
+}
+
+.offset-frame--br::before {
+  transform: translate(14px, 14px);
 }
 
 .offset-photo {
@@ -36,9 +56,14 @@
   background-size: cover;
   background-position: center;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+  transition: transform 0.7s ease;
 }
 
-/* ===== Diamond divider (thin gold rules with a diamond mark between) ===== */
+.offset-frame:hover .offset-photo {
+  transform: scale(1.02);
+}
+
+/* Diamond divider */
 .diamond-divider {
   display: flex;
   align-items: center;
@@ -57,10 +82,11 @@
   flex: 0 0 auto;
 }
 
-/* ===== Minimal gold-line card (no box, just a short top accent) ===== */
+/* Gold-line card */
 .gold-line-card {
   position: relative;
   padding-top: 2rem;
+  transition: transform 0.4s ease;
 }
 
 .gold-line-card::before {
@@ -72,9 +98,14 @@
   width: 50px;
   height: 2px;
   background: #c9a227;
+  transition: width 0.45s ease;
 }
 
-/* ===== Rising gold sparkle particles ===== */
+.gold-line-card:hover::before {
+  width: 80px;
+}
+
+/* Rising gold sparkles */
 .lux-particle {
   position: absolute;
   border-radius: 9999px;
@@ -91,13 +122,297 @@
   100% { transform: translateY(-100vh); opacity: 0; }
 }
 
-/* =========================================================
-   Shared theme standard (plan gating, color/font customization,
-   exclusive-plan flourish). Driven by the loader's shared widget —
-   see index.html's initPlanWidget(). No per-theme widget code needed,
-   just these hooks.
-   ========================================================= */
+/* ===== STRUCTURE — editorial noir ===== */
 
+/* Hero: split on desktop — photo | typography */
+.hero-editorial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .hero-editorial {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    max-width: 64rem;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .hero-editorial .hero-copy {
+    text-align: left;
+    max-width: 22rem;
+  }
+  .hero-editorial .diamond-divider {
+    margin-left: 0;
+  }
+}
+
+/* Couple: vertical stack with large numbers */
+.couple-noir {
+  max-width: 52rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+@media (min-width: 768px) {
+  .couple-row-noir {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .couple-row-noir--rev {
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .couple-row-noir--rev .couple-photo { order: 2; }
+  .couple-row-noir--rev .couple-meta { order: 1; text-align: right; }
+}
+
+.couple-index {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(3.5rem, 8vw, 5.5rem);
+  font-weight: 300;
+  color: rgba(201, 162, 39, 0.25);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Events: alternating side accent bars */
+.event-rail {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .event-rail {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .event-rail > :nth-child(2) {
+    margin-top: 3rem;
+  }
+}
+
+.event-panel {
+  position: relative;
+  padding: 2rem 1.5rem 2rem 1.75rem;
+  border-left: 1px solid rgba(201, 162, 39, 0.35);
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+
+.event-panel:hover {
+  border-left-color: #c9a227;
+  background: rgba(201, 162, 39, 0.04);
+}
+
+.event-panel .event-detail {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+}
+
+.event-panel.is-open .event-detail,
+.event-panel:hover .event-detail {
+  max-height: 220px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+@media (hover: none) {
+  .event-panel:hover .event-detail {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+  .event-panel.is-open .event-detail {
+    max-height: 220px;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+}
+
+.event-hint {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(201, 162, 39, 0.55);
+  margin-top: 0.75rem;
+}
+
+/* Story — vertical gold timeline */
+.story-rail {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.story-rail::before {
+  content: '';
+  position: absolute;
+  left: 0.3rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, #c9a227 12%, #c9a227 88%, transparent);
+  opacity: 0.4;
+}
+
+.story-node {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.story-node::before {
+  content: '◆';
+  position: absolute;
+  left: -1.35rem;
+  top: 0.2rem;
+  font-size: 0.55rem;
+  color: #c9a227;
+  background: #000;
+  line-height: 1;
+}
+
+/* Gift — account masked until hover */
+.gift-mask .gift-number {
+  filter: blur(6px);
+  transition: filter 0.4s ease;
+  user-select: none;
+}
+
+.gift-mask:hover .gift-number,
+.gift-mask.is-revealed .gift-number {
+  filter: blur(0);
+  user-select: text;
+}
+
+.gift-mask .gift-hint {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(201, 162, 39, 0.55);
+  margin-top: 0.5rem;
+}
+
+.gift-mask:hover .gift-hint,
+.gift-mask.is-revealed .gift-hint {
+  opacity: 0;
+}
+
+/* Gallery strip */
+.gallery-noir {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.75rem 2rem;
+}
+
+/* Buttons */
+.btn-lux {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  border: 1px solid #c9a227;
+  color: #c9a227;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 11px;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.4s ease,
+    color 0.4s ease,
+    box-shadow 0.4s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.btn-lux:hover {
+  background: #c9a227;
+  color: #000;
+  box-shadow: 0 0 28px rgba(201, 162, 39, 0.35);
+}
+
+.btn-lux-solid {
+  display: inline-block;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: none;
+  background: #c9a227;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 11px;
+  font-weight: 500;
+  transition: transform 0.25s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-lux-solid:hover {
+  background: #fff;
+}
+
+/* Gold line draw under headings */
+.gold-draw {
+  position: relative;
+  display: inline-block;
+}
+
+.gold-draw::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background: #c9a227;
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gold-draw.is-drawn::after,
+[data-reveal].is-visible .gold-draw::after {
+  width: 100%;
+}
+
+/* Reveal — cinematic fade up */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="left"] { transform: translateX(-48px); }
+[data-reveal="left"].is-visible { transform: translateX(0); }
+[data-reveal="right"] { transform: translateX(48px); }
+[data-reveal="right"].is-visible { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(0.94); opacity: 0; }
+[data-reveal="scale"].is-visible { transform: scale(1); opacity: 1; }
+
+[data-reveal-delay="1"] { transition-delay: 0.12s; }
+[data-reveal-delay="2"] { transition-delay: 0.24s; }
+[data-reveal-delay="3"] { transition-delay: 0.36s; }
+[data-reveal-delay="4"] { transition-delay: 0.48s; }
+
+.scroll-settle {
+  will-change: transform;
+  transition: transform 0.55s cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+
+/* Shared hooks */
 #invitation-content {
   transition: filter 0.5s ease;
 }
@@ -115,10 +430,34 @@
   animation: shimmer-border-lux 4s ease-in-out infinite;
 }
 
-/* Font-toggle hook for the loader's shared "Ganti Font" button. */
 #invitation-content.pw-font-alt h1 {
   font-family: 'Great Vibes', cursive;
   font-style: normal;
   font-size: clamp(3rem, 10vw, 6rem);
   line-height: 1.15;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .btn-lux,
+  .btn-lux-solid,
+  .scroll-settle,
+  .lux-particle,
+  .offset-frame::before {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(28px);
+  }
+  [data-reveal="left"].is-visible,
+  [data-reveal="right"].is-visible {
+    transform: translateY(0);
+  }
 }

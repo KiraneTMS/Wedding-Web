@@ -3,10 +3,11 @@
 #wedding-root {
   font-family: 'Quicksand', sans-serif;
   background-color: #f6f2fb;
+  color: #5b4b73;
   width: 100%;
 }
 
-.font-display, h1, h2, h3 {
+.font-display, h1, h2, h3, h4 {
   font-family: 'Lora', serif;
 }
 
@@ -14,7 +15,7 @@
   font-family: 'Parisienne', cursive;
 }
 
-/* ===== Dreamy background wash ===== */
+/* Dreamy background wash */
 .dream-blob {
   position: absolute;
   border-radius: 9999px;
@@ -22,9 +23,18 @@
   opacity: 0.45;
   pointer-events: none;
   z-index: 0;
+  animation: blobDrift 18s ease-in-out infinite alternate;
 }
 
-/* ===== Signature shape: the organic blob frame ===== */
+.dream-blob:nth-child(2) { animation-duration: 22s; animation-delay: -4s; }
+.dream-blob:nth-child(3) { animation-duration: 16s; animation-delay: -8s; }
+
+@keyframes blobDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(12px, -18px) scale(1.08); }
+}
+
+/* Organic blob frame — morphs on hover */
 .blob-frame {
   width: 220px;
   height: 220px;
@@ -32,6 +42,13 @@
   padding: 8px;
   background: #fff;
   box-shadow: 0 20px 45px rgba(107, 79, 140, 0.25);
+  transition: border-radius 0.8s cubic-bezier(0.34, 1.2, 0.64, 1), transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.blob-frame:hover {
+  border-radius: 42% 58% 40% 60% / 48% 42% 58% 52%;
+  transform: scale(1.03);
+  box-shadow: 0 24px 50px rgba(107, 79, 140, 0.32);
 }
 
 .blob-frame--md {
@@ -43,6 +60,10 @@
   border-radius: 42% 58% 40% 60% / 48% 42% 58% 52%;
 }
 
+.blob-frame--alt:hover {
+  border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+}
+
 .blob-photo {
   width: 100%;
   height: 100%;
@@ -51,14 +72,24 @@
   background-position: center;
   object-fit: cover;
   display: block;
+  transition: transform 0.8s ease;
 }
 
-/* ===== CSS ribbon bow (no image needed) ===== */
+.blob-frame:hover .blob-photo {
+  transform: scale(1.06);
+}
+
+/* CSS ribbon bow */
 .ribbon-bow {
   position: relative;
   width: 50px;
   height: 28px;
   display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ribbon-bow:hover {
+  transform: scale(1.15) rotate(-8deg);
 }
 
 .ribbon-bow span {
@@ -87,7 +118,10 @@
   transform: scale(0.55);
 }
 
-/* ===== Ribbon divider (thin lilac rule with a bow in the middle) ===== */
+.ribbon-bow--sm:hover {
+  transform: scale(0.65) rotate(-8deg);
+}
+
 .ribbon-divider {
   display: flex;
   align-items: center;
@@ -100,15 +134,23 @@
   background: linear-gradient(to right, transparent, #c3b1e1, transparent);
 }
 
-/* ===== Dream card (soft translucent info panel) ===== */
+/* Dream card */
 .dream-card {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.65);
   border: 1px solid rgba(195, 177, 225, 0.4);
   border-radius: 2rem;
   padding: 2rem 1.75rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* ===== Small blob frames for the gallery ===== */
+.dream-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(107, 79, 140, 0.12);
+}
+
+/* Gallery blobs */
 .dream-frame {
   width: 8.5rem;
   height: 9.5rem;
@@ -116,15 +158,27 @@
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(107, 79, 140, 0.2);
   border: 5px solid #fff;
+  transition: transform 0.5s ease, border-radius 0.7s ease;
 }
 
 .dream-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-/* ===== Floating dreamy bokeh orbs ===== */
+.dream-frame:hover {
+  transform: scale(1.08) rotate(2deg);
+  border-radius: 42% 58% 58% 42% / 46% 50% 50% 54%;
+  z-index: 2;
+}
+
+.dream-frame:hover img {
+  transform: scale(1.05);
+}
+
+/* Floating orbs */
 .dream-orb {
   position: absolute;
   border-radius: 9999px;
@@ -141,13 +195,232 @@
   100% { transform: translate(-12px, -100vh); opacity: 0; }
 }
 
-/* =========================================================
-   Shared theme standard (plan gating, color/font customization,
-   exclusive-plan flourish). Driven by the loader's shared widget —
-   see index.html's initPlanWidget(). No per-theme widget code needed,
-   just these hooks.
-   ========================================================= */
+/* ===== STRUCTURE extras ===== */
 
+/* Couple zigzag */
+.couple-dream {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .couple-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .couple-row--flip .couple-photo { order: 2; }
+  .couple-row--flip .couple-info { order: 1; text-align: right; }
+  .couple-row--flip .couple-info .info-inner { margin-left: auto; }
+}
+
+/* Flip event cards */
+.flip-scene {
+  perspective: 1000px;
+  min-height: 280px;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip-scene.is-flipped .flip-card,
+.flip-scene:hover .flip-card {
+  transform: rotateY(180deg);
+}
+
+@media (hover: none) {
+  .flip-scene:hover .flip-card { transform: none; }
+  .flip-scene.is-flipped .flip-card { transform: rotateY(180deg); }
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 2rem;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.flip-front {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(195, 177, 225, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+.flip-back {
+  background: linear-gradient(155deg, #b9a6d9 0%, #9b86c2 100%);
+  color: #fff;
+  border: 1px solid rgba(185, 166, 217, 0.5);
+  transform: rotateY(180deg);
+}
+
+.flip-hint {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-top: 1rem;
+}
+
+/* Story expand */
+.story-dream {
+  border-left: 2px solid rgba(195, 177, 225, 0.45);
+  padding-left: 1.25rem;
+  cursor: pointer;
+  border-radius: 0 1rem 1rem 0;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-right: 0.75rem;
+  transition: background 0.3s ease;
+}
+
+.story-dream:hover {
+  background: rgba(195, 177, 225, 0.12);
+}
+
+.story-dream .story-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.35s ease;
+}
+
+.story-dream.is-open .story-body {
+  max-height: 180px;
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+
+.story-dream .story-toggle {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c56fa0;
+  margin-top: 0.3rem;
+}
+
+/* Gift peek */
+.gift-peek .gift-number {
+  filter: blur(5px);
+  transition: filter 0.4s ease;
+  user-select: none;
+}
+
+.gift-peek:hover .gift-number,
+.gift-peek.is-revealed .gift-number {
+  filter: blur(0);
+  user-select: text;
+}
+
+.gift-peek .gift-hint {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9b86c2;
+  opacity: 0.7;
+  margin-top: 0.4rem;
+}
+
+.gift-peek:hover .gift-hint,
+.gift-peek.is-revealed .gift-hint {
+  opacity: 0;
+}
+
+/* Buttons */
+.btn-dream {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid #b9a6d9;
+  color: #7a5ca8;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.4s ease,
+    color 0.4s ease,
+    box-shadow 0.4s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.btn-dream:hover {
+  background: #b9a6d9;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(185, 166, 217, 0.4);
+}
+
+.btn-dream-solid {
+  display: inline-block;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background: #b9a6d9;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  transition: transform 0.25s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-dream-solid:hover {
+  background: #9b86c2;
+}
+
+/* Effects */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="left"] { transform: translateX(-36px); }
+[data-reveal="left"].is-visible { transform: translateX(0); }
+[data-reveal="right"] { transform: translateX(36px); }
+[data-reveal="right"].is-visible { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(0.92); }
+[data-reveal="scale"].is-visible { transform: scale(1); }
+
+[data-reveal-delay="1"] { transition-delay: 0.1s; }
+[data-reveal-delay="2"] { transition-delay: 0.2s; }
+[data-reveal-delay="3"] { transition-delay: 0.3s; }
+[data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+.scroll-settle {
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.22, 1.35, 0.36, 1);
+}
+
+/* Shared hooks */
 #invitation-content {
   transition: filter 0.5s ease;
 }
@@ -165,11 +438,43 @@
   animation: shimmer-border-lavender 4s ease-in-out infinite;
 }
 
-/* Font-toggle hook for the loader's shared "Ganti Font" button —
-   this theme already owns a script font, so the toggle switches the
-   main heading into it instead of pulling in a new font. */
 #invitation-content.pw-font-alt h1 {
   font-family: 'Parisienne', cursive;
   font-weight: 400;
   font-size: clamp(3rem, 9vw, 5.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .btn-dream,
+  .btn-dream-solid,
+  .scroll-settle,
+  .dream-blob,
+  .dream-orb,
+  .blob-frame,
+  .flip-card {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(24px);
+  }
+  [data-reveal="left"].is-visible,
+  [data-reveal="right"].is-visible {
+    transform: translateY(0);
+  }
+  .blob-frame {
+    width: 180px;
+    height: 180px;
+  }
+  .blob-frame--md {
+    width: 170px;
+    height: 190px;
+  }
 }

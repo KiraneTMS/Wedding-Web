@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500&display=swap');
 
 :root {
   --bg: #fdfaf5;
@@ -8,133 +8,26 @@
   --gold: #d4a373;
 }
 
-body {
+#wedding-root {
+  width: 100%;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Outfit', sans-serif;
 }
 
-.hero {
-  height: 100dvh;
-  min-height: 720px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
-
-.bg-layer {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, #fffaf0, #fdf6f0);
-  z-index: 1;
-}
-
-.content {
-  position: relative;
-  z-index: 3;
-  padding: 2rem;
-}
-
-.frame {
-  position: relative;
-  display: inline-block;
-  padding: 2rem 4rem;
-  border: 2px dashed var(--accent);
-  border-radius: 50% 30% 40% 60% / 60% 40% 50% 30%;
-  background: rgba(255,248,240,0.6);
-  backdrop-filter: blur(4px);
-}
-
-h1 {
+.font-script {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(5rem, 13vw, 11rem);
-  color: var(--accent);
-  margin: 0.5rem 0;
-  line-height: 0.9;
 }
 
-.heart {
-  font-size: clamp(5rem, 10vw, 9rem);
-  color: #e76f51;
-  margin: -1rem 0;
-}
-
-.date {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.2rem, 6vw, 4rem);
-  color: var(--text);
-  margin: 2.5rem 0 1.5rem;
-}
-
-.tag {
-  font-size: 1.5rem;
-  font-style: italic;
-  max-width: 680px;
-  margin: 0 auto;
-  color: #6b5e4e;
-}
-
-.moments {
-  padding: 5rem 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-  justify-content: center;
-}
-
-.moment {
-  background: white;
-  border-radius: 24px;
-  padding: 2.5rem;
-  width: 100%;
-  max-width: 420px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-  border: 1px solid rgba(201,124,93,0.15);
-  text-align: center;
-}
-
-.moment h2 {
+.font-serif {
   font-family: 'Cormorant Garamond', serif;
-  color: var(--accent);
-  font-size: 2.4rem;
-  margin-bottom: 1.4rem;
 }
 
-.place {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.8rem;
+.font-display {
+  font-family: 'Playfair Display', serif;
 }
 
-.when, .where {
-  font-size: 1.2rem;
-  line-height: 1.8;
-}
-
-.where { opacity: 0.9; }
-
-.footer {
-  padding: 6rem 1.5rem 9rem;
-  text-align: center;
-  background: linear-gradient(to top, #f8f1e9, transparent);
-}
-
-.note {
-  font-size: 1.35rem;
-  line-height: 2;
-  max-width: 720px;
-  margin: 0 auto 2.5rem;
-}
-
-.love {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3.5rem;
-  color: var(--accent);
-}
-
+/* Leaf wallpaper */
 .leaves {
   position: fixed;
   inset: 0;
@@ -144,73 +37,306 @@ h1 {
   z-index: 0;
 }
 
-.boho-gallery {
-  padding: 5rem 1.5rem 8rem;
-  text-align: center;
-  background: linear-gradient(to bottom, #fdfaf5, #f8f1e9);
-}
-
-.boho-gallery h2 {
-  font-family: 'Great Vibes', cursive;
-  color: var(--accent);
-  font-size: 3.8rem;
-  margin-bottom: 3rem;
-}
-
-.polaroid-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
-  justify-content: center;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.polaroid-grid img {
-  width: 260px;
-  height: 320px;
-  object-fit: cover;
-  border: 12px solid white;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  transform: rotate(2deg);
-  transition: all 0.4s ease;
-}
-
-.polaroid-grid img:nth-child(odd) {
-  transform: rotate(-3deg);
-}
-
-.polaroid-grid img:hover {
-  transform: scale(1.12) rotate(0deg);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.22);
-  z-index: 10;
-}
-
 @keyframes floatLeaves {
   0% { transform: translateY(0) rotate(0deg); }
   100% { transform: translateY(-200vh) rotate(720deg); }
 }
 
-/* ===== Plan preview: base ===== */
-#wedding-root { width: 100%; }
-
-/* Filter/font customization is scoped to the invitation content only,
-   never to #wedding-root — the widget/modal are portaled to <body> by
-   script.js, so this scoping doesn't even reach them, but keeping the
-   filter off any ancestor of a position:fixed element (like .leaves)
-   avoids turning that ancestor into a containing block that clips it. */
-#invitation-content {
-  transition: filter 0.5s ease;
+/* Organic blob frame */
+.frame {
+  position: relative;
+  display: inline-block;
+  padding: 2rem 3.5rem;
+  border: 2px dashed var(--accent);
+  border-radius: 50% 30% 40% 60% / 60% 40% 50% 30%;
+  background: rgba(255, 248, 240, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: border-radius 0.8s cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 0.5s ease;
 }
 
-.hidden { display: none !important; }
+.frame:hover {
+  border-radius: 40% 60% 50% 30% / 50% 30% 60% 40%;
+  box-shadow: 0 12px 40px rgba(201, 124, 93, 0.15);
+}
 
-/* ===== Gated sections ===== */
+/* Moment cards */
+.moment {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(201, 124, 93, 0.15);
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.moment:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+}
+
+.moment h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--accent);
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+}
+
+/* Polaroid */
+.polaroid-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.polaroid {
+  background: white;
+  padding: 12px 12px 36px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: rotate(2deg);
+  transition: transform 0.45s ease, box-shadow 0.45s ease;
+}
+
+.polaroid:nth-child(odd) {
+  transform: rotate(-3deg);
+}
+
+.polaroid:nth-child(3n) {
+  transform: rotate(1.5deg);
+}
+
+.polaroid:hover {
+  transform: scale(1.08) rotate(0deg);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.polaroid img {
+  width: 220px;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Story expand */
+.story-boho {
+  margin-bottom: 1.5rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 1.5rem;
+  cursor: pointer;
+  transition: padding-left 0.35s ease, background 0.3s ease;
+  border-radius: 0 12px 12px 0;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.story-boho:hover {
+  padding-left: 1.75rem;
+  background: rgba(201, 124, 93, 0.06);
+}
+
+.story-boho .story-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.35s ease;
+}
+
+.story-boho.is-open .story-body {
+  max-height: 160px;
+  opacity: 1;
+  margin-top: 0.4rem;
+}
+
+.story-toggle {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 0.25rem;
+}
+
+/* Event expand */
+.event-boho .event-more {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+}
+
+.event-boho.is-open .event-more,
+.event-boho:hover .event-more {
+  max-height: 180px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+@media (hover: none) {
+  .event-boho:hover .event-more {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+  .event-boho.is-open .event-more {
+    max-height: 180px;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+}
+
+.event-hint {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 0.75rem;
+  opacity: 0.8;
+}
+
+/* Gift */
+.gift-boho .gift-number {
+  filter: blur(4px);
+  transition: filter 0.4s ease;
+  user-select: none;
+}
+
+.gift-boho:hover .gift-number,
+.gift-boho.is-revealed .gift-number {
+  filter: blur(0);
+  user-select: text;
+}
+
+.gift-boho .gift-hint {
+  font-size: 11px;
+  color: var(--gold);
+  margin-top: 0.35rem;
+  opacity: 0.75;
+}
+
+.gift-boho:hover .gift-hint,
+.gift-boho.is-revealed .gift-hint {
+  opacity: 0;
+}
+
+/* Buttons */
+.btn-boho {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border-radius: 9999px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    opacity 0.3s ease;
+  will-change: transform;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-boho:hover {
+  box-shadow: 0 8px 24px rgba(201, 124, 93, 0.35);
+  opacity: 0.95;
+}
+
+/* Countdown */
+.countdown-boho {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem 2.5rem;
+  padding: 3rem 1.5rem;
+}
+
+.count-cell {
+  text-align: center;
+  min-width: 4.5rem;
+}
+
+.count-cell .num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.count-cell .lab {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 0.35rem;
+}
+
+/* Inputs */
+.input-boho {
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 124, 93, 0.3);
+  background: var(--bg);
+  font-family: inherit;
+  font-size: 1rem;
+  color: inherit;
+  width: 100%;
+}
+
+.input-boho:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Reveal */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="left"] { transform: translateX(-32px); }
+[data-reveal="left"].is-visible { transform: translateX(0); }
+[data-reveal="right"] { transform: translateX(32px); }
+[data-reveal="right"].is-visible { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(0.94); }
+[data-reveal="scale"].is-visible { transform: scale(1); }
+
+[data-reveal-delay="1"] { transition-delay: 0.1s; }
+[data-reveal-delay="2"] { transition-delay: 0.2s; }
+[data-reveal-delay="3"] { transition-delay: 0.3s; }
+[data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+.scroll-settle {
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.22, 1.35, 0.36, 1);
+}
+
+/* Shared plan */
+#invitation-content {
+  transition: filter 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
 [data-plan-feature] {
   transition: opacity 0.3s ease;
 }
 
-/* ===== Exclusive plan flourish ===== */
 @keyframes shimmer-frame {
   0%, 100% { box-shadow: 0 0 0 0 rgba(212, 163, 115, 0); }
   50% { box-shadow: 0 0 50px 10px rgba(212, 163, 115, 0.45); }
@@ -220,10 +346,41 @@ h1 {
   animation: shimmer-frame 4s ease-in-out infinite;
 }
 
-/* ===== Elegant font toggle (Premium+) ===== */
 #invitation-content.pw-font-alt h1,
 #invitation-content.pw-font-alt .love,
-#invitation-content.pw-font-alt .boho-gallery h2 {
+#invitation-content.pw-font-alt .section-title {
   font-family: 'Playfair Display', serif;
   font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .btn-boho,
+  .scroll-settle,
+  .leaves,
+  .frame,
+  .polaroid {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .frame {
+    padding: 1.5rem 2rem;
+  }
+  .polaroid img {
+    width: 160px;
+    height: 200px;
+  }
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(24px);
+  }
+  [data-reveal="left"].is-visible,
+  [data-reveal="right"].is-visible {
+    transform: translateY(0);
+  }
 }

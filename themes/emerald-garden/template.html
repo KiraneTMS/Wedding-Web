@@ -1,9 +1,10 @@
 <div id="wedding-root" class="min-h-screen bg-[#0b3d2e] text-[#f5f1e8] selection:bg-[#c9a66b]/40 font-sans">
 <div id="invitation-content" class="relative overflow-x-hidden">
 
+  <!-- HERO -->
   <section class="relative min-h-screen flex flex-col items-center justify-center py-20 px-6 overflow-hidden">
     <div class="absolute inset-0 z-0">
-      <div id="hero-bg" class="w-full h-full bg-cover bg-center scale-110 transition-transform duration-[20s]"></div>
+      <div id="hero-bg" class="w-full h-full bg-cover bg-center hero-ken"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-[#0b3d2e]/85 via-[#0b3d2e]/70 to-[#0b3d2e]"></div>
     </div>
 
@@ -14,30 +15,33 @@
       <path d="M100 10 C 40 30, 20 90, 60 150 C 90 190, 150 190, 170 140 C 130 150, 90 130, 80 90 C 70 50, 100 10, 100 10 Z" />
     </svg>
 
-    <div class="corner-frame relative z-10 text-center max-w-lg mx-auto py-6">
+    <div class="corner-frame hero-garden-card" data-reveal="scale">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <p class="tracking-[0.5em] uppercase text-xs text-[#c9a66b] mb-6" data-tagline></p>
       <h1 class="font-display text-5xl md:text-7xl leading-tight mb-6">
         <span data-groom-short></span> <span class="text-[#c9a66b] italic">&amp;</span> <span data-bride-short></span>
       </h1>
-      <div class="leaf-divider max-w-[220px] mx-auto mb-6"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+      <div class="leaf-divider max-w-[220px] mx-auto mb-6">
+        <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+      </div>
       <p class="text-lg italic text-[#f5f1e8]/70 mb-10" data-date-str></p>
 
       <button onclick="document.getElementById('couple-section').scrollIntoView({behavior: 'smooth'})"
-        class="px-10 py-3 border border-[#c9a66b] text-[#c9a66b] hover:bg-[#c9a66b] hover:text-[#0b3d2e] transition-all duration-500 uppercase tracking-widest text-xs">
+        class="btn-emerald magnetic-btn">
         Buka Undangan
       </button>
     </div>
   </section>
 
+  <!-- COUPLE — staggered hex -->
   <section id="couple-section" class="py-24 px-6 relative z-10">
-    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
+    <div class="couple-honey">
 
-      <div class="text-center">
-        <div class="hex-frame mx-auto mb-8">
+      <div class="couple-col text-center" data-reveal="left">
+        <div class="hex-frame mx-auto mb-6">
           <div class="hex-frame-inner">
-            <img id="groom-img" src="" class="w-full h-full object-cover">
+            <img id="groom-img" src="" class="w-full h-full object-cover" alt="">
           </div>
         </div>
         <p class="text-[10px] tracking-[0.4em] uppercase text-[#c9a66b] mb-2">The Groom</p>
@@ -46,10 +50,16 @@
         <a id="groom-ig" target="_blank" class="inline-block mt-3 text-[#c9a66b] text-xs tracking-widest uppercase hover:text-white transition-colors"></a>
       </div>
 
-      <div class="text-center">
-        <div class="hex-frame mx-auto mb-8">
+      <div class="couple-mid-leaf" aria-hidden="true">
+        <span class="text-2xl">🌿</span>
+        <span class="block w-px h-12 bg-[#c9a66b]/35 my-2"></span>
+        <span class="text-2xl">🌿</span>
+      </div>
+
+      <div class="couple-col text-center" data-reveal="right">
+        <div class="hex-frame mx-auto mb-6">
           <div class="hex-frame-inner">
-            <img id="bride-img" src="" class="w-full h-full object-cover">
+            <img id="bride-img" src="" class="w-full h-full object-cover" alt="">
           </div>
         </div>
         <p class="text-[10px] tracking-[0.4em] uppercase text-[#c9a66b] mb-2">The Bride</p>
@@ -61,88 +71,108 @@
     </div>
   </section>
 
-  <div class="leaf-divider max-w-xs mx-auto py-4"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+  <div class="leaf-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+  </div>
 
+  <!-- COUNTDOWN hex cells -->
   <section class="py-16 px-6 relative z-10">
-    <div class="max-w-3xl mx-auto flex items-center justify-center gap-6 md:gap-14 text-center flex-wrap">
-      <div>
-        <div id="days" class="font-display text-4xl md:text-6xl text-[#c9a66b]">0</div>
-        <div class="text-[10px] uppercase tracking-[0.3em] text-[#f5f1e8]/50 mt-2">Hari</div>
+    <div class="max-w-3xl mx-auto flex items-center justify-center gap-3 md:gap-5 text-center flex-wrap">
+      <div class="hex-count" data-reveal data-reveal-delay="1">
+        <div id="days" class="font-display text-2xl md:text-3xl text-[#c9a66b]">0</div>
+        <div class="text-[9px] uppercase tracking-[0.2em] text-[#f5f1e8]/50 mt-1">Hari</div>
       </div>
-      <div class="text-[#c9a66b]/40 text-xl">✦</div>
-      <div>
-        <div id="hours" class="font-display text-4xl md:text-6xl text-[#c9a66b]">0</div>
-        <div class="text-[10px] uppercase tracking-[0.3em] text-[#f5f1e8]/50 mt-2">Jam</div>
+      <div class="hex-count" data-reveal data-reveal-delay="2">
+        <div id="hours" class="font-display text-2xl md:text-3xl text-[#c9a66b]">0</div>
+        <div class="text-[9px] uppercase tracking-[0.2em] text-[#f5f1e8]/50 mt-1">Jam</div>
       </div>
-      <div class="text-[#c9a66b]/40 text-xl">✦</div>
-      <div>
-        <div id="minutes" class="font-display text-4xl md:text-6xl text-[#c9a66b]">0</div>
-        <div class="text-[10px] uppercase tracking-[0.3em] text-[#f5f1e8]/50 mt-2">Menit</div>
+      <div class="hex-count" data-reveal data-reveal-delay="3">
+        <div id="minutes" class="font-display text-2xl md:text-3xl text-[#c9a66b]">0</div>
+        <div class="text-[9px] uppercase tracking-[0.2em] text-[#f5f1e8]/50 mt-1">Menit</div>
       </div>
-      <div class="text-[#c9a66b]/40 text-xl">✦</div>
-      <div>
-        <div id="seconds" class="font-display text-4xl md:text-6xl text-[#c9a66b]">0</div>
-        <div class="text-[10px] uppercase tracking-[0.3em] text-[#f5f1e8]/50 mt-2">Detik</div>
+      <div class="hex-count" data-reveal data-reveal-delay="4">
+        <div id="seconds" class="font-display text-2xl md:text-3xl text-[#c9a66b]">0</div>
+        <div class="text-[9px] uppercase tracking-[0.2em] text-[#f5f1e8]/50 mt-1">Detik</div>
       </div>
     </div>
   </section>
 
-  <div class="leaf-divider max-w-xs mx-auto py-4"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+  <div class="leaf-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+  </div>
 
+  <!-- STORY vine -->
   <section class="py-24 px-6 relative z-10" data-plan-feature="story">
     <div class="max-w-2xl mx-auto">
-      <p class="text-center text-xs tracking-[0.5em] uppercase text-[#c9a66b] mb-16">Kisah Kami</p>
-      <div id="story-list" class="space-y-10"></div>
+      <p class="text-center text-xs tracking-[0.5em] uppercase text-[#c9a66b] mb-16" data-reveal>Kisah Kami</p>
+      <div id="story-list" class="story-vine"></div>
     </div>
   </section>
 
-  <div class="leaf-divider max-w-xs mx-auto py-4"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+  <div class="leaf-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+  </div>
 
+  <!-- EVENTS corner expand -->
   <section class="py-24 px-6 relative z-10">
+    <p class="text-center text-[11px] text-[#c9a66b]/60 mb-10 tracking-widest uppercase" data-reveal>Hover / ketuk untuk detail</p>
     <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-      <div class="corner-frame text-center">
+      <div class="corner-frame event-corner text-center cursor-pointer" data-reveal="left" data-event>
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-        <h3 class="font-display text-2xl text-[#c9a66b] mb-3" data-ceremony-title></h3>
-        <p class="text-lg mb-1" data-ceremony-venue></p>
-        <p class="text-[#f5f1e8]/60 text-sm" data-ceremony-address></p>
-        <div class="my-5 h-px bg-[#c9a66b]/25"></div>
-        <p class="text-[#f5f1e8]/80" data-ceremony-time></p>
-        <p class="text-xs italic text-[#f5f1e8]/50 mt-2" data-ceremony-note></p>
-        <a id="ceremony-maps" target="_blank" class="inline-block mt-6 px-8 py-2.5 border border-[#c9a66b] text-[#c9a66b] hover:bg-[#c9a66b] hover:text-[#0b3d2e] transition-all uppercase tracking-widest text-xs">Lihat Lokasi</a>
+        <h3 class="font-display text-2xl text-[#c9a66b] mb-2" data-ceremony-title></h3>
+        <p class="text-lg" data-ceremony-venue></p>
+        <p class="event-hint">Detail →</p>
+        <div class="event-more">
+          <p class="text-[#f5f1e8]/60 text-sm" data-ceremony-address></p>
+          <div class="my-4 h-px bg-[#c9a66b]/25"></div>
+          <p class="text-[#f5f1e8]/80" data-ceremony-time></p>
+          <p class="text-xs italic text-[#f5f1e8]/50 mt-2" data-ceremony-note></p>
+          <a id="ceremony-maps" target="_blank" class="btn-emerald magnetic-btn mt-5 text-[10px]">Lihat Lokasi</a>
+        </div>
       </div>
-      <div class="corner-frame text-center">
+      <div class="corner-frame event-corner text-center cursor-pointer" data-reveal="right" data-reveal-delay="1" data-event>
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-        <h3 class="font-display text-2xl text-[#c9a66b] mb-3" data-reception-title></h3>
-        <p class="text-lg mb-1" data-reception-venue></p>
-        <p class="text-[#f5f1e8]/60 text-sm" data-reception-address></p>
-        <div class="my-5 h-px bg-[#c9a66b]/25"></div>
-        <p class="text-[#f5f1e8]/80" data-reception-time></p>
-        <p class="text-xs italic text-[#f5f1e8]/50 mt-2" data-reception-note></p>
-        <a id="reception-maps" target="_blank" class="inline-block mt-6 px-8 py-2.5 border border-[#c9a66b] text-[#c9a66b] hover:bg-[#c9a66b] hover:text-[#0b3d2e] transition-all uppercase tracking-widest text-xs">Lihat Lokasi</a>
+        <h3 class="font-display text-2xl text-[#c9a66b] mb-2" data-reception-title></h3>
+        <p class="text-lg" data-reception-venue></p>
+        <p class="event-hint">Detail →</p>
+        <div class="event-more">
+          <p class="text-[#f5f1e8]/60 text-sm" data-reception-address></p>
+          <div class="my-4 h-px bg-[#c9a66b]/25"></div>
+          <p class="text-[#f5f1e8]/80" data-reception-time></p>
+          <p class="text-xs italic text-[#f5f1e8]/50 mt-2" data-reception-note></p>
+          <a id="reception-maps" target="_blank" class="btn-emerald magnetic-btn mt-5 text-[10px]">Lihat Lokasi</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="leaf-divider max-w-xs mx-auto py-4"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+  <div class="leaf-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+  </div>
 
+  <!-- LIVESTREAM -->
   <section class="py-24 px-6 relative z-10" data-plan-feature="livestream">
-    <div class="max-w-2xl mx-auto text-center">
+    <div class="max-w-2xl mx-auto text-center" data-reveal>
       <p class="text-xs tracking-[0.5em] uppercase text-[#c9a66b] mb-4">Live Streaming</p>
       <p class="text-[#f5f1e8]/60 text-sm mb-8">Tidak bisa hadir langsung? Ikuti momen sakral kami secara live.</p>
       <div class="aspect-video border border-[#c9a66b]/30 flex items-center justify-center bg-white/5">
         <span id="livestream-status" class="text-[#f5f1e8]/60 text-sm px-4 text-center">▶ Live streaming akan dimulai pada hari-H</span>
       </div>
-      <a id="livestream-link" href="#" class="inline-block mt-6 px-8 py-2.5 border border-[#c9a66b] text-[#c9a66b] hover:bg-[#c9a66b] hover:text-[#0b3d2e] transition-all uppercase tracking-widest text-xs">Tonton di YouTube</a>
+      <a id="livestream-link" href="#" class="btn-emerald magnetic-btn mt-6">Tonton di YouTube</a>
     </div>
   </section>
 
-  <div class="leaf-divider max-w-xs mx-auto py-4"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+  <div class="leaf-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+  </div>
 
+  <!-- RSVP -->
   <section class="py-24 px-6 relative z-10" data-plan-feature="rsvp">
-    <div class="max-w-md mx-auto text-center">
+    <div class="max-w-md mx-auto text-center" data-reveal>
       <p class="text-xs tracking-[0.5em] uppercase text-[#c9a66b] mb-4">RSVP</p>
       <p class="text-[#f5f1e8]/60 text-sm mb-8">Mohon konfirmasi kehadiran Anda melalui form berikut.</p>
-      <form class="space-y-4 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
+      <form class="corner-frame space-y-4 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
         <input type="text" placeholder="Nama Anda" class="w-full px-4 py-3 bg-white/5 border border-[#c9a66b]/30 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a66b]">
         <select class="w-full px-4 py-3 bg-white/5 border border-[#c9a66b]/30 text-white focus:outline-none focus:border-[#c9a66b]">
           <option class="bg-[#0b3d2e]">Hadir</option>
@@ -150,31 +180,40 @@
           <option class="bg-[#0b3d2e]">Masih Ragu</option>
         </select>
         <textarea rows="3" placeholder="Ucapan & Doa" class="w-full px-4 py-3 bg-white/5 border border-[#c9a66b]/30 text-white placeholder-white/30 focus:outline-none focus:border-[#c9a66b]"></textarea>
-        <button type="submit" class="w-full py-3 bg-[#c9a66b] text-[#0b3d2e] uppercase tracking-widest text-xs font-semibold hover:bg-white transition-colors">Kirim RSVP</button>
+        <button type="submit" class="btn-emerald-solid magnetic-btn">Kirim RSVP</button>
       </form>
     </div>
   </section>
 
-  <div class="leaf-divider max-w-xs mx-auto py-4"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+  <div class="leaf-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+  </div>
 
+  <!-- GIFT -->
   <section class="py-24 px-6 relative z-10" data-plan-feature="gift">
     <div class="max-w-4xl mx-auto text-center">
-      <p class="text-xs tracking-[0.5em] uppercase text-[#c9a66b] mb-12">Tanda Kasih</p>
+      <p class="text-xs tracking-[0.5em] uppercase text-[#c9a66b] mb-3" data-reveal>Tanda Kasih</p>
+      <p class="text-[11px] text-[#c9a66b]/55 mb-10 tracking-widest uppercase" data-reveal>Hover / ketuk untuk nomor</p>
       <div id="gift-list" class="grid md:grid-cols-2 gap-6"></div>
     </div>
   </section>
 
-  <div class="leaf-divider max-w-xs mx-auto py-4"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+  <div class="leaf-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+  </div>
 
+  <!-- GALLERY honeycomb -->
   <section class="py-24 px-6 relative z-10">
     <div class="max-w-6xl mx-auto text-center">
-      <p class="text-xs tracking-[0.5em] uppercase text-[#c9a66b] mb-12">Galeri</p>
-      <div id="gallery-grid" class="flex flex-wrap justify-center gap-8"></div>
+      <p class="text-xs tracking-[0.5em] uppercase text-[#c9a66b] mb-12" data-reveal>Galeri</p>
+      <div id="gallery-grid" class="gallery-honey"></div>
     </div>
   </section>
 
-  <footer class="py-24 px-6 relative z-10 text-center">
-    <div class="leaf-divider max-w-xs mx-auto mb-12"><span></span><span class="leaf-divider-icon">🌿</span><span></span></div>
+  <footer class="py-24 px-6 relative z-10 text-center" data-reveal>
+    <div class="leaf-divider max-w-xs mx-auto mb-12">
+      <span></span><span class="leaf-divider-icon">🌿</span><span></span>
+    </div>
     <div class="max-w-xl mx-auto mb-12">
       <p class="text-[#f5f1e8]/70 italic text-lg" data-footer-quote></p>
       <strong class="block mt-4 text-[#c9a66b] text-xs tracking-widest uppercase" data-footer-verse></strong>
@@ -184,9 +223,7 @@
   </footer>
 
 </div>
-<!-- ^ /invitation-content -->
 
 <div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
 </div>
-<!-- ^ /wedding-root -->

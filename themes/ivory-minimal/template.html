@@ -3,19 +3,19 @@
 
     <div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
-    <!-- ===== HERO ===== -->
+    <!-- HERO -->
     <section class="relative h-screen flex items-center justify-center">
       <div class="absolute inset-0">
-        <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-transform duration-[20s]"></div>
+        <div id="hero-bg" class="absolute inset-0 bg-cover bg-center hero-ken"></div>
         <div class="absolute inset-0 bg-[#f7f4ef]/75"></div>
       </div>
 
-      <div class="relative z-10 text-center px-6 max-w-3xl">
+      <div class="relative z-10 text-center px-6 max-w-3xl" data-reveal="scale">
         <p class="text-[11px] tracking-[0.5em] uppercase text-[#9c8f7e] mb-10" data-tagline></p>
 
         <h1 class="text-6xl md:text-8xl font-light leading-[1.05] mb-8">
           <span data-groom-short></span>
-          <span class="block text-2xl md:text-3xl my-4 font-normal text-[#9c8f7e]">&</span>
+          <span class="block text-2xl md:text-3xl my-4 font-normal text-[#9c8f7e]">&amp;</span>
           <span data-bride-short></span>
         </h1>
 
@@ -23,28 +23,28 @@
         <p class="text-lg tracking-[0.2em] font-light text-[#5c574f]" data-date-str></p>
 
         <button onclick="document.getElementById('couple').scrollIntoView({behavior:'smooth'})"
-          class="mt-14 px-9 py-3 border border-[#c4b8a8] text-[#5c574f] text-[11px] tracking-[0.3em] uppercase hover:bg-[#3d3a36] hover:text-[#f7f4ef] hover:border-[#3d3a36] transition-all duration-500">
+          class="btn-quiet magnetic-btn mt-14">
           Open Invitation
         </button>
       </div>
     </section>
 
-    <!-- ===== COUPLE ===== -->
+    <!-- COUPLE — staggered -->
     <section id="couple" class="py-32 px-6">
       <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-20 md:gap-28">
-        
-        <div class="text-center">
-          <div class="aspect-[4/5] overflow-hidden mb-8">
-            <img id="groom-img" src="" class="w-full h-full object-cover">
+
+        <div class="text-center" data-reveal="left">
+          <div class="aspect-[4/5] quiet-photo mb-8">
+            <img id="groom-img" src="" alt="">
           </div>
           <p class="text-[10px] tracking-[0.4em] uppercase text-[#9c8f7e] mb-3">The Groom</p>
           <h2 class="text-3xl font-light" data-groom></h2>
           <p class="text-sm text-[#7a7368] mt-3 italic" data-groom-parent></p>
         </div>
 
-        <div class="text-center md:mt-16">
-          <div class="aspect-[4/5] overflow-hidden mb-8">
-            <img id="bride-img" src="" class="w-full h-full object-cover">
+        <div class="text-center md:mt-16" data-reveal="right">
+          <div class="aspect-[4/5] quiet-photo mb-8">
+            <img id="bride-img" src="" alt="">
           </div>
           <p class="text-[10px] tracking-[0.4em] uppercase text-[#9c8f7e] mb-3">The Bride</p>
           <h2 class="text-3xl font-light" data-bride></h2>
@@ -53,127 +53,119 @@
       </div>
     </section>
 
-    <!-- ===== COUNTDOWN ===== -->
+    <!-- COUNTDOWN -->
     <section class="py-24 px-6 border-y border-[#e5ddd2]">
       <div class="max-w-3xl mx-auto grid grid-cols-4 gap-4 text-center">
-        <div>
+        <div data-reveal data-reveal-delay="1">
           <div id="days" class="text-4xl md:text-5xl font-light">0</div>
           <div class="text-[10px] tracking-[0.3em] uppercase text-[#9c8f7e] mt-2">Days</div>
         </div>
-        <div>
+        <div data-reveal data-reveal-delay="2">
           <div id="hours" class="text-4xl md:text-5xl font-light">0</div>
           <div class="text-[10px] tracking-[0.3em] uppercase text-[#9c8f7e] mt-2">Hours</div>
         </div>
-        <div>
+        <div data-reveal data-reveal-delay="3">
           <div id="minutes" class="text-4xl md:text-5xl font-light">0</div>
           <div class="text-[10px] tracking-[0.3em] uppercase text-[#9c8f7e] mt-2">Mins</div>
         </div>
-        <div>
+        <div data-reveal data-reveal-delay="4">
           <div id="seconds" class="text-4xl md:text-5xl font-light">0</div>
           <div class="text-[10px] tracking-[0.3em] uppercase text-[#9c8f7e] mt-2">Secs</div>
         </div>
       </div>
     </section>
 
-    <!-- ===== STORY (unique) ===== -->
+    <!-- STORY timeline -->
     <section class="py-32 px-6" data-plan-feature="story">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-center text-3xl md:text-4xl font-light mb-20">Our Journey</h2>
-        
+        <h2 class="text-center text-3xl md:text-4xl font-light mb-20" data-reveal>Our Journey</h2>
         <div id="story-list" class="relative">
-          <!-- vertical line -->
-          <div class="absolute left-[39px] md:left-1/2 top-0 bottom-0 w-px bg-[#e5ddd2] -translate-x-1/2"></div>
+          <div class="timeline-spine"></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== EVENTS ===== -->
+    <!-- EVENTS -->
     <section class="py-28 px-6">
+      <p class="text-center text-[11px] tracking-[0.25em] uppercase text-[#9c8f7e] mb-12 opacity-70" data-reveal>Hover / tap for details</p>
       <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-        <div class="text-center px-8 py-12 border border-[#e5ddd2]">
+        <div class="line-card event-quiet text-center cursor-pointer" data-reveal="left" data-event>
           <h3 class="text-[11px] tracking-[0.35em] uppercase text-[#9c8f7e] mb-5" data-ceremony-title></h3>
-          <p class="text-2xl font-light mb-2" data-ceremony-venue></p>
-          <p class="text-sm text-[#7a7368]" data-ceremony-address></p>
-          <div class="w-10 h-px bg-[#c4b8a8] mx-auto my-7"></div>
-          <p data-ceremony-time></p>
-          <p class="text-xs italic text-[#9c8f7e] mt-2" data-ceremony-note></p>
-          <a id="ceremony-maps" target="_blank"
-            class="inline-block mt-8 text-[11px] tracking-[0.25em] uppercase border-b border-[#c4b8a8] pb-1 hover:text-[#9c8f7e] transition-colors">
-            View Location
-          </a>
+          <p class="text-2xl font-light mb-1" data-ceremony-venue></p>
+          <p class="event-hint">Details →</p>
+          <div class="event-more">
+            <p class="text-sm text-[#7a7368]" data-ceremony-address></p>
+            <div class="w-10 h-px bg-[#c4b8a8] mx-auto my-6"></div>
+            <p data-ceremony-time></p>
+            <p class="text-xs italic text-[#9c8f7e] mt-2" data-ceremony-note></p>
+            <a id="ceremony-maps" target="_blank" class="link-quiet mt-6">View Location</a>
+          </div>
         </div>
 
-        <div class="text-center px-8 py-12 border border-[#e5ddd2]">
+        <div class="line-card event-quiet text-center cursor-pointer" data-reveal="right" data-reveal-delay="1" data-event>
           <h3 class="text-[11px] tracking-[0.35em] uppercase text-[#9c8f7e] mb-5" data-reception-title></h3>
-          <p class="text-2xl font-light mb-2" data-reception-venue></p>
-          <p class="text-sm text-[#7a7368]" data-reception-address></p>
-          <div class="w-10 h-px bg-[#c4b8a8] mx-auto my-7"></div>
-          <p data-reception-time></p>
-          <p class="text-xs italic text-[#9c8f7e] mt-2" data-reception-note></p>
-          <a id="reception-maps" target="_blank"
-            class="inline-block mt-8 text-[11px] tracking-[0.25em] uppercase border-b border-[#c4b8a8] pb-1 hover:text-[#9c8f7e] transition-colors">
-            View Location
-          </a>
+          <p class="text-2xl font-light mb-1" data-reception-venue></p>
+          <p class="event-hint">Details →</p>
+          <div class="event-more">
+            <p class="text-sm text-[#7a7368]" data-reception-address></p>
+            <div class="w-10 h-px bg-[#c4b8a8] mx-auto my-6"></div>
+            <p data-reception-time></p>
+            <p class="text-xs italic text-[#9c8f7e] mt-2" data-reception-note></p>
+            <a id="reception-maps" target="_blank" class="link-quiet mt-6">View Location</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== LIVESTREAM ===== -->
+    <!-- LIVESTREAM -->
     <section class="py-28 px-6" data-plan-feature="livestream">
-      <div class="max-w-2xl mx-auto text-center">
+      <div class="max-w-2xl mx-auto text-center" data-reveal>
         <h2 class="text-3xl font-light mb-4">Live Streaming</h2>
         <p class="text-sm text-[#7a7368] mb-10">Tidak bisa hadir langsung? Ikuti momen sakral kami secara live.</p>
         <div class="aspect-video border border-[#e5ddd2] flex items-center justify-center bg-[#f0ebe3]">
           <span id="livestream-status" class="text-sm text-[#9c8f7e] px-4">▶ Live streaming akan dimulai pada hari-H</span>
         </div>
-        <a id="livestream-link" href="#"
-          class="inline-block mt-8 text-[11px] tracking-[0.25em] uppercase border-b border-[#c4b8a8] pb-1 hover:text-[#9c8f7e] transition-colors">
-          Tonton di YouTube
-        </a>
+        <a id="livestream-link" href="#" class="link-quiet mt-8 magnetic-btn">Tonton di YouTube</a>
       </div>
     </section>
 
-    <!-- ===== RSVP ===== -->
+    <!-- RSVP -->
     <section class="py-28 px-6" data-plan-feature="rsvp">
-      <div class="max-w-md mx-auto text-center">
+      <div class="max-w-md mx-auto text-center" data-reveal>
         <h2 class="text-3xl font-light mb-4">RSVP</h2>
         <p class="text-sm text-[#7a7368] mb-10">Mohon konfirmasi kehadiran Anda.</p>
         <form class="space-y-5 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
-          <input type="text" placeholder="Nama Anda"
-            class="w-full px-0 py-3 bg-transparent border-b border-[#e5ddd2] focus:outline-none focus:border-[#c4b8a8] placeholder-[#9c8f7e]">
-          <select class="w-full px-0 py-3 bg-transparent border-b border-[#e5ddd2] focus:outline-none focus:border-[#c4b8a8]">
+          <input type="text" placeholder="Nama Anda" class="input-quiet">
+          <select class="input-quiet">
             <option>Hadir</option>
             <option>Tidak Hadir</option>
             <option>Masih Ragu</option>
           </select>
-          <textarea rows="3" placeholder="Ucapan & Doa"
-            class="w-full px-0 py-3 bg-transparent border-b border-[#e5ddd2] focus:outline-none focus:border-[#c4b8a8] placeholder-[#9c8f7e]"></textarea>
-          <button type="submit"
-            class="w-full mt-4 py-3.5 bg-[#3d3a36] text-[#f7f4ef] text-[11px] tracking-[0.3em] uppercase hover:bg-[#5c574f] transition-colors">
-            Kirim RSVP
-          </button>
+          <textarea rows="3" placeholder="Ucapan & Doa" class="input-quiet"></textarea>
+          <button type="submit" class="btn-quiet-solid magnetic-btn mt-4">Kirim RSVP</button>
         </form>
       </div>
     </section>
 
-    <!-- ===== GIFT ===== -->
+    <!-- GIFT -->
     <section class="py-28 px-6" data-plan-feature="gift">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-3xl font-light mb-14">Tanda Kasih</h2>
+        <h2 class="text-3xl font-light mb-4" data-reveal>Tanda Kasih</h2>
+        <p class="text-[11px] tracking-[0.25em] uppercase text-[#9c8f7e] mb-14 opacity-70" data-reveal>Hover / tap to reveal</p>
         <div id="gift-list" class="grid md:grid-cols-2 gap-8"></div>
       </div>
     </section>
 
-    <!-- ===== GALLERY ===== -->
+    <!-- GALLERY -->
     <section class="py-28 px-6">
       <div class="max-w-5xl mx-auto text-center">
-        <h2 class="text-3xl font-light mb-14">Galeri</h2>
-        <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
+        <h2 class="text-3xl font-light mb-14" data-reveal>Galeri</h2>
+        <div id="gallery-grid" class="gallery-quiet grid grid-cols-2 md:grid-cols-3 gap-3"></div>
       </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="py-28 px-6 text-center border-t border-[#e5ddd2]">
+    <!-- FOOTER -->
+    <footer class="py-28 px-6 text-center border-t border-[#e5ddd2]" data-reveal>
       <div class="max-w-lg mx-auto mb-12">
         <p class="text-[#7a7368] italic text-lg leading-relaxed" data-footer-quote></p>
         <strong class="block mt-5 text-[11px] tracking-[0.3em] uppercase text-[#9c8f7e]" data-footer-verse></strong>

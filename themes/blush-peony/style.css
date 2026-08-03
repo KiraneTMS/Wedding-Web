@@ -3,10 +3,11 @@
 #wedding-root {
   font-family: 'Poppins', sans-serif;
   background-color: #fffaf7;
+  color: #5c3a42;
   width: 100%;
 }
 
-.font-display, h1, h2, h3 {
+.font-display, h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
 }
 
@@ -14,7 +15,7 @@
   font-family: 'Petit Formal Script', cursive;
 }
 
-/* ===== Watercolor wash blobs ===== */
+/* Watercolor wash blobs */
 .watercolor-blob {
   position: absolute;
   border-radius: 9999px;
@@ -22,16 +23,39 @@
   opacity: 0.45;
   pointer-events: none;
   z-index: 0;
+  animation: washDrift 20s ease-in-out infinite alternate;
 }
 
-/* ===== Signature shape: the cameo/locket frame ===== */
+.watercolor-blob:nth-child(2) { animation-duration: 24s; animation-delay: -5s; }
+.watercolor-blob:nth-child(3) { animation-duration: 18s; animation-delay: -9s; }
+
+@keyframes washDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(14px, -12px) scale(1.06); }
+}
+
+/* Cameo / locket frame */
 .cameo-frame {
   width: 200px;
   height: 200px;
   border-radius: 9999px;
   padding: 8px;
-  box-shadow: 0 0 0 2px #d4af8c, 0 0 0 9px #fffaf7, 0 0 0 11px #d4af8c, 0 20px 45px rgba(92, 58, 66, 0.25);
+  box-shadow:
+    0 0 0 2px #d4af8c,
+    0 0 0 9px #fffaf7,
+    0 0 0 11px #d4af8c,
+    0 20px 45px rgba(92, 58, 66, 0.25);
   background: #fffaf7;
+  transition: transform 0.55s cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 0.45s ease;
+}
+
+.cameo-frame:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 0 2px #d4af8c,
+    0 0 0 9px #fffaf7,
+    0 0 0 11px #d68fa0,
+    0 24px 50px rgba(92, 58, 66, 0.3);
 }
 
 .cameo-frame--md {
@@ -46,9 +70,14 @@
   background-size: cover;
   background-position: center;
   object-fit: cover;
+  transition: transform 0.7s ease;
 }
 
-/* ===== Peony divider (thin gold rules with a flower mark between) ===== */
+.cameo-frame:hover .cameo-photo {
+  transform: scale(1.06);
+}
+
+/* Peony divider */
 .peony-divider {
   display: flex;
   align-items: center;
@@ -66,17 +95,31 @@
   flex: 0 0 auto;
 }
 
-/* ===== Blush card (soft translucent info panel) ===== */
+/* Blush card */
 .blush-card {
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(212, 175, 140, 0.35);
   border-radius: 2rem;
   padding: 2rem 1.75rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* ===== Hanging gallery — oval frames, smaller scale ===== */
+.blush-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(92, 58, 66, 0.08);
+}
+
+/* Gallery oval frames */
 .peony-frame-wrap {
   display: inline-block;
+  transition: transform 0.45s ease;
+}
+
+.peony-frame-wrap:hover {
+  transform: scale(1.06) rotate(-2deg);
+  z-index: 2;
 }
 
 .peony-frame {
@@ -84,16 +127,24 @@
   height: 10rem;
   border-radius: 50% / 40%;
   overflow: hidden;
-  box-shadow: 0 0 0 2px #d4af8c, 0 0 0 6px #fffaf7, 0 10px 25px rgba(92, 58, 66, 0.2);
+  box-shadow:
+    0 0 0 2px #d4af8c,
+    0 0 0 6px #fffaf7,
+    0 10px 25px rgba(92, 58, 66, 0.2);
 }
 
 .peony-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-/* ===== Falling petal particles ===== */
+.peony-frame-wrap:hover .peony-frame img {
+  transform: scale(1.05);
+}
+
+/* Falling petals */
 .peony-particle {
   position: absolute;
   pointer-events: none;
@@ -108,13 +159,221 @@
   100% { transform: translateY(115vh) translateX(30px) rotate(300deg); opacity: 0; }
 }
 
-/* =========================================================
-   Shared theme standard (plan gating, color/font customization,
-   exclusive-plan flourish). Driven by the loader's shared widget —
-   see index.html's initPlanWidget(). No per-theme widget code needed,
-   just these hooks.
-   ========================================================= */
+/* ===== STRUCTURE — romantic locket ===== */
 
+/* Couple: overlapping cameos on large screens */
+.couple-locket {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .couple-locket {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0;
+  }
+  .couple-locket .couple-side:first-child {
+    transform: translateX(1.5rem);
+    z-index: 1;
+  }
+  .couple-locket .couple-side:last-child {
+    transform: translateX(-1.5rem);
+    z-index: 2;
+  }
+  .couple-locket .couple-heart {
+    display: flex;
+  }
+}
+
+.couple-heart {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  z-index: 3;
+  color: #d68fa0;
+  font-size: 1.5rem;
+}
+
+/* Story petals expand */
+.story-petal {
+  cursor: pointer;
+  border-radius: 1.25rem;
+  padding: 0.75rem 1rem;
+  transition: background 0.3s ease;
+}
+
+.story-petal:hover {
+  background: rgba(243, 201, 212, 0.25);
+}
+
+.story-petal .story-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.35s ease;
+}
+
+.story-petal.is-open .story-body {
+  max-height: 180px;
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+
+.story-petal .story-toggle {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #d68fa0;
+  margin-top: 0.3rem;
+}
+
+/* Event soft flip / expand */
+.event-blush .event-more {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+}
+
+.event-blush.is-open .event-more,
+.event-blush:hover .event-more {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+@media (hover: none) {
+  .event-blush:hover .event-more {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+  .event-blush.is-open .event-more {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+}
+
+.event-hint {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201, 169, 107, 0.65);
+  margin-top: 0.75rem;
+}
+
+/* Gift peek */
+.gift-peek .gift-number {
+  filter: blur(5px);
+  transition: filter 0.4s ease;
+  user-select: none;
+}
+
+.gift-peek:hover .gift-number,
+.gift-peek.is-revealed .gift-number {
+  filter: blur(0);
+  user-select: text;
+}
+
+.gift-peek .gift-hint {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c9a96b;
+  opacity: 0.7;
+  margin-top: 0.4rem;
+}
+
+.gift-peek:hover .gift-hint,
+.gift-peek.is-revealed .gift-hint {
+  opacity: 0;
+}
+
+/* Buttons */
+.btn-peony {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid #d4af8c;
+  color: #a9724f;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.4s ease,
+    color 0.4s ease,
+    box-shadow 0.4s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.btn-peony:hover {
+  background: #d4af8c;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(212, 175, 140, 0.4);
+}
+
+.btn-peony-solid {
+  display: inline-block;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background: #d68fa0;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  transition: transform 0.25s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-peony-solid:hover {
+  background: #a9724f;
+}
+
+/* Reveal */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="left"] { transform: translateX(-36px); }
+[data-reveal="left"].is-visible { transform: translateX(0); }
+[data-reveal="right"] { transform: translateX(36px); }
+[data-reveal="right"].is-visible { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(0.92); }
+[data-reveal="scale"].is-visible { transform: scale(1); }
+
+[data-reveal-delay="1"] { transition-delay: 0.1s; }
+[data-reveal-delay="2"] { transition-delay: 0.2s; }
+[data-reveal-delay="3"] { transition-delay: 0.3s; }
+[data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+.scroll-settle {
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.22, 1.35, 0.36, 1);
+}
+
+/* Shared hooks */
 #invitation-content {
   transition: filter 0.5s ease;
 }
@@ -124,19 +383,54 @@
 }
 
 @keyframes shimmer-border-blush {
-  0%, 100% { box-shadow: 0 0 0 2px #d4af8c, 0 0 0 9px #fffaf7, 0 0 0 11px #d4af8c, 0 20px 45px rgba(92, 58, 66, 0.25); }
-  50% { box-shadow: 0 0 0 2px #d4af8c, 0 0 0 9px #fffaf7, 0 0 0 11px #d4af8c, 0 0 45px 16px rgba(212, 175, 140, 0.55); }
+  0%, 100% {
+    box-shadow: 0 0 0 2px #d4af8c, 0 0 0 9px #fffaf7, 0 0 0 11px #d4af8c, 0 20px 45px rgba(92, 58, 66, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 2px #d4af8c, 0 0 0 9px #fffaf7, 0 0 0 11px #d4af8c, 0 0 45px 16px rgba(212, 175, 140, 0.55);
+  }
 }
 
 #wedding-root.is-exclusive .cameo-frame {
   animation: shimmer-border-blush 4s ease-in-out infinite;
 }
 
-/* Font-toggle hook for the loader's shared "Ganti Font" button —
-   this theme already owns a script font, so the toggle switches the
-   main heading into it instead of pulling in a new font. */
 #invitation-content.pw-font-alt h1 {
   font-family: 'Petit Formal Script', cursive;
   font-weight: 400;
   font-size: clamp(3rem, 9vw, 5.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .btn-peony,
+  .btn-peony-solid,
+  .scroll-settle,
+  .watercolor-blob,
+  .cameo-frame,
+  .peony-particle {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cameo-frame {
+    width: 170px;
+    height: 170px;
+  }
+  .cameo-frame--md {
+    width: 190px;
+    height: 190px;
+  }
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(24px);
+  }
+  [data-reveal="left"].is-visible,
+  [data-reveal="right"].is-visible {
+    transform: translateY(0);
+  }
 }

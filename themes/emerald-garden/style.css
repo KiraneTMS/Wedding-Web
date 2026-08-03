@@ -3,14 +3,15 @@
 #wedding-root {
   font-family: 'Manrope', sans-serif;
   background-color: #0b3d2e;
+  color: #f5f1e8;
   width: 100%;
 }
 
-.font-display, h1, h2, h3 {
+.font-display, h1, h2, h3, h4 {
   font-family: 'Marcellus', serif;
 }
 
-/* ===== Signature shape: the hexagon frame ===== */
+/* Hexagon frame */
 .hex-frame {
   width: 220px;
   height: 240px;
@@ -18,6 +19,17 @@
   background: #c9a66b;
   padding: 6px;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+  transition: transform 0.55s cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 0.45s ease;
+}
+
+.hex-frame:hover {
+  transform: scale(1.04) rotate(3deg);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(201, 166, 107, 0.25);
+}
+
+.hex-frame--sm {
+  width: 140px;
+  height: 155px;
 }
 
 .hex-frame-inner {
@@ -28,16 +40,29 @@
   background: #0b3d2e;
 }
 
-.hex-frame-inner img {
+.hex-frame-inner img,
+.hex-frame-inner .hex-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
 }
 
-/* ===== Gold corner-bracket frame (stationery-style) ===== */
+.hex-frame:hover .hex-frame-inner img,
+.hex-frame:hover .hex-photo {
+  transform: scale(1.08);
+}
+
+/* Corner bracket frame */
 .corner-frame {
   position: relative;
   padding: 2.5rem 1.5rem;
+  transition: background 0.4s ease;
+}
+
+.corner-frame:hover {
+  background: rgba(201, 166, 107, 0.06);
 }
 
 .corner-frame .corner {
@@ -46,6 +71,12 @@
   height: 22px;
   border-color: #c9a66b;
   pointer-events: none;
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.corner-frame:hover .corner {
+  width: 28px;
+  height: 28px;
 }
 
 .corner-frame .corner.tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
@@ -53,7 +84,7 @@
 .corner-frame .corner.bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; }
 .corner-frame .corner.br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
 
-/* ===== Leaf divider (thin gold rules with a leaf mark between) ===== */
+/* Leaf divider */
 .leaf-divider {
   display: flex;
   align-items: center;
@@ -71,7 +102,7 @@
   flex: 0 0 auto;
 }
 
-/* ===== Drifting gold-fleck / leaf particles (diagonal sway, not straight up) ===== */
+/* Particles */
 .garden-particle {
   position: absolute;
   pointer-events: none;
@@ -88,13 +119,284 @@
   100% { transform: translate(15px, -95vh) rotate(320deg); opacity: 0; }
 }
 
-/* =========================================================
-   Shared theme standard (plan gating, color/font customization,
-   exclusive-plan flourish). Driven by the loader's shared widget —
-   see index.html's initPlanWidget(). No per-theme widget code needed,
-   just these hooks.
-   ========================================================= */
+/* ===== STRUCTURE — honeycomb garden ===== */
 
+/* Hero: centered corner card over full-bleed */
+.hero-garden-card {
+  position: relative;
+  z-index: 10;
+  max-width: 28rem;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2.5rem 1.75rem;
+}
+
+/* Couple: staggered hex with center leaf ornament */
+.couple-honey {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 52rem;
+  margin: 0 auto;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .couple-honey {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .couple-honey .couple-col:nth-child(2) {
+    margin-top: 3.5rem;
+  }
+}
+
+.couple-mid-leaf {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #c9a66b;
+  padding-top: 5rem;
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .couple-mid-leaf {
+    display: flex;
+  }
+}
+
+/* Countdown hex cells */
+.hex-count {
+  width: 5.25rem;
+  height: 5.75rem;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(201, 166, 107, 0.15);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hex-count::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: #0b3d2e;
+  z-index: 0;
+}
+
+.hex-count > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .hex-count {
+    width: 6.25rem;
+    height: 6.75rem;
+  }
+}
+
+/* Story vine */
+.story-vine {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.story-vine::before {
+  content: '';
+  position: absolute;
+  left: 0.4rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, #c9a66b 15%, #c9a66b 85%, transparent);
+  opacity: 0.4;
+}
+
+.story-leaf {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 2.25rem;
+}
+
+.story-leaf::before {
+  content: '🌿';
+  position: absolute;
+  left: -1.4rem;
+  top: 0.15rem;
+  font-size: 0.75rem;
+  background: #0b3d2e;
+  line-height: 1;
+}
+
+/* Event corner expand */
+.event-corner .event-more {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+}
+
+.event-corner.is-open .event-more,
+.event-corner:hover .event-more {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+@media (hover: none) {
+  .event-corner:hover .event-more {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+  .event-corner.is-open .event-more {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+}
+
+.event-hint {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201, 166, 107, 0.55);
+  margin-top: 0.75rem;
+}
+
+/* Gift peek */
+.gift-peek .gift-number {
+  filter: blur(5px);
+  transition: filter 0.4s ease;
+  user-select: none;
+}
+
+.gift-peek:hover .gift-number,
+.gift-peek.is-revealed .gift-number {
+  filter: blur(0);
+  user-select: text;
+}
+
+.gift-peek .gift-hint {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(201, 166, 107, 0.55);
+  margin-top: 0.4rem;
+}
+
+.gift-peek:hover .gift-hint,
+.gift-peek.is-revealed .gift-hint {
+  opacity: 0;
+}
+
+/* Honeycomb gallery */
+.gallery-honey {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem 1.5rem;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+/* Buttons */
+.btn-emerald {
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  border: 1px solid #c9a66b;
+  color: #c9a66b;
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.4s ease,
+    color 0.4s ease,
+    box-shadow 0.4s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.btn-emerald:hover {
+  background: #c9a66b;
+  color: #0b3d2e;
+  box-shadow: 0 8px 28px rgba(201, 166, 107, 0.3);
+}
+
+.btn-emerald-solid {
+  display: inline-block;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: none;
+  background: #c9a66b;
+  color: #0b3d2e;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 11px;
+  font-weight: 600;
+  transition: transform 0.25s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-emerald-solid:hover {
+  background: #fff;
+}
+
+/* Ken Burns */
+@keyframes gardenKen {
+  0% { transform: scale(1.08); }
+  50% { transform: scale(1.16); }
+  100% { transform: scale(1.08); }
+}
+
+.hero-ken {
+  animation: gardenKen 22s ease-in-out infinite;
+}
+
+/* Reveal */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="left"] { transform: translateX(-40px); }
+[data-reveal="left"].is-visible { transform: translateX(0); }
+[data-reveal="right"] { transform: translateX(40px); }
+[data-reveal="right"].is-visible { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(0.92); }
+[data-reveal="scale"].is-visible { transform: scale(1); }
+
+[data-reveal-delay="1"] { transition-delay: 0.1s; }
+[data-reveal-delay="2"] { transition-delay: 0.2s; }
+[data-reveal-delay="3"] { transition-delay: 0.3s; }
+[data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+.scroll-settle {
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.22, 1.35, 0.36, 1);
+}
+
+/* Shared hooks */
 #invitation-content {
   transition: filter 0.5s ease;
 }
@@ -112,10 +414,39 @@
   animation: shimmer-border-emerald 4s ease-in-out infinite;
 }
 
-/* Font-toggle hook for the loader's shared "Ganti Font" button. */
 #invitation-content.pw-font-alt h1 {
   font-family: 'Great Vibes', cursive;
   font-style: normal;
   font-size: clamp(3rem, 10vw, 6rem);
   line-height: 1.15;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .btn-emerald,
+  .btn-emerald-solid,
+  .scroll-settle,
+  .hex-frame,
+  .hero-ken,
+  .garden-particle {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hex-frame {
+    width: 180px;
+    height: 200px;
+  }
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(24px);
+  }
+  [data-reveal="left"].is-visible,
+  [data-reveal="right"].is-visible {
+    transform: translateY(0);
+  }
 }

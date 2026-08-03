@@ -1,6 +1,7 @@
 <div id="wedding-root" class="min-h-screen bg-[#f6f2fb] text-[#5b4b73] selection:bg-[#c3b1e1]/50 font-sans">
 <div id="invitation-content" class="relative overflow-x-hidden">
 
+  <!-- HERO -->
   <section class="relative min-h-screen flex flex-col items-center justify-center py-20 px-6 overflow-hidden">
     <div class="dream-blob w-72 h-72 -top-10 -left-14 bg-[#c3b1e1]"></div>
     <div class="dream-blob w-96 h-96 -bottom-24 -right-16 bg-[#f0d9e8]"></div>
@@ -17,131 +18,177 @@
       <circle cx="50" cy="50" r="8" fill="#c3b1e1" />
     </svg>
 
-    <div class="blob-frame mx-auto mb-4 relative z-10">
+    <div class="blob-frame mx-auto mb-4 relative z-10" data-reveal="scale">
       <div id="hero-bg" class="blob-photo"></div>
     </div>
-    <div class="ribbon-bow mx-auto mb-10 relative z-10"><span></span><span></span><i></i></div>
+    <div class="ribbon-bow mx-auto mb-10 relative z-10" data-reveal data-reveal-delay="1"><span></span><span></span><i></i></div>
 
-    <div class="relative z-10 text-center max-w-lg mx-auto">
+    <div class="relative z-10 text-center max-w-lg mx-auto" data-reveal data-reveal-delay="2">
       <p class="tracking-[0.5em] uppercase text-xs text-[#9b86c2] mb-5" data-tagline></p>
       <h1 class="font-display text-5xl md:text-7xl leading-tight mb-6">
-        <span data-groom-short></span> <span class="font-script text-[#c56fa0] text-4xl md:text-6xl align-middle">&amp;</span> <span data-bride-short></span>
+        <span data-groom-short></span>
+        <span class="font-script text-[#c56fa0] text-4xl md:text-6xl align-middle mx-1">&amp;</span>
+        <span data-bride-short></span>
       </h1>
-      <div class="ribbon-divider mb-6"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+      <div class="ribbon-divider mb-6"><span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span></div>
       <p class="text-lg italic text-[#7a6693] mb-10" data-date-str></p>
       <button onclick="document.getElementById('couple-section').scrollIntoView({behavior: 'smooth'})"
-        class="px-10 py-3 rounded-full border border-[#b9a6d9] text-[#7a5ca8] hover:bg-[#b9a6d9] hover:text-white transition-all duration-500 uppercase tracking-widest text-xs">
+        class="btn-dream magnetic-btn">
         Buka Undangan
       </button>
     </div>
   </section>
 
+  <!-- COUPLE zigzag -->
   <section id="couple-section" class="py-24 px-6 relative z-10">
-    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
+    <div class="couple-dream">
 
-      <div class="text-center">
-        <div class="blob-frame blob-frame--md mx-auto mb-6">
-          <img id="groom-img" src="" class="blob-photo object-cover">
+      <div class="couple-row" data-reveal="left">
+        <div class="couple-photo text-center">
+          <div class="blob-frame blob-frame--md mx-auto mb-4">
+            <img id="groom-img" src="" class="blob-photo object-cover" alt="">
+          </div>
         </div>
-        <p class="text-[10px] tracking-[0.4em] uppercase text-[#9b86c2] mb-2">The Groom</p>
-        <h2 class="font-display text-3xl mb-2" data-groom></h2>
-        <p class="text-[#7a6693] italic text-sm" data-groom-parent></p>
-        <a id="groom-ig" target="_blank" class="inline-block mt-3 text-[#9b86c2] text-xs tracking-widest uppercase hover:text-[#7a5ca8] transition-colors"></a>
+        <div class="couple-info text-center md:text-left">
+          <div class="info-inner max-w-xs mx-auto md:mx-0">
+            <p class="text-[10px] tracking-[0.4em] uppercase text-[#9b86c2] mb-2">The Groom</p>
+            <h2 class="font-display text-3xl mb-2" data-groom></h2>
+            <p class="text-[#7a6693] italic text-sm" data-groom-parent></p>
+            <a id="groom-ig" target="_blank" class="inline-block mt-3 text-[#9b86c2] text-xs tracking-widest uppercase hover:text-[#7a5ca8] transition-colors"></a>
+          </div>
+        </div>
       </div>
 
-      <div class="text-center">
-        <div class="blob-frame blob-frame--md blob-frame--alt mx-auto mb-6">
-          <img id="bride-img" src="" class="blob-photo object-cover">
+      <div class="couple-row couple-row--flip" data-reveal="right">
+        <div class="couple-photo text-center">
+          <div class="blob-frame blob-frame--md blob-frame--alt mx-auto mb-4">
+            <img id="bride-img" src="" class="blob-photo object-cover" alt="">
+          </div>
         </div>
-        <p class="text-[10px] tracking-[0.4em] uppercase text-[#9b86c2] mb-2">The Bride</p>
-        <h2 class="font-display text-3xl mb-2" data-bride></h2>
-        <p class="text-[#7a6693] italic text-sm" data-bride-parent></p>
-        <a id="bride-ig" target="_blank" class="inline-block mt-3 text-[#9b86c2] text-xs tracking-widest uppercase hover:text-[#7a5ca8] transition-colors"></a>
+        <div class="couple-info text-center">
+          <div class="info-inner max-w-xs mx-auto">
+            <p class="text-[10px] tracking-[0.4em] uppercase text-[#9b86c2] mb-2">The Bride</p>
+            <h2 class="font-display text-3xl mb-2" data-bride></h2>
+            <p class="text-[#7a6693] italic text-sm" data-bride-parent></p>
+            <a id="bride-ig" target="_blank" class="inline-block mt-3 text-[#9b86c2] text-xs tracking-widest uppercase hover:text-[#7a5ca8] transition-colors"></a>
+          </div>
+        </div>
       </div>
 
     </div>
   </section>
 
-  <div class="ribbon-divider max-w-xs mx-auto py-4"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+  <div class="ribbon-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span>
+  </div>
 
+  <!-- COUNTDOWN -->
   <section class="py-16 px-6 relative z-10">
-    <div class="max-w-3xl mx-auto dream-card flex items-center justify-center gap-6 md:gap-14 text-center flex-wrap mx-6">
-      <div>
-        <div id="days" class="font-display text-4xl md:text-6xl text-[#7a5ca8]">0</div>
+    <div class="max-w-3xl mx-auto dream-card flex items-center justify-center gap-6 md:gap-12 text-center flex-wrap" data-reveal>
+      <div data-reveal-delay="1">
+        <div id="days" class="font-display text-4xl md:text-5xl text-[#7a5ca8]">0</div>
         <div class="text-[10px] uppercase tracking-[0.3em] text-[#9b86c2] mt-2">Hari</div>
       </div>
-      <div class="text-[#c3b1e1] text-lg">✿</div>
-      <div>
-        <div id="hours" class="font-display text-4xl md:text-6xl text-[#7a5ca8]">0</div>
+      <div class="text-[#c3b1e1] text-lg hidden sm:block">✿</div>
+      <div data-reveal-delay="2">
+        <div id="hours" class="font-display text-4xl md:text-5xl text-[#7a5ca8]">0</div>
         <div class="text-[10px] uppercase tracking-[0.3em] text-[#9b86c2] mt-2">Jam</div>
       </div>
-      <div class="text-[#c3b1e1] text-lg">✿</div>
-      <div>
-        <div id="minutes" class="font-display text-4xl md:text-6xl text-[#7a5ca8]">0</div>
+      <div class="text-[#c3b1e1] text-lg hidden sm:block">✿</div>
+      <div data-reveal-delay="3">
+        <div id="minutes" class="font-display text-4xl md:text-5xl text-[#7a5ca8]">0</div>
         <div class="text-[10px] uppercase tracking-[0.3em] text-[#9b86c2] mt-2">Menit</div>
       </div>
-      <div class="text-[#c3b1e1] text-lg">✿</div>
-      <div>
-        <div id="seconds" class="font-display text-4xl md:text-6xl text-[#7a5ca8]">0</div>
+      <div class="text-[#c3b1e1] text-lg hidden sm:block">✿</div>
+      <div data-reveal-delay="4">
+        <div id="seconds" class="font-display text-4xl md:text-5xl text-[#7a5ca8]">0</div>
         <div class="text-[10px] uppercase tracking-[0.3em] text-[#9b86c2] mt-2">Detik</div>
       </div>
     </div>
   </section>
 
-  <div class="ribbon-divider max-w-xs mx-auto py-4"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+  <div class="ribbon-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span>
+  </div>
 
+  <!-- STORY expandable -->
   <section class="py-24 px-6 relative z-10" data-plan-feature="story">
     <div class="max-w-2xl mx-auto">
-      <p class="text-center text-xs tracking-[0.5em] uppercase text-[#9b86c2] mb-16">Kisah Kami</p>
-      <div id="story-list" class="space-y-10"></div>
+      <p class="text-center text-xs tracking-[0.5em] uppercase text-[#9b86c2] mb-3" data-reveal>Kisah Kami</p>
+      <p class="text-center text-[11px] text-[#9b86c2]/70 mb-12" data-reveal>Ketuk momen untuk membuka cerita</p>
+      <div id="story-list" class="space-y-4"></div>
     </div>
   </section>
 
-  <div class="ribbon-divider max-w-xs mx-auto py-4"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+  <div class="ribbon-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span>
+  </div>
 
+  <!-- EVENTS flip -->
   <section class="py-24 px-6 relative z-10">
+    <p class="text-center text-[11px] text-[#9b86c2]/70 mb-10" data-reveal>Hover / ketuk kartu untuk detail</p>
     <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-      <div class="dream-card text-center">
-        <h3 class="font-display text-2xl text-[#7a5ca8] mb-3" data-ceremony-title></h3>
-        <p class="text-lg mb-1" data-ceremony-venue></p>
-        <p class="text-[#7a6693] text-sm" data-ceremony-address></p>
-        <div class="my-5 h-px bg-[#c3b1e1]/40"></div>
-        <p class="text-[#7a6693]" data-ceremony-time></p>
-        <p class="text-xs italic text-[#7a6693]/70 mt-2" data-ceremony-note></p>
-        <a id="ceremony-maps" target="_blank" class="inline-block mt-6 px-8 py-2.5 rounded-full border border-[#b9a6d9] text-[#7a5ca8] hover:bg-[#b9a6d9] hover:text-white transition-all uppercase tracking-widest text-xs">Lihat Lokasi</a>
+      <div class="flip-scene" data-reveal="left" data-flip>
+        <div class="flip-card">
+          <div class="flip-face flip-front">
+            <h3 class="font-display text-2xl text-[#7a5ca8] mb-2" data-ceremony-title></h3>
+            <p class="text-lg" data-ceremony-venue></p>
+            <p class="flip-hint">Hover / tap → detail</p>
+          </div>
+          <div class="flip-face flip-back">
+            <p class="text-sm mb-3 opacity-90" data-ceremony-address></p>
+            <div class="my-3 w-10 h-px bg-white/40"></div>
+            <p class="text-lg font-medium" data-ceremony-time></p>
+            <p class="text-xs italic mt-2 opacity-80" data-ceremony-note></p>
+            <a id="ceremony-maps" target="_blank" class="inline-block mt-5 px-6 py-2 rounded-full border border-white/80 text-white text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#7a5ca8] transition-colors">Lihat Lokasi</a>
+          </div>
+        </div>
       </div>
-      <div class="dream-card text-center">
-        <h3 class="font-display text-2xl text-[#7a5ca8] mb-3" data-reception-title></h3>
-        <p class="text-lg mb-1" data-reception-venue></p>
-        <p class="text-[#7a6693] text-sm" data-reception-address></p>
-        <div class="my-5 h-px bg-[#c3b1e1]/40"></div>
-        <p class="text-[#7a6693]" data-reception-time></p>
-        <p class="text-xs italic text-[#7a6693]/70 mt-2" data-reception-note></p>
-        <a id="reception-maps" target="_blank" class="inline-block mt-6 px-8 py-2.5 rounded-full border border-[#b9a6d9] text-[#7a5ca8] hover:bg-[#b9a6d9] hover:text-white transition-all uppercase tracking-widest text-xs">Lihat Lokasi</a>
+      <div class="flip-scene" data-reveal="right" data-reveal-delay="1" data-flip>
+        <div class="flip-card">
+          <div class="flip-face flip-front">
+            <h3 class="font-display text-2xl text-[#7a5ca8] mb-2" data-reception-title></h3>
+            <p class="text-lg" data-reception-venue></p>
+            <p class="flip-hint">Hover / tap → detail</p>
+          </div>
+          <div class="flip-face flip-back">
+            <p class="text-sm mb-3 opacity-90" data-reception-address></p>
+            <div class="my-3 w-10 h-px bg-white/40"></div>
+            <p class="text-lg font-medium" data-reception-time></p>
+            <p class="text-xs italic mt-2 opacity-80" data-reception-note></p>
+            <a id="reception-maps" target="_blank" class="inline-block mt-5 px-6 py-2 rounded-full border border-white/80 text-white text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#7a5ca8] transition-colors">Lihat Lokasi</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="ribbon-divider max-w-xs mx-auto py-4"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+  <div class="ribbon-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span>
+  </div>
 
+  <!-- LIVESTREAM -->
   <section class="py-24 px-6 relative z-10" data-plan-feature="livestream">
-    <div class="max-w-2xl mx-auto text-center">
+    <div class="max-w-2xl mx-auto text-center" data-reveal>
       <p class="text-xs tracking-[0.5em] uppercase text-[#9b86c2] mb-4">Live Streaming</p>
       <p class="text-[#7a6693] text-sm mb-8">Tidak bisa hadir langsung? Ikuti momen sakral kami secara live.</p>
       <div class="aspect-video rounded-[2rem] border border-[#c3b1e1]/50 flex items-center justify-center bg-white/60">
         <span id="livestream-status" class="text-[#7a6693] text-sm px-4 text-center">▶ Live streaming akan dimulai pada hari-H</span>
       </div>
-      <a id="livestream-link" href="#" class="inline-block mt-6 px-8 py-2.5 rounded-full border border-[#b9a6d9] text-[#7a5ca8] hover:bg-[#b9a6d9] hover:text-white transition-all uppercase tracking-widest text-xs">Tonton di YouTube</a>
+      <a id="livestream-link" href="#" class="btn-dream magnetic-btn mt-6">Tonton di YouTube</a>
     </div>
   </section>
 
-  <div class="ribbon-divider max-w-xs mx-auto py-4"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+  <div class="ribbon-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span>
+  </div>
 
+  <!-- RSVP -->
   <section class="py-24 px-6 relative z-10" data-plan-feature="rsvp">
-    <div class="max-w-md mx-auto text-center">
+    <div class="max-w-md mx-auto text-center" data-reveal>
       <p class="text-xs tracking-[0.5em] uppercase text-[#9b86c2] mb-4">RSVP</p>
       <p class="text-[#7a6693] text-sm mb-8">Mohon konfirmasi kehadiran Anda melalui form berikut.</p>
-      <form class="space-y-4 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
+      <form class="dream-card space-y-4 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
         <input type="text" placeholder="Nama Anda" class="w-full px-4 py-3 rounded-2xl bg-white/70 border border-[#c3b1e1]/40 text-[#5b4b73] placeholder-[#7a6693]/50 focus:outline-none focus:border-[#b9a6d9]">
         <select class="w-full px-4 py-3 rounded-2xl bg-white/70 border border-[#c3b1e1]/40 text-[#5b4b73] focus:outline-none focus:border-[#b9a6d9]">
           <option>Hadir</option>
@@ -149,31 +196,40 @@
           <option>Masih Ragu</option>
         </select>
         <textarea rows="3" placeholder="Ucapan & Doa" class="w-full px-4 py-3 rounded-2xl bg-white/70 border border-[#c3b1e1]/40 text-[#5b4b73] placeholder-[#7a6693]/50 focus:outline-none focus:border-[#b9a6d9]"></textarea>
-        <button type="submit" class="w-full py-3 rounded-full bg-[#b9a6d9] text-white uppercase tracking-widest text-xs hover:bg-[#9b86c2] transition-colors">Kirim RSVP</button>
+        <button type="submit" class="btn-dream-solid magnetic-btn">Kirim RSVP</button>
       </form>
     </div>
   </section>
 
-  <div class="ribbon-divider max-w-xs mx-auto py-4"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+  <div class="ribbon-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span>
+  </div>
 
+  <!-- GIFT peek -->
   <section class="py-24 px-6 relative z-10" data-plan-feature="gift">
     <div class="max-w-4xl mx-auto text-center">
-      <p class="text-xs tracking-[0.5em] uppercase text-[#9b86c2] mb-12">Tanda Kasih</p>
+      <p class="text-xs tracking-[0.5em] uppercase text-[#9b86c2] mb-3" data-reveal>Tanda Kasih</p>
+      <p class="text-[11px] text-[#9b86c2]/70 mb-10" data-reveal>Hover / ketuk untuk menampilkan nomor rekening</p>
       <div id="gift-list" class="grid md:grid-cols-2 gap-6"></div>
     </div>
   </section>
 
-  <div class="ribbon-divider max-w-xs mx-auto py-4"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+  <div class="ribbon-divider max-w-xs mx-auto py-4" data-reveal>
+    <span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span>
+  </div>
 
+  <!-- GALLERY -->
   <section class="py-24 px-6 relative z-10">
     <div class="max-w-6xl mx-auto text-center">
-      <p class="text-xs tracking-[0.5em] uppercase text-[#9b86c2] mb-12">Galeri</p>
+      <p class="text-xs tracking-[0.5em] uppercase text-[#9b86c2] mb-12" data-reveal>Galeri</p>
       <div id="gallery-grid" class="flex flex-wrap justify-center gap-6"></div>
     </div>
   </section>
 
-  <footer class="py-24 px-6 relative z-10 text-center">
-    <div class="ribbon-divider max-w-xs mx-auto mb-12"><span></span><span class="ribbon-bow ribbon-bow--sm"><i></i></span><span></span></div>
+  <footer class="py-24 px-6 relative z-10 text-center" data-reveal>
+    <div class="ribbon-divider max-w-xs mx-auto mb-12">
+      <span></span><span class="ribbon-bow ribbon-bow--sm"><span></span><span></span><i></i></span><span></span>
+    </div>
     <div class="max-w-xl mx-auto mb-12">
       <p class="text-[#7a6693] italic text-lg" data-footer-quote></p>
       <strong class="block mt-4 text-[#9b86c2] text-xs tracking-widest uppercase" data-footer-verse></strong>
@@ -183,9 +239,7 @@
   </footer>
 
 </div>
-<!-- ^ /invitation-content -->
 
 <div id="heart-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
 </div>
-<!-- ^ /wedding-root -->

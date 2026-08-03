@@ -2,60 +2,75 @@
   <div id="invitation-content" class="relative overflow-x-hidden">
   <div id="heart-container" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
 
+  <!-- HERO -->
   <section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] scale-110" id="hero-bg">
+    <div class="absolute inset-0 bg-cover bg-center hero-ken" id="hero-bg">
       <div class="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
     </div>
-    
-    <div class="relative text-center text-white px-4 space-y-6">
-      <p class="text-xl md:text-2xl tracking-[0.3em] uppercase animate-pulse" data-tagline></p>
-      <h1 class="text-7xl md:text-9xl font-light italic drop-shadow-lg">
-        <span data-groom-short></span> & <span data-bride-short></span>
+
+    <div class="relative text-center text-white px-4 space-y-6 z-10" data-reveal="scale">
+      <p class="text-lg md:text-xl tracking-[0.3em] uppercase opacity-90" data-tagline></p>
+      <h1 class="text-6xl md:text-8xl lg:text-9xl font-light italic drop-shadow-lg font-serif">
+        <span data-groom-short></span> &amp; <span data-bride-short></span>
       </h1>
-      <p class="text-2xl md:text-3xl font-light" data-date-str></p>
+      <p class="text-xl md:text-2xl font-light" data-date-str></p>
       <div class="pt-8">
-         <button onclick="document.getElementById('countdown').scrollIntoView({behavior: 'smooth'})"
-          class="px-8 py-3 bg-white/20 backdrop-blur-md border border-white/50 rounded-full hover:bg-rose-500 hover:border-rose-500 transition-all duration-300">
-           Open Invitation
-         </button>
+        <button onclick="document.getElementById('countdown').scrollIntoView({behavior: 'smooth'})"
+          class="btn-rose-ghost magnetic-btn">
+          Open Invitation
+        </button>
       </div>
     </div>
   </section>
 
+  <!-- COUNTDOWN -->
   <section id="countdown" class="py-20 px-4 bg-white relative z-10 shadow-xl">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl text-rose-400 mb-12 flex items-center justify-center gap-3">Counting Down to Forever</h2>
+      <h2 class="text-3xl md:text-4xl text-rose-400 mb-12 font-serif italic" data-reveal>Counting Down to Forever</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-        <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100"><div id="days" class="text-4xl md:text-5xl font-bold text-rose-500">0</div><div class="text-rose-400 uppercase text-sm mt-2">Days</div></div>
-        <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100"><div id="hours" class="text-4xl md:text-5xl font-bold text-rose-500">0</div><div class="text-rose-400 uppercase text-sm mt-2">Hours</div></div>
-        <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100"><div id="minutes" class="text-4xl md:text-5xl font-bold text-rose-500">0</div><div class="text-rose-400 uppercase text-sm mt-2">Minutes</div></div>
-        <div class="bg-rose-50 p-6 rounded-2xl border border-rose-100"><div id="seconds" class="text-4xl md:text-5xl font-bold text-rose-500">0</div><div class="text-rose-400 uppercase text-sm mt-2">Seconds</div></div>
+        <div class="count-cell" data-reveal data-reveal-delay="1">
+          <div id="days" class="text-4xl md:text-5xl font-bold text-rose-500">0</div>
+          <div class="text-rose-400 uppercase text-sm mt-2">Days</div>
+        </div>
+        <div class="count-cell" data-reveal data-reveal-delay="2">
+          <div id="hours" class="text-4xl md:text-5xl font-bold text-rose-500">0</div>
+          <div class="text-rose-400 uppercase text-sm mt-2">Hours</div>
+        </div>
+        <div class="count-cell" data-reveal data-reveal-delay="3">
+          <div id="minutes" class="text-4xl md:text-5xl font-bold text-rose-500">0</div>
+          <div class="text-rose-400 uppercase text-sm mt-2">Minutes</div>
+        </div>
+        <div class="count-cell" data-reveal data-reveal-delay="4">
+          <div id="seconds" class="text-4xl md:text-5xl font-bold text-rose-500">0</div>
+          <div class="text-rose-400 uppercase text-sm mt-2">Seconds</div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- COUPLE zigzag -->
   <section class="py-24 px-4 bg-rose-50 relative z-10">
     <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-16 items-center mb-20">
-        <div class="space-y-4 text-center md:text-right order-2 md:order-1">
-          <h3 class="text-4xl text-rose-500">The Groom</h3>
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center mb-20">
+        <div class="space-y-4 text-center md:text-right order-2 md:order-1" data-reveal="left">
+          <h3 class="text-4xl text-rose-500 font-serif">The Groom</h3>
           <h2 class="text-2xl font-bold" data-groom></h2>
           <p class="text-rose-400 italic" data-groom-parent></p>
         </div>
-        <div class="order-1 md:order-2 flex justify-center">
-          <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl">
-            <img id="groom-img" src="" class="w-full h-full object-cover">
+        <div class="order-1 md:order-2 flex justify-center" data-reveal="right">
+          <div class="circle-frame">
+            <img id="groom-img" src="" alt="">
           </div>
         </div>
       </div>
-      <div class="grid md:grid-cols-2 gap-16 items-center">
-        <div class="flex justify-center">
-          <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl">
-            <img id="bride-img" src="" class="w-full h-full object-cover">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div class="flex justify-center" data-reveal="left">
+          <div class="circle-frame">
+            <img id="bride-img" src="" alt="">
           </div>
         </div>
-        <div class="space-y-4 text-center md:text-left">
-          <h3 class="text-4xl text-rose-500">The Bride</h3>
+        <div class="space-y-4 text-center md:text-left" data-reveal="right">
+          <h3 class="text-4xl text-rose-500 font-serif">The Bride</h3>
           <h2 class="text-2xl font-bold" data-bride></h2>
           <p class="text-rose-400 italic" data-bride-parent></p>
         </div>
@@ -63,85 +78,97 @@
     </div>
   </section>
 
+  <!-- STORY timeline -->
   <section class="py-24 px-4 bg-white relative z-10" data-plan-feature="story">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-5xl text-rose-500 text-center mb-16 italic">Our Story</h2>
-      <div id="story-container" class="space-y-12 relative before:absolute before:inset-0 before:ml-5 md:before:mx-auto before:h-full before:w-0.5 before:bg-rose-200">
-        </div>
+      <h2 class="text-4xl md:text-5xl text-rose-500 text-center mb-16 italic font-serif" data-reveal>Our Story</h2>
+      <div id="story-container" class="space-y-10 relative">
+        <div class="timeline-line"></div>
+      </div>
     </div>
   </section>
 
+  <!-- EVENTS -->
   <section class="py-24 px-4 bg-rose-50 relative z-10">
+    <p class="text-center text-sm text-rose-400 mb-10 tracking-widest uppercase" data-reveal>Hover / tap for details</p>
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-      <div class="bg-white p-8 rounded-[2rem] shadow-xl text-center space-y-4">
-        <h3 class="text-3xl text-rose-500" data-ceremony-title></h3>
+      <div class="rose-card event-rose text-center cursor-pointer" data-reveal="left" data-event>
+        <h3 class="text-3xl text-rose-500 font-serif mb-2" data-ceremony-title></h3>
         <p class="font-bold text-xl" data-ceremony-venue></p>
-        <p class="text-slate-500" data-ceremony-address></p>
-        <div class="py-4 border-y border-rose-50">
-          <p class="font-semibold" data-ceremony-time></p>
-          <p class="text-sm italic text-rose-400" data-ceremony-note></p>
+        <p class="event-hint">Details →</p>
+        <div class="event-more">
+          <p class="text-slate-500" data-ceremony-address></p>
+          <div class="py-4 border-y border-rose-50 my-4">
+            <p class="font-semibold" data-ceremony-time></p>
+            <p class="text-sm italic text-rose-400" data-ceremony-note></p>
+          </div>
+          <a id="ceremony-maps" target="_blank" class="btn-rose magnetic-btn text-sm">View Location</a>
         </div>
-        <a id="ceremony-maps" target="_blank" class="inline-block px-6 py-2 bg-rose-500 text-white rounded-full text-sm">View Location</a>
       </div>
-      <div class="bg-white p-8 rounded-[2rem] shadow-xl text-center space-y-4">
-        <h3 class="text-3xl text-rose-500" data-reception-title></h3>
+      <div class="rose-card event-rose text-center cursor-pointer" data-reveal="right" data-reveal-delay="1" data-event>
+        <h3 class="text-3xl text-rose-500 font-serif mb-2" data-reception-title></h3>
         <p class="font-bold text-xl" data-reception-venue></p>
-        <p class="text-slate-500" data-reception-address></p>
-        <div class="py-4 border-y border-rose-50">
-          <p class="font-semibold" data-reception-time></p>
-          <p class="text-sm italic text-rose-400" data-reception-note></p>
+        <p class="event-hint">Details →</p>
+        <div class="event-more">
+          <p class="text-slate-500" data-reception-address></p>
+          <div class="py-4 border-y border-rose-50 my-4">
+            <p class="font-semibold" data-reception-time></p>
+            <p class="text-sm italic text-rose-400" data-reception-note></p>
+          </div>
+          <a id="reception-maps" target="_blank" class="btn-rose magnetic-btn text-sm">View Location</a>
         </div>
-        <a id="reception-maps" target="_blank" class="inline-block px-6 py-2 bg-rose-500 text-white rounded-full text-sm">View Location</a>
       </div>
     </div>
   </section>
 
+  <!-- LIVESTREAM -->
   <section class="py-24 px-4 bg-rose-50 relative z-10" data-plan-feature="livestream">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-4xl text-rose-500 mb-4 italic">Live Streaming</h2>
+    <div class="max-w-3xl mx-auto text-center" data-reveal>
+      <h2 class="text-4xl text-rose-500 mb-4 italic font-serif">Live Streaming</h2>
       <p class="text-slate-500 mb-8 text-sm">Tidak bisa hadir langsung? Ikuti momen sakral kami secara live.</p>
       <div class="aspect-video rounded-2xl bg-slate-800 flex items-center justify-center shadow-xl">
         <span id="livestream-status" class="text-white/70 text-sm px-4 text-center">▶ Live streaming akan dimulai pada hari-H</span>
       </div>
-      <a id="livestream-link" href="#" class="inline-block mt-6 px-6 py-2 bg-rose-500 text-white rounded-full text-sm transition-opacity">Tonton di YouTube</a>
+      <a id="livestream-link" href="#" class="btn-rose magnetic-btn mt-6">Tonton di YouTube</a>
     </div>
   </section>
 
+  <!-- RSVP -->
   <section class="py-24 px-4 bg-white relative z-10" data-plan-feature="rsvp">
-    <div class="max-w-xl mx-auto text-center">
-      <h2 class="text-4xl text-rose-500 mb-4 italic">RSVP</h2>
+    <div class="max-w-xl mx-auto text-center" data-reveal>
+      <h2 class="text-4xl text-rose-500 mb-4 italic font-serif">RSVP</h2>
       <p class="text-slate-500 mb-8 text-sm">Mohon konfirmasi kehadiran Anda melalui form berikut.</p>
       <form class="space-y-4 text-left" onsubmit="event.preventDefault(); alert('Ini mode preview — RSVP tidak benar-benar terkirim.');">
-        <input type="text" placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl border border-rose-200 bg-rose-50 focus:outline-none focus:border-rose-400">
-        <select class="w-full px-4 py-3 rounded-xl border border-rose-200 bg-rose-50 focus:outline-none focus:border-rose-400">
+        <input type="text" placeholder="Nama Anda" class="input-rose">
+        <select class="input-rose">
           <option>Hadir</option>
           <option>Tidak Hadir</option>
           <option>Masih Ragu</option>
         </select>
-        <textarea rows="3" placeholder="Ucapan & Doa" class="w-full px-4 py-3 rounded-xl border border-rose-200 bg-rose-50 focus:outline-none focus:border-rose-400"></textarea>
-        <button type="submit" class="w-full py-3 bg-rose-500 text-white rounded-full font-semibold">Kirim RSVP</button>
+        <textarea rows="3" placeholder="Ucapan & Doa" class="input-rose"></textarea>
+        <button type="submit" class="btn-rose magnetic-btn w-full">Kirim RSVP</button>
       </form>
     </div>
   </section>
 
+  <!-- GIFT -->
   <section class="py-24 px-4 bg-rose-50 relative z-10 text-center" data-plan-feature="gift">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-4xl text-rose-500 mb-8">Wedding Gift</h2>
-      <div id="gift-container" class="grid md:grid-cols-2 gap-6">
-        </div>
+      <h2 class="text-4xl text-rose-500 mb-4 font-serif italic" data-reveal>Wedding Gift</h2>
+      <p class="text-sm text-rose-400 mb-10 tracking-widest uppercase" data-reveal>Hover / tap to reveal</p>
+      <div id="gift-container" class="grid md:grid-cols-2 gap-6"></div>
     </div>
   </section>
 
-  <footer class="py-24 px-4 bg-rose-100 relative z-10 text-center space-y-8">
+  <footer class="py-24 px-4 bg-rose-100 relative z-10 text-center space-y-8" data-reveal>
     <div class="max-w-2xl mx-auto italic text-slate-700">
       <p class="text-lg mb-4" data-footer-quote></p>
-      <p class="font-bold" data-footer-verse></p>
+      <p class="font-bold text-rose-500" data-footer-verse></p>
     </div>
     <div class="pt-12 border-t border-rose-200">
       <p class="text-xl mb-6" data-footer-message></p>
-      <p class="text-3xl font-light italic" data-footer-closing></p>
+      <p class="text-3xl font-light italic font-serif text-rose-500" data-footer-closing></p>
     </div>
   </footer>
   </div>
-  <!-- ^ /invitation-content -->
 </div>

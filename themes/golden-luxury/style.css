@@ -3,9 +3,11 @@
 #wedding-root {
   font-family: 'Prata', serif;
   width: 100%;
+  background-color: #0f0f0f;
+  color: #d4af37;
 }
 
-h1, h2, h3, button {
+h1, h2, h3, button, .font-display {
   font-family: 'Cinzel Decorative', cursive;
 }
 
@@ -31,20 +33,266 @@ h1, h2, h3, button {
   background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* =========================================================
-   Shared theme standard (plan gating, color/font customization,
-   exclusive-plan flourish). Driven by the loader's shared widget —
-   see index.html's initPlanWidget(). No per-theme widget code needed,
-   just these hooks.
-   ========================================================= */
+/* Arch portrait */
+.arch-frame {
+  position: relative;
+  padding: 6px;
+  background: linear-gradient(135deg, #d4af37, #aa771c, #d4af37);
+  border-radius: 9999px 9999px 0 0;
+  transition: box-shadow 0.5s ease, transform 0.5s ease;
+}
 
-/* Filter/font customization is scoped to the invitation content only,
-   never to #wedding-root itself — #heart-container (the crystal
-   particles) is fixed-position and lives outside #invitation-content
-   precisely so a filter here never turns an ancestor into a
-   containing block that clips it. */
+.arch-frame:hover {
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.35);
+  transform: translateY(-4px);
+}
+
+.arch-inner {
+  overflow: hidden;
+  border-radius: 9999px 9999px 0 0;
+  aspect-ratio: 3 / 4;
+  background: #0f0f0f;
+}
+
+.arch-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s ease;
+}
+
+.arch-frame:hover .arch-inner img {
+  transform: scale(1.05);
+}
+
+.arch-card {
+  background: #000;
+  border-left: 1px solid #d4af37;
+  border-right: 1px solid #d4af37;
+  border-bottom: 1px solid #d4af37;
+  padding: 2.5rem 1.75rem;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Hero double border */
+.hero-frame {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.hero-frame--outer {
+  inset: 2.5rem;
+}
+
+.hero-frame--inner {
+  inset: 3rem;
+  border-width: 2px;
+  border-color: rgba(212, 175, 55, 0.1);
+}
+
+/* Gold panel */
+.gold-panel {
+  background: #000;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 2.5rem 2rem;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.gold-panel:hover {
+  border-color: #d4af37;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+}
+
+/* Buttons */
+.btn-crystal {
+  position: relative;
+  display: inline-block;
+  padding: 1rem 3rem;
+  overflow: hidden;
+  background: transparent;
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 12px;
+  font-family: 'Cinzel Decorative', cursive;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s ease;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.btn-crystal span {
+  position: relative;
+  z-index: 10;
+  font-weight: 700;
+}
+
+.btn-crystal .btn-fill {
+  position: absolute;
+  inset: 0;
+  background: #d4af37;
+  transform: translateY(100%);
+  transition: transform 0.5s ease;
+  z-index: 0;
+}
+
+.btn-crystal:hover {
+  color: #000;
+}
+
+.btn-crystal:hover .btn-fill {
+  transform: translateY(0);
+}
+
+.btn-crystal-solid {
+  display: inline-block;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: none;
+  background: #d4af37;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Cinzel Decorative', cursive;
+  transition: transform 0.25s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-crystal-solid:hover {
+  background: #fff;
+}
+
+/* Story */
+.story-crystal {
+  border-left: 1px solid rgba(212, 175, 55, 0.4);
+  padding-left: 1.5rem;
+  transition: border-color 0.4s ease, padding-left 0.4s ease;
+}
+
+.story-crystal:hover {
+  border-left-color: #d4af37;
+  padding-left: 1.75rem;
+}
+
+/* Event expand */
+.event-crystal .event-more {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+}
+
+.event-crystal.is-open .event-more,
+.event-crystal:hover .event-more {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+@media (hover: none) {
+  .event-crystal:hover .event-more {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+  }
+  .event-crystal.is-open .event-more {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+}
+
+.event-hint {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.5);
+  margin-top: 0.75rem;
+}
+
+/* Gift mask */
+.gift-mask .gift-number {
+  filter: blur(5px);
+  transition: filter 0.4s ease;
+  user-select: none;
+}
+
+.gift-mask:hover .gift-number,
+.gift-mask.is-revealed .gift-number {
+  filter: blur(0);
+  user-select: text;
+}
+
+.gift-mask .gift-hint {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.5);
+  margin-top: 0.4rem;
+}
+
+.gift-mask:hover .gift-hint,
+.gift-mask.is-revealed .gift-hint {
+  opacity: 0;
+}
+
+/* Gallery */
+.gallery-crystal img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  transition: transform 0.6s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gallery-crystal img:hover {
+  transform: scale(1.03);
+  border-color: #d4af37;
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.2);
+}
+
+/* Reveal */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal="left"] { transform: translateX(-40px); }
+[data-reveal="left"].is-visible { transform: translateX(0); }
+[data-reveal="right"] { transform: translateX(40px); }
+[data-reveal="right"].is-visible { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(0.96); }
+[data-reveal="scale"].is-visible { transform: scale(1); }
+
+[data-reveal-delay="1"] { transition-delay: 0.12s; }
+[data-reveal-delay="2"] { transition-delay: 0.24s; }
+[data-reveal-delay="3"] { transition-delay: 0.36s; }
+[data-reveal-delay="4"] { transition-delay: 0.48s; }
+
+.scroll-settle {
+  will-change: transform;
+  transition: transform 0.55s cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+
+/* Shared plan system */
 #invitation-content {
   transition: filter 0.5s ease;
 }
@@ -53,7 +301,6 @@ h1, h2, h3, button {
   transition: opacity 0.3s ease;
 }
 
-/* ===== Exclusive plan flourish ===== */
 @keyframes shimmer-border-gold {
   0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
   50% { box-shadow: 0 0 60px 12px rgba(212, 175, 55, 0.35); }
@@ -63,12 +310,36 @@ h1, h2, h3, button {
   animation: shimmer-border-gold 4s ease-in-out infinite;
 }
 
-/* Font-toggle hook for the loader's shared "Ganti Font" button.
-   .pw-font-alt is a generic class name the loader toggles on
-   #invitation-content — this theme defines what it means. */
 #invitation-content.pw-font-alt h1 {
   font-family: 'Great Vibes', cursive;
   font-style: normal;
   font-size: clamp(3rem, 10vw, 6.5rem);
   line-height: 1.1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .btn-crystal,
+  .btn-crystal-solid,
+  .scroll-settle,
+  .crystal,
+  .arch-frame {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  [data-reveal="left"],
+  [data-reveal="right"] {
+    transform: translateY(28px);
+  }
+  [data-reveal="left"].is-visible,
+  [data-reveal="right"].is-visible {
+    transform: translateY(0);
+  }
+  .hero-frame--outer { inset: 1rem; }
+  .hero-frame--inner { inset: 1.25rem; }
 }
