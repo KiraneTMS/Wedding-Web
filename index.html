@@ -37,9 +37,14 @@ function main() {
   // Extract subdomain (couple) and pathname (theme)
   const hostname = location.hostname;
 
-  // Treat literal IP addresses (e.g. 127.0.0.1) as "no subdomain" — an IP's
-  // dotted parts would otherwise be mistaken for one.
+  // Treat literal IP addresses (e.g. 127.0.0.1) and Vercel's own default
+  // preview/production domains (project-name.vercel.app) as "no subdomain".
+  // Both have 3 dot-separated parts just like a real subdomain setup
+  // (demo.yourdomain.com), so without this they'd be misread as one —
+  // e.g. "aurelia-wedding-five.vercel.app" would wrongly set
+  // couple = "aurelia-wedding-five" instead of reading ?couple=... at all.
   const isIpAddress = /^\d{1,3}(\.\d{1,3}){3}$/.test(hostname);
+  const isVercelDefaultDomain = hostname.endsWith('.vercel.app');
 
   // Local dev quirk: "demo.localhost" only has 2 dot-separated parts
   // (no ".com"-style TLD), while a real subdomain like "demo.example.com"
@@ -56,7 +61,7 @@ function main() {
   // If visiting a subdomain like "rendiputri.yourdomain.com" (or "demo.yourdomain.com" —
   // demo is treated as a normal couple subdomain, not a special case, so previews
   // behave identically to real couple links)
-  if (!isIpAddress && hostname !== 'localhost' && hasSubdomain && hostParts[0] !== 'www') {
+  if (!isIpAddress && !isVercelDefaultDomain && hostname !== 'localhost' && hasSubdomain && hostParts[0] !== 'www') {
     couple = hostParts[0]; // "rendiputri" or "demo"
   } else {
     // Fallback to URL search parameter if not on a custom subdomain
