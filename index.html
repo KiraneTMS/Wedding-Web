@@ -30,14 +30,54 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script type="module">
-  const params = new URLSearchParams(location.search);
-  const theme  = params.get('theme');
-  const couple = params.get('couple');
+// Everything is wrapped in this function so an early `return` can be used
+// to stop execution when couple/theme is missing — a bare top-level
+// `return` is a SyntaxError even inside a <script type="module">.
+function main() {
+  // Extract subdomain (couple) and pathname (theme)
+  const hostname = location.hostname;
 
-  // Jika tidak ada theme ATAU couple → langsung redirect ke homepage
+  // Treat literal IP addresses (e.g. 127.0.0.1) as "no subdomain" — an IP's
+  // dotted parts would otherwise be mistaken for one.
+  const isIpAddress = /^\d{1,3}(\.\d{1,3}){3}$/.test(hostname);
+
+  // Local dev quirk: "demo.localhost" only has 2 dot-separated parts
+  // (no ".com"-style TLD), while a real subdomain like "demo.example.com"
+  // has 3. Detect the ".localhost" suffix separately so local subdomain
+  // testing (e.g. couple.localhost:8000) behaves the same as production.
+  const isLocalhostSubdomain = hostname.endsWith('.localhost');
+  const hostParts = hostname.split('.');
+  const hasSubdomain = isLocalhostSubdomain
+    ? hostParts.length > 1   // "demo.localhost" -> ["demo","localhost"]
+    : hostParts.length > 2;  // "demo.example.com" -> ["demo","example","com"]
+
+  let couple = null;
+
+  // If visiting a subdomain like "rendiputri.yourdomain.com" (or "demo.yourdomain.com" —
+  // demo is treated as a normal couple subdomain, not a special case, so previews
+  // behave identically to real couple links)
+  if (!isIpAddress && hostname !== 'localhost' && hasSubdomain && hostParts[0] !== 'www') {
+    couple = hostParts[0]; // "rendiputri" or "demo"
+  } else {
+    // Fallback to URL search parameter if not on a custom subdomain
+    couple = new URLSearchParams(location.search).get('couple');
+  }
+
+  // Extract theme from path (e.g. "/rose" -> "rose") or query parameter
+  let theme = location.pathname.replace(/^\/+|\/+$/g, ''); 
+  if (!theme) {
+    theme = new URLSearchParams(location.search).get('theme');
+  }
+
+  // Redirect to fallback if either parameter is missing.
+  // IMPORTANT: location.replace() queues navigation but doesn't stop
+  // script execution — without `return`, the code below would keep
+  // running (with theme/couple still null) before the browser actually
+  // navigates away, causing bogus fetches like `data/null.json` and,
+  // if the redirect target also lands back here, an infinite loop.
   if (!theme || !couple) {
-    window.location.replace('/pages/index.html');
-    // TIDAK PERLU return di sini — replace sudah menghentikan eksekusi
+    window.location.replace('/home/index.html');
+    return;
   }
 
   // ────────────────────────────────────────────────
@@ -192,7 +232,10 @@
 
   async function loadInvitation() {
     try {
-      const dataRes = await fetch(`data/${couple}.json`);
+      // Absolute paths (leading "/") are required here — with path-based
+      // theme routing (e.g. /pink-romantic), a relative path would resolve
+      // against that URL segment instead of the actual site root.
+      const dataRes = await fetch(`/data/${couple}.json`);
       if (!dataRes.ok) throw new Error('Data pasangan tidak ditemukan');
 
       const data = await dataRes.json();
@@ -210,8 +253,8 @@
       }
 
       const [htmlRes, cssRes] = await Promise.all([
-        fetch(`themes/${theme}/template.html`),
-        fetch(`themes/${theme}/style.css`)
+        fetch(`/themes/${theme}/template.html`),
+        fetch(`/themes/${theme}/style.css`)
       ]);
 
       if (!htmlRes.ok) throw new Error(`Template ${theme} tidak ditemukan`);
@@ -278,7 +321,7 @@
       document.querySelector('.loading').style.display = 'none';
 
       const script = document.createElement('script');
-      script.src = `themes/${theme}/script.js?v=${Date.now()}`;
+      script.src = `/themes/${theme}/script.js?v=${Date.now()}`;
       document.body.appendChild(script);
 
       script.onload = () => {
@@ -333,6 +376,9 @@ window.initTheme = initTheme;</pre>
   }
 
   loadInvitation();
+}
+
+main();
 </script>
 
 </body>
